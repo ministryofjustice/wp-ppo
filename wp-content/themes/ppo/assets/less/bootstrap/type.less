@@ -44,7 +44,7 @@ h6 {
   }
 }
 
-h1, .h1 { font-size: @font-size-h1; }
+h1, .h1 { font-size: @font-size-h1; color: #CA1C00; }
 h2, .h2 { font-size: @font-size-h2; }
 h3, .h3 { font-size: @font-size-h3; }
 h4, .h4 { font-size: @font-size-h4; }
@@ -127,8 +127,9 @@ cite    { font-style: normal; }
 
 .page-header {
   padding-bottom: ((@line-height-computed / 2) - 1);
-  margin: (@line-height-computed * 2) 0 @line-height-computed;
   border-bottom: 1px solid @page-header-border-color;
+ // margin: (@line-height-computed * 2) 0 @line-height-computed;
+  margin: 0 0 @line-height-computed;
 }
 
 

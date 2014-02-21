@@ -28,6 +28,7 @@
       this.fix_textarea();
       this.replicate_ajax();
       this.reset_settings();
+      this.css_editor_mode();      
     },
     init_hide_body: function(elm,type) {
       var css = '.option-tree-setting-body';
@@ -243,6 +244,7 @@
               OT_UI.init_sortable();
               OT_UI.init_select_wrapper();
               OT_UI.init_numeric_slider();
+              OT_UI.parse_condition();
             }, 500);
             self.processing = false;
           }
@@ -290,14 +292,14 @@
     },
     match_conditions: function(condition) {
       var match;
-      var regex = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.+?)\),?/g;
+      var regex = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
       var conditions = [];
 
       while( match = regex.exec( condition ) ) {
         conditions.push({
           'check': match[1], 
           'rule':  match[2], 
-          'value': match[3]
+          'value': match[3] || ''
         });
       }
 
@@ -308,22 +310,22 @@
 
         var passed;
         var conditions = OT_UI.match_conditions( $( this ).data( 'condition' ) );
-        var operator  = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
+        var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
 
         $.each( conditions, function( index, condition ) {
 
           var target   = $( '#setting_' + condition.check );
-          var targetEl = !! target.length && target.find( 'select, input[type="radio"]:checked, input.ot-numeric-slider-hidden-input' ).first();
+          var targetEl = !! target.length && target.find( 'select, input[type="radio"]:checked, input[type="text"], input[type="hidden"], input.ot-numeric-slider-hidden-input' ).first();
 
-          if( ! target.length || ! targetEl.length ) {
+          if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
             return;
           }
 
-          var v1 = targetEl.val().toString();
+          var v1 = targetEl.length ? targetEl.val().toString() : '';
           var v2 = condition.value.toString();
           var result;
 
-          switch( condition.rule ) {
+          switch ( condition.rule ) {
             case 'less_than':
               result = ( v1 < v2 );
               break;
@@ -347,11 +349,11 @@
               break;
           }
 
-          if( 'undefined' == typeof passed ) {
+          if ( 'undefined' == typeof passed ) {
             passed = result;
           }
 
-          switch( operator ) {
+          switch ( operator ) {
             case 'or':
               passed = ( passed || result );
               break;
@@ -374,10 +376,10 @@
       });
     },
     init_conditions: function() {
-      $( document ).on( 'change.conditionals', '.format-settings[id^="setting_"] select, .format-settings[id^="setting_"] input[type="radio"]:checked, .format-settings[id^="setting_"] input.ot-numeric-slider-hidden-input', function( e ) {
+      $( document ).on( 'change.conditionals', '.format-settings[id^="setting_"] select, .format-settings[id^="setting_"] input[type="radio"]:checked, .format-settings[id^="setting_"] input[type="text"], .format-settings[id^="setting_"] input[type="hidden"], .format-settings[id^="setting_"] input.ot-numeric-slider-hidden-input', function( e ) {
         OT_UI.parse_condition();
       });
-      $(OT_UI.parse_condition());
+      OT_UI.parse_condition();
     },
     init_upload: function() {
       $(document).on('click', '.ot_upload_media', function() {
@@ -400,7 +402,7 @@
             if ( mime.match(regex) ) {
               btnContent += '<div class="option-tree-ui-image-wrap"><img src="'+href+'" alt="" /></div>';
             }
-            btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button red light" title="'+option_tree.remove_media_text+'"><span class="icon trash-can">'+option_tree.remove_media_text+'</span></a>';
+            btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button button button-secondary light" title="'+option_tree.remove_media_text+'"><span class="icon ot-icon-minus-sign"></span>'+option_tree.remove_media_text+'</a>';
             $('#'+field_id).val(href);
             $('#'+field_id+'_media').remove();
             $('#'+field_id).parent().parent('div').append('<div class="option-tree-ui-media-wrap" id="'+field_id+'_media" />');
@@ -429,7 +431,7 @@
             if (href.match(image) && OT_UI.url_exists(href)) {
               btnContent += '<div class="option-tree-ui-image-wrap"><img src="'+href+'" alt="" /></div>';
             }
-            btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button red light" title="'+option_tree.remove_media_text+'"><span class="icon trash-can">'+option_tree.remove_media_text+'</span></a>';
+            btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button button button-secondary light" title="'+option_tree.remove_media_text+'"><span class="icon ot-icon-minus-sign"></span>'+option_tree.remove_media_text+'</a>';
             $('#'+field_id).val(href);
             $('#'+field_id+'_media').remove();
             $('#'+field_id).parent().parent('div').append('<div class="option-tree-ui-media-wrap" id="'+field_id+'_media" />');
@@ -457,9 +459,12 @@
     init_upload_fix: function(elm) {
       var id  = $(elm).attr('id'),
           val = $(elm).val(),
-          img = $(elm).parent().next('option-tree-ui-media-wrap').find('img'),
+          img = $(elm).parent().next('.option-tree-ui-media-wrap').find('img'),
           src = img.attr('src'),
           btnContent = '';
+      if ( val == src ) {
+        return;
+      }
       if ( val != src ) {
         img.attr('src', val);
       }
@@ -468,7 +473,7 @@
         if (val.match(image)) {
           btnContent += '<div class="option-tree-ui-image-wrap"><img src="'+val+'" alt="" /></div>';
         }
-        btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button red light" title="'+option_tree.remove_media_text+'"><span class="icon trash-can">'+option_tree.remove_media_text+'</span></a>';
+        btnContent += '<a href="javascript:(void);" class="option-tree-ui-remove-media option-tree-ui-button button button-secondary light" title="'+option_tree.remove_media_text+'"><span class="icon ot-icon-minus-sign">'+option_tree.remove_media_text+'</span></a>';
         $('#'+id).val(val);
         $('#'+id+'_media').remove();
         $('#'+id).parent().parent('div').append('<div class="option-tree-ui-media-wrap" id="'+id+'_media" />');
@@ -495,7 +500,7 @@
             hidden.add(helper).val(ui.value);
           },
           change: function() {
-            $(OT_UI.init_conditions());
+            OT_UI.init_conditions();
           }
         });
       });
@@ -547,8 +552,22 @@
     bind_colorpicker: function(field_id) {
       $('#'+field_id).wpColorPicker();
     },
+    bind_date_picker: function(field_id) {
+      $('#'+field_id).datepicker({
+        showOtherMonths: true,
+        showButtonPanel: true,
+        currentText: option_tree.date_current,
+        closeText: option_tree.date_close
+      });
+    },
+    bind_date_time_picker: function(field_id) {
+      $('#'+field_id).datetimepicker({
+        showOtherMonths: true,
+        closeText: option_tree.date_close
+      });
+    },
     fix_upload_parent: function() {
-      $(document).on('focus blur', '.option-tree-ui-upload-input', function(){
+      $('.option-tree-ui-upload-input').on('focus blur', function(){
         $(this).parent('.option-tree-ui-upload-parent').toggleClass('focus');
         OT_UI.init_upload_fix(this);
       });
@@ -586,7 +605,29 @@
         event.preventDefault();
       });
     },
+    css_editor_mode: function() {
+      $('.ot-css-editor').each(function() {
+        var editor = ace.edit($(this).attr('id'));
+        var this_textarea = jQuery('#textarea_' + $(this).attr('id'));
+        editor.setTheme("ace/theme/chrome");
+        editor.getSession().setMode("ace/mode/css");
+        editor.setShowPrintMargin( false );
+    
+        editor.getSession().setValue(this_textarea.val());
+        editor.getSession().on('change', function(){
+          this_textarea.val(editor.getSession().getValue());
+        });
+        this_textarea.on('change', function(){
+          editor.getSession().setValue(this_textarea.val());
+        });
+      });
+    },
     url_exists: function(url) {
+      var link = document.createElement('a')
+      link.href = url
+      if ( link.hostname != window.location.hostname ) {
+        return true; // Stop the code from checking across domains.
+      }
       var http = new XMLHttpRequest();
       http.open('HEAD', url, false);
       http.send();
@@ -603,15 +644,12 @@
   });
 })(jQuery);
 
-/* Gallery*/
+/* Gallery */
 !function ($) {
   
   ot_gallery = {
       
     frame: function (elm) {
-
-      if ( this._frame )
-        return this._frame
       
       var selection = this.select(elm)
       
@@ -631,6 +669,7 @@
           , ids = library.pluck('id')
           , parent = $(elm).parents('.format-setting-inner')
           , input = parent.children('.ot-gallery-value')
+          , shortcode = wp.media.gallery.shortcode( selection ).string().replace(/\"/g,"'")
         
         input.attr('value', ids)
                         
@@ -642,15 +681,18 @@
           url: ajaxurl,
           dataType: 'html',
           data: {
-            action: 'gallery_update',
-            ids: ids
+            action: 'gallery_update'
+          , ids: ids
           },
           success: function(res) {
             parent.children('.ot-gallery-list').html(res)
+            if ( input.hasClass('ot-gallery-shortcode') ) 
+              input.val(shortcode)
             if ( $(elm).parent().children('.ot-gallery-delete').length <= 0 ) {
-              $(elm).parent().append('<a href="#" class="option-tree-ui-button red hug-left ot-gallery-delete">' + option_tree.delete + '</a>')
+              $(elm).parent().append('<a href="#" class="option-tree-ui-button button button-secondary hug-left ot-gallery-delete">' + option_tree.delete + '</a>')
             }
             $(elm).text(option_tree.edit)
+            OT_UI.init_conditions()
           }
         })
       })
@@ -660,9 +702,10 @@
     }
       
   , select: function (elm) {
-      var ids = $(elm).parents('.format-setting-inner').children('.ot-gallery-value').attr('value')
-        , fakeShortcode = '[gallery ids="' + ids + '"]'
-        , shortcode = wp.shortcode.next('gallery', ( ids ? fakeShortcode : wp.media.view.settings.ot_gallery.shortcode ) )
+      var input = $(elm).parents('.format-setting-inner').children('.ot-gallery-value')
+        , ids = input.attr('value')
+        , _shortcode = input.hasClass('ot-gallery-shortcode') ? ids : '[gallery ids=\'' + ids + '\]'
+        , shortcode = wp.shortcode.next('gallery', ( ids ? _shortcode : wp.media.view.settings.ot_gallery.shortcode ) )
         , defaultPostId = wp.media.gallery.defaults.id
         , attachments
         , selection
@@ -676,6 +719,12 @@
       
       if ( _.isUndefined( shortcode.get('id') ) && ! _.isUndefined( defaultPostId ) )
         shortcode.set( 'id', defaultPostId )
+      
+      if ( _.isUndefined( shortcode.get('ids') ) && ! input.hasClass('ot-gallery-shortcode') && ids )
+        shortcode.set( 'ids', ids )
+      
+      if ( _.isUndefined( shortcode.get('ids') ) )
+        shortcode.set( 'ids', '0' )
       
       attachments = wp.media.gallery.attachments( shortcode )
 
@@ -706,11 +755,12 @@
   , remove: function (elm) {
       
       if ( confirm( option_tree.confirm ) ) {
-
-        $(elm).parents('.format-setting-inner').children('.ot-gallery-value').attr('value', ' ')
+        
+        $(elm).parents('.format-setting-inner').children('.ot-gallery-value').attr('value', '')
         $(elm).parents('.format-setting-inner').children('.ot-gallery-list').remove()
         $(elm).next('.ot-gallery-edit').text( option_tree.create )
         $(elm).remove()
+        OT_UI.init_conditions()
         
       }
 
@@ -728,6 +778,120 @@
   $(document).on('click.ot_gallery.data-api', '.ot-gallery-edit', function (e) {
     e.preventDefault()
     ot_gallery.open($(this))
+  })
+  
+}(window.jQuery);
+
+/*!
+ * Adds metabox tabs
+ */
+!function ($) {
+
+  $(document).on('ready', function () {
+    
+    // Loop over the metaboxes
+    $('.ot-metabox-wrapper').each( function() {
+    
+      // Only if there is a tab option
+      if ( $(this).find('.type-tab').length ) {
+        
+        // Add .ot-metabox-panels
+        $(this).find('.type-tab').parents('.ot-metabox-wrapper').wrapInner('<div class="ot-metabox-panels" />')
+        
+        // Wrapp with .ot-metabox-tabs & add .ot-metabox-nav before .ot-metabox-panels
+        $(this).find('.ot-metabox-panels').wrap('<div class="ot-metabox-tabs" />').before('<ul class="ot-metabox-nav" />')
+        
+        // Loop over settings and build the tabs nav
+        $(this).find('.format-settings').each( function() {
+      
+          if ( $(this).find('.type-tab').length > 0 ) {
+            var title = $(this).find('.type-tab').prev().find('label').text()
+              , id = $(this).attr('id')
+  
+            // Add a class, hide & append nav item 
+            $(this).addClass('is-panel').hide()
+            $(this).parents('.ot-metabox-panels').prev('.ot-metabox-nav').append('<li><a href="#' + id + '">' + title + '</a></li>')
+            
+          }
+          
+        })
+        
+        // Loop over the panels and wrap and ID them.
+        $(this).find('.is-panel').each( function() {
+          var id = $(this).attr('id')
+          
+          $(this).add( $(this).nextUntil('.is-panel') ).wrapAll('<div id="' + id + '" class="tab-content" />')
+          
+        })
+        
+        // Create the tabs
+        $(this).find('.ot-metabox-tabs').tabs()
+        
+        // Move the orphaned settings to the top
+        $(this).find('.ot-metabox-panels > .format-settings').prependTo($(this))
+      
+      }
+    
+    })
+     
+  })
+  
+}(window.jQuery);
+
+/*!
+ * Adds theme option tabs
+ */
+!function ($) {
+
+  $(document).on('ready', function () {
+    
+    // Loop over the theme options
+    $('#option-tree-settings-api .inside').each( function() {
+    
+      // Only if there is a tab option
+      if ( $(this).find('.type-tab').length ) {
+        
+        // Add .ot-theme-option-panels
+        $(this).find('.type-tab').parents('.inside').wrapInner('<div class="ot-theme-option-panels" />')
+        
+        // Wrap with .ot-theme-option-tabs & add .ot-theme-option-nav before .ot-theme-option-panels
+        $(this).find('.ot-theme-option-panels').wrap('<div class="ot-theme-option-tabs" />').before('<ul class="ot-theme-option-nav" />')
+        
+        // Loop over settings and build the tabs nav
+        $(this).find('.format-settings').each( function() {
+      
+          if ( $(this).find('.type-tab').length > 0 ) {
+            var title = $(this).find('.type-tab').prev().find('.label').text()
+              , id = $(this).attr('id')
+  
+            // Add a class, hide & append nav item 
+            $(this).addClass('is-panel').hide()
+            $(this).parents('.ot-theme-option-panels').prev('.ot-theme-option-nav').append('<li><a href="#' + id + '">' + title + '</a></li>')
+            
+          } else {
+          
+          }
+          
+        })
+        
+        // Loop over the panels and wrap and ID them.
+        $(this).find('.is-panel').each( function() {
+          var id = $(this).attr('id')
+          
+          $(this).add( $(this).nextUntil('.is-panel') ).wrapAll('<div id="' + id + '" class="tab-content" />')
+          
+        })
+        
+        // Create the tabs
+        $(this).find('.ot-theme-option-tabs').tabs()
+        
+        // Move the orphaned settings to the top
+        $(this).find('.ot-theme-option-panels > .format-settings').prependTo($(this).find('.ot-theme-option-tabs'))
+      
+      }
+    
+    })
+     
   })
   
 }(window.jQuery);

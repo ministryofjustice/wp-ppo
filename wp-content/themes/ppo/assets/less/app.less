@@ -20,34 +20,109 @@ body { }
    Header
    ========================================================================== */
 
-.banner { background-color: @ppo-red; min-height: 130px; }
-
-
+.banner { 
+    background-color: @ppo-red; height: 130px;
+    a.brand { line-height: 130px; margin: 0 5px; }
+    .navbar-collapse { clear: both; }
+}
+ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
+.nav .dropdown-toggle .caret { display:none; }
 
 /* ==========================================================================
    Content
    ========================================================================== */
 
-.content { }
+.content { 
+    .row { margin-right: 0; }
+    .child-pages {
+        background-color: @gray-lighter; padding: 15px; overflow: hidden;
+        li {
+            list-style: none; padding: 0; float: left; width: 100%; margin: 5px 0;
+            p {
+                margin: 0; line-height: 14px;
+            }
+        }
+    }
+}
 
-
+.home {
+    .search-form {
+        padding: 15px; background-color: #ca1c00; margin: 20px -15px;
+    }
+}
 
 /* ==========================================================================
    Primary Content
    ========================================================================== */
 
-.main { }
+.main {
+    a { font-weight: bold; }
+
+    /* Home page */
+    #whats-new {
+        background-color: @gray-lighter; padding: 15px; margin: 20px 0 0;
+        h2 { margin-top: 0; }
+        ul { 
+            margin-bottom: 0; list-style: none; padding: 0;
+            li { margin: 5px 0; }
+        }
+    }
+
+    #ppo-info, #quick-links {
+        ul { 
+            margin-bottom: 0; list-style: none; padding: 0;
+            li { margin: 5px 0; }
+        }
+    }
+}
 
 /* Gallery Shortcode */
 .gallery-row { padding: 15px 0; }
 
+/* Site Map */
+.wsp-pages-list {
+    column-count: 1;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    li {
+        padding-bottom: 5px;
+        list-style: none;
+        > ul {
+            padding-left: 15px;
+            > li {
+                list-style: none;
+                :before {
+                    content: "- ";
+                }
+                a {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}
 
+/* FAQ Accordions */
+#faq-accordion {
+    h5 {
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+    }
+}
 
 /* ==========================================================================
    Sidebar
    ========================================================================== */
 
-.sidebar { }
+.sidebar {
+    margin-top: 22px;
+    .widget_ppo_related_docs, .widget_ppo_quick_links {
+        list-style: none;
+
+    }
+}
 
 
 
@@ -67,8 +142,18 @@ body { }
    Footer
    ========================================================================== */
 
-.content-info { }
-
+.content-info { 
+    padding: 0; background-color: @gray-lighter; font-size: @font-size-small; margin-top: 25px; border-top: 5px solid @ppo-red;
+    a {
+        color: @ppo-red;
+    }
+    a:hover {
+        color: white;
+    }
+    .row {
+        margin: 0;
+    }
+}
 
 
 /* ==========================================================================
@@ -87,8 +172,24 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    Media Queries
    ========================================================================== */
 
-@media (min-width: @screen-sm-min) { }
+@media (min-width: @screen-sm-min) { 
+    .banner {margin-bottom: 65px; }
+    .wsp-pages-list {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+    }
+    .content {
+        .child-pages {
+            li { width: 50%;}
+        }
+    }
+}
 
-@media (min-width: @screen-md-min) { }
+@media (min-width: @screen-md-min) { 
+    .banner {margin-bottom: 65px; }
+}
 
-@media (min-width: @screen-lg-min) { }
+@media (min-width: @screen-lg-min) { 
+    .banner {margin-bottom: 65px; }
+}
