@@ -1,26 +1,34 @@
 <?php
 /*
-Template Name: FAQ Page
-*/
+  Template Name: FAQ Page
+ */
 get_template_part( 'templates/page', 'header' );
+?>
 
-the_content();
+<div class = "entry-content">
 
-echo "<section id='faq-accordion'>";
+	<?php
+	while ( have_posts() ) : the_post();
+		the_content();
+	endwhile;
 
-$qandas = get_post_meta( get_the_ID(), 'faq-entries' );
+	echo "<section id='faq-accordion'>";
 
-if ( $qandas[0] ) {
-	foreach ( $qandas[0] as $qanda ) {
-		?>		
-		<h5 class="question"><?php echo $qanda[title]; ?></a></h5>
-		<section class="answer"><?php echo wpautop( $qanda[answer] ); ?></section>
-			<?php
+	$qandas = get_post_meta( get_the_ID(), 'faq-entries' );
+
+	if ( $qandas[0] ) {
+		foreach ( $qandas[0] as $qanda ) {
+			?>		
+			<h5 class="question"><?php echo $qanda['title']; ?></a></h5>
+			<section class="answer"><?php echo wpautop( $qanda['answer'] ); ?></section>
+				<?php
+			}
 		}
-	}
 
-	echo "</section>";
-	?>
+		echo "</section>";
+		?>
+
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function() {

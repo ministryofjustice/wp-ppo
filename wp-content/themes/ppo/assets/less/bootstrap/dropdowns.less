@@ -77,6 +77,14 @@
     background-color: @dropdown-link-hover-bg;
   }
 }
+.dropdown-menu > li.active.current-page-ancestor > a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: @dropdown-link-hover-color;
+    background-color: @dropdown-link-hover-bg;
+  }
+}
 
 // Active state
 .dropdown-menu > .active > a {
@@ -89,7 +97,14 @@
     background-color: @dropdown-link-active-bg;
   }
 }
-
+.dropdown-menu > .active.current-page-ancestor > a {
+    &,
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: @dropdown-link-color;
+  }
+}
 // Disabled state
 //
 // Gray out text and ensure the hover/focus state remains gray

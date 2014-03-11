@@ -176,7 +176,7 @@ class PPO_Related_Docs_Widget extends WP_Widget {
 
 		$new_entries = get_post_meta( get_the_ID(), 'sidebar-related-docs' );
 
-		if ( $new_entries[0] ) {
+		if ( count($new_entries) ) {
 
 			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Related Documents', 'roots' ) : $instance['title'], $instance, $this->id_base );
 
@@ -187,9 +187,10 @@ class PPO_Related_Docs_Widget extends WP_Widget {
 			}
 
 			foreach ( $new_entries[0] as $entry ) {
+				$file_url = wp_get_attachment_url( $entry['link'] );
 				?>		
 				<li>
-					<h5><a href="<?php echo get_permalink( $entry[link] ); ?>"><?php echo $entry[title]; ?></a></h5>
+					<h5><a href="<?php echo $file_url; ?>"><?php echo $entry[title] . " " . get_filesize( $file_url, true ); ?></a></h5>
 					<?php echo $entry[content]; ?>
 				</li>
 				<?php
@@ -242,7 +243,7 @@ class PPO_Quick_Links_Widget extends WP_Widget {
 
 		$new_entries = get_post_meta( get_the_ID(), 'sidebar-quick-links' );
 
-		if ( $new_entries[0] ) {
+		if ( count( $new_entries ) ) {
 
 			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Quick Links', 'roots' ) : $instance['title'], $instance, $this->id_base );
 
@@ -308,7 +309,7 @@ class PPO_See_Also_Widget extends WP_Widget {
 
 		$new_entries = get_post_meta( get_the_ID(), 'sidebar-see-also' );
 
-		if ( $new_entries[0] ) {
+		if ( count( $new_entries ) ) {
 
 			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'See Also', 'roots' ) : $instance['title'], $instance, $this->id_base );
 
@@ -375,7 +376,7 @@ class PPO_Contact_Widget extends WP_Widget {
 		$contact_email = get_post_meta( get_the_ID(), 'sidebar-contact' );
 		$contact_text = get_post_meta( get_the_ID(), 'sidebar-contact-text' );
 
-		if ( strlen( $contact_text[0] ) > 0 ) {
+		if ( count( $contact_text ) > 0 ) {
 			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Contact Details', 'roots' ) : $instance['title'], $instance, $this->id_base );
 
 			echo $before_widget;

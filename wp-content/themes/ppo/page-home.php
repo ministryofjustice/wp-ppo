@@ -14,7 +14,7 @@
 		$new_entries = get_post_meta( get_the_ID(), 'whats-new-content' )[0];
 		// Split entries into date and content columns
 		foreach ( $new_entries as $key => $row ) {
-			$date[$key] = $new_entries[$key][date] = strtotime( $row['date'] );
+			$date[$key] = $new_entries[$key]['date'] = strtotime( $row['date'] );
 			$content[$key] = $row['content'];
 		}
 		// Sort data as per the home-order option
@@ -31,8 +31,8 @@
 		foreach ( $new_entries as $entry ) {
 			?>		
 			<li>
-				<?php echo date( "j F Y", $entry[date] ); ?> - 
-				<?php echo $entry[content]; ?>
+				<?php echo date( "j F Y", $entry['date'] ); ?> - 
+				<?php echo $entry['content']; ?>
 			</li>
 			<?php
 		}
@@ -52,8 +52,8 @@
 			foreach ( $new_entries as $entry ) {
 				?>		
 				<li>
-					<h5><a href="<?php echo get_permalink( $entry[link] ); ?>"><?php echo $entry[title]; ?></a></h5>
-					<?php echo $entry[content]; ?>
+					<h5><a href="<?php echo get_permalink( $entry['link'] ); ?>"><?php echo $entry['title']; ?></a></h5>
+					<?php echo $entry['content']; ?>
 				</li>
 				<?php
 			}
@@ -71,8 +71,8 @@
 			foreach ( $new_entries as $entry ) {
 				?>		
 				<li>
-					<h5><a href="<?php echo get_permalink( $entry[link] ); ?>"><?php echo $entry[title]; ?></a></h5>
-					<?php echo $entry[content]; ?>
+					<h5><a href="<?php echo get_permalink( $entry['link'] ); ?>"><?php echo $entry['title']; ?></a></h5>
+					<?php echo $entry['content']; ?>
 				</li>
 				<?php
 			}

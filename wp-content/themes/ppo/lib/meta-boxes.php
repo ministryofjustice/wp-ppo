@@ -5,8 +5,21 @@
  */
 add_action( 'admin_init', 'custom_meta_boxes' );
 
-function custom_meta_boxes() {
+function get_template_pages( $template_name ) {
+	$faq_pages = get_pages( array(
+		'meta_key' => '_wp_page_template',
+		'meta_value' => 'template-' . $template_name . '.php',
+		'hierarchical' => 0
+			) );
+	$faq_array = array();
+	foreach ( $faq_pages as $faq_page ) {
+		$faq_array[] = $faq_page->post_name;
+	}
+	return $faq_array;
+}
 
+function custom_meta_boxes() {
+	
 	// Array hold all meta-boxes - slug param is custom to control which page it appears on
 	$my_meta_boxes = array(
 		array(
@@ -73,7 +86,7 @@ function custom_meta_boxes() {
 					'label' => 'Related Docs',
 					'type' => 'list-item',
 					'settings' => array(
-						array( 'id' => 'link', 'label' => 'Linked content', 'type' => 'custom_post_type_select', 'post_type' => 'page,post' )
+						array( 'id' => 'link', 'label' => 'Linked content', 'type' => 'custom_post_type_select', 'post_type' => 'attachment' )
 					// Note that this will be changed to appropriate CPT(s) when created
 					)
 				),
@@ -112,7 +125,7 @@ function custom_meta_boxes() {
 			)
 		), //sidebar_meta
 		array(
-			'slug' => array('complaints-faq','fatal-incident-faqs'),
+			'slug' => get_template_pages( 'faq'),
 			'id' => 'faq-meta-box',
 			'title' => 'Frequently Asked Questions',
 			'pages' => array( 'page' ),
@@ -128,7 +141,26 @@ function custom_meta_boxes() {
 					)
 				)
 			)
-		)
+		), // faq-meta-box
+		array(
+			'slug' => get_template_pages( 'filelist'),
+			'id' => 'filelist-meta-box',
+			'title' => 'File List',
+			'pages' => array( 'page' ),
+			'context' => 'normal',
+			'priority' => 'high',
+			'fields' => array(
+				array(
+					'id' => 'filelist-entries',
+					'label' => 'Files',
+					'type' => 'list-item',
+					'settings' => array(
+						array( 'id' => 'file', 'label' => 'File', 'type' => 'upload'),
+						array( 'id' => 'date', 'label' => 'Upload Date', 'type' => 'date-picker', 'std' => date('d/m/Y'))
+					)
+				)
+			)
+		) // faq-meta-box
 	);
 
 	$admin_post_id = (isset( $_GET['post'] ) ? $_GET['post'] : 0);
@@ -139,7 +171,7 @@ function custom_meta_boxes() {
 		// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
 		$post_details = get_post( $admin_post_id );
 		if (
-				(isset( $meta_box['slug'] ) && ($post_details->post_name == $meta_box['slug']) || in_array($post_details->post_name,$meta_box['slug'])) ||
+				(isset( $meta_box['slug'] ) && ($post_details->post_name == $meta_box['slug']) || in_array( $post_details->post_name, $meta_box['slug'] )) ||
 				!isset( $meta_box['slug'] ) || isset( $_POST['_wpnonce'] )
 		) {
 			ot_register_meta_box( $meta_box );

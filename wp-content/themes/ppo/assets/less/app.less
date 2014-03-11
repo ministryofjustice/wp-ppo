@@ -6,7 +6,18 @@
 
 /* Define colours */
 
+/*
+
+   var. 1 = #CA1B00 = rgb(202,27,0)
+   var. 2 = #983526 = rgb(152,53,38)
+   var. 3 = #831200 = rgb(131,18,0)
+   var. 4 = #E45039 = rgb(228,80,57)
+   var. 5 = #E47867 = rgb(228,120,103)
+
+*/
+
 @ppo-red: #CA1C00;
+@ppo-dark: #831200;
 
 /* ==========================================================================
    Base
@@ -21,18 +32,30 @@ body { }
    ========================================================================== */
 
 .banner { 
-    background-color: @ppo-red; height: 130px;
-    a.brand { line-height: 130px; margin: 0 5px; }
-    .navbar-collapse { clear: both; }
+    background-color: @ppo-red; min-height: 130px;float: left;width: 100%;
+    .nav-container {
+        background-color: @ppo-dark;
+    }
+    .container {
+        max-width: @container-desktop;
+    }
+    a.brand {
+        line-height: 130px; margin: 0 5px; width: 100%; margin-right: -79px;
+        img {
+            max-width: 100%;padding-right: 79px;
+        }
+    }
+    /*.navbar-collapse { clear: both; }*/
 }
-ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
-.nav .dropdown-toggle .caret { display:none; }
+/*ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }*/
+/*.nav .dropdown-toggle .caret { display:none; }*/
 
 /* ==========================================================================
    Content
    ========================================================================== */
 
 .content { 
+    max-width: @container-desktop; margin: 0 auto;
     .row { margin-right: 0; }
     .child-pages {
         background-color: @gray-lighter; padding: 15px; overflow: hidden;
@@ -112,15 +135,26 @@ ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
     }
 }
 
+/* Filelist */
+section.filelist {
+    header {
+        margin-bottom: 10px;
+    }
+    ul {
+        padding: 0; margin: 0;
+        li {
+            list-style: none;;
+        }
+    }
+}
+
 /* ==========================================================================
    Sidebar
    ========================================================================== */
 
 .sidebar {
-    margin-top: 22px;
     .widget_ppo_related_docs, .widget_ppo_quick_links {
         list-style: none;
-
     }
 }
 
@@ -143,18 +177,25 @@ ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
    ========================================================================== */
 
 .content-info { 
-    padding: 0; background-color: @gray-lighter; font-size: @font-size-small; margin-top: 25px; border-top: 5px solid @ppo-red;
+    padding: 0; background-color: @ppo-dark; font-size: @font-size-small; margin-top: 25px;
     a {
-        color: @ppo-red;
+        color: white;
     }
     a:hover {
         color: white;
     }
     .row {
-        margin: 0;
+        margin: 0 auto; max-width: @container-desktop;
     }
 }
 
+#menu-footer-navigation {
+    text-align: center;
+    >li {
+        float: none;
+        display: inline-block;
+    }
+}
 
 /* ==========================================================================
    WordPress Generated Classes
@@ -173,7 +214,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    ========================================================================== */
 
 @media (min-width: @screen-sm-min) { 
-    .banner {margin-bottom: 65px; }
+    /*.banner {position: relative; top: auto; }*/
     .wsp-pages-list {
         column-count: 2;
         -webkit-column-count: 2;
@@ -184,12 +225,29 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
             li { width: 50%;}
         }
     }
+    .navbar-nav {
+        width: @container-desktop; margin: 0 auto;
+    }
+    .nav-container {
+        position: fixed; top: 0; width: 100%;
+    }
+    .navbar-header {
+        margin-top: 50px;
+    }
+    #menu-footer-navigation {
+        text-align: left;
+        >li {
+            float: left;
+            display: block;
+        }
+    }
+    .sidebar {
+        margin-top: 20px;
+    }
 }
 
 @media (min-width: @screen-md-min) { 
-    .banner {margin-bottom: 65px; }
 }
 
 @media (min-width: @screen-lg-min) { 
-    .banner {margin-bottom: 65px; }
 }

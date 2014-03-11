@@ -80,6 +80,11 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
+
+define('WP_HOME','http://172.22.6.36/ppo');
+//define('WP_HOME','http://172.22.6.36/ppo');
+define('WP_SITEURL',WP_HOME);
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
