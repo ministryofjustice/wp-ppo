@@ -50,6 +50,142 @@ body { }
 /*ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }*/
 /*.nav .dropdown-toggle .caret { display:none; }*/
 
+.menu-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: @zindex-dropdown;
+    >ul>li {
+        float: left;
+        min-height: 130px;
+        font-size: 13px;
+        border-right: 1px solid #ddd;
+        display: table;
+    }
+}
+
+.navbar-nav>li {
+    width: 14.28%;
+}
+
+.dropdown-menu {
+    display: block;
+    width: 100%;
+    max-width: 972px;
+    margin: 0 auto;
+    float: none;
+    overflow: hidden;
+    >li>a, >li>.submenu-title {
+        white-space: normal;
+        padding: 5px;
+    }
+    padding: 0;
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+        background-color: rgba(245,245,245,0.8);
+    }
+}
+
+nav>ul>li>.menu-container>ul>li {
+    >a, >.submenu-title {
+        font-weight: bold;
+        color: #b00c00;
+    }
+    >.menu-container {
+        display: block;
+        position: initial;
+        border: none;
+        >ul {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            >li {
+                border: none;
+            }
+        }
+    }
+}
+
+// Menu icons/bg
+.dropdown:after {
+    content: "";
+    display: block;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    opacity: 0.15;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.dropdown.menu-what-we-do:after { background-image: url('../icons/small43.svg'); }
+
+// Sets dynamic width of megamenu items 
+/*@max-menuitems: 8;
+.for-loop (@index) when (@index > 0) {
+    .dropdown-menu>li:first-child:nth-last-child(@{index}),
+    .dropdown-menu>li:first-child:nth-last-child(@{index}) ~ li {
+        width: 100% / @index;
+    }
+
+    .for-loop(@index - 1);
+}
+.for-loop(0) {}
+.for-loop(@max-menuitems);*/
+
+.dropdown-menu>li:first-child:nth-last-child(1),
+.dropdown-menu>li:first-child:nth-last-child(1) ~ li {
+    width: 100%;
+    border: none;
+}
+
+.dropdown-menu>li:first-child:nth-last-child(2),
+.dropdown-menu>li:first-child:nth-last-child(2) ~ li {
+    width: 50%;
+}
+
+.dropdown-menu>li:first-child:nth-last-child(4),
+.dropdown-menu>li:first-child:nth-last-child(4) ~ li,
+.dropdown-menu>li:first-child:nth-last-child(8),
+.dropdown-menu>li:first-child:nth-last-child(8) ~ li {
+    width: 25%;
+}
+
+.dropdown-menu>li:first-child:nth-last-child(5),
+.dropdown-menu>li:first-child:nth-last-child(5) ~ li {
+    width: 20%;
+}
+
+.dropdown-menu>li:first-child:nth-last-child(3),
+.dropdown-menu>li:first-child:nth-last-child(3) ~ li,
+.dropdown-menu>li:first-child:nth-last-child(6),
+.dropdown-menu>li:first-child:nth-last-child(6) ~ li,
+.dropdown-menu>li:first-child:nth-last-child(9),
+.dropdown-menu>li:first-child:nth-last-child(9) ~ li {
+    width: 33.3%;
+}
+
+.dropdown-menu>li:first-child:nth-last-child(2) ~ li:nth-child(2),
+.dropdown-menu>li:first-child:nth-last-child(3) ~ li:nth-child(3),
+.dropdown-menu>li:first-child:nth-last-child(4) ~ li:nth-child(4),
+.dropdown-menu>li:first-child:nth-last-child(5) ~ li:nth-child(5),
+.dropdown-menu>li:first-child:nth-last-child(6) ~ li:nth-child(3),
+.dropdown-menu>li:first-child:nth-last-child(8) ~ li:nth-child(4),
+.dropdown-menu>li:first-child:nth-last-child(9) ~ li:nth-child(3) {
+    border-right: none;
+}
+
+.dropdown-menu>.dropdown>.menu-container>.dropdown-menu>li {
+    width: 100%;
+    min-height: initial;
+    a {
+        padding-left: 15px;
+    }
+}
+
 /* ==========================================================================
    Content
    ========================================================================== */
@@ -227,12 +363,15 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     }
     .navbar-nav {
         width: @container-desktop; margin: 0 auto;
+        >li>a {
+            text-align: center;
+        }
     }
     .nav-container {
         position: fixed; top: 0; width: 100%;
     }
     .navbar-header {
-        margin-top: 50px;
+        margin-top: 70px;
     }
     #menu-footer-navigation {
         text-align: left;

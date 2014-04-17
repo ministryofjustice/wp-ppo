@@ -54,7 +54,10 @@
         .trigger('shown.bs.dropdown')
 
       $this.focus()
-    }
+      
+      var menuItems = $(this).parent().find('>.menu-container>ul>li');
+      columnConform(menuItems);
+    }   
 
     return false
   }

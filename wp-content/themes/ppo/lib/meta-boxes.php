@@ -19,7 +19,7 @@ function get_template_pages( $template_name ) {
 }
 
 function custom_meta_boxes() {
-	
+
 	// Array hold all meta-boxes - slug param is custom to control which page it appears on
 	$my_meta_boxes = array(
 		array(
@@ -125,7 +125,7 @@ function custom_meta_boxes() {
 			)
 		), //sidebar_meta
 		array(
-			'slug' => get_template_pages( 'faq'),
+			'slug' => get_template_pages( 'faq' ),
 			'id' => 'faq-meta-box',
 			'title' => 'Frequently Asked Questions',
 			'pages' => array( 'page' ),
@@ -143,7 +143,7 @@ function custom_meta_boxes() {
 			)
 		), // faq-meta-box
 		array(
-			'slug' => get_template_pages( 'filelist'),
+			'slug' => get_template_pages( 'filelist' ),
 			'id' => 'filelist-meta-box',
 			'title' => 'File List',
 			'pages' => array( 'page' ),
@@ -155,8 +155,8 @@ function custom_meta_boxes() {
 					'label' => 'Files',
 					'type' => 'list-item',
 					'settings' => array(
-						array( 'id' => 'file', 'label' => 'File', 'type' => 'upload'),
-						array( 'id' => 'date', 'label' => 'Upload Date', 'type' => 'date-picker', 'std' => date('d/m/Y'))
+						array( 'id' => 'file', 'label' => 'File', 'type' => 'upload' ),
+						array( 'id' => 'date', 'label' => 'Upload Date', 'type' => 'date-picker', 'std' => date( 'd/m/Y' ) )
 					)
 				)
 			)
@@ -167,14 +167,36 @@ function custom_meta_boxes() {
 
 //	var_dump($_POST);
 
-	foreach ( $my_meta_boxes as $meta_box ) {
-		// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
-		$post_details = get_post( $admin_post_id );
-		if (
-				(isset( $meta_box['slug'] ) && ($post_details->post_name == $meta_box['slug']) || in_array( $post_details->post_name, $meta_box['slug'] )) ||
-				!isset( $meta_box['slug'] ) || isset( $_POST['_wpnonce'] )
-		) {
-			ot_register_meta_box( $meta_box );
+	if ( is_edit_page() ) {
+
+		foreach ( $my_meta_boxes as $meta_box ) {
+			// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
+			$post_details = get_post( $admin_post_id );
+			if ( isset( $meta_box['slug'] ) ) {
+				if (
+						($post_details->post_name == $meta_box['slug']) ||
+						(is_array( $meta_box['slug'] ) &&
+						in_array( $post_details->post_name, $meta_box['slug'] ) ) ||
+						!isset( $meta_box['slug'] ) || isset( $_POST['_wpnonce'] )
+				) {
+					ot_register_meta_box( $meta_box );
+				}
+			}
 		}
 	}
+}
+
+function is_edit_page( $new_edit = null ) {
+	global $pagenow;
+	//make sure we are on the backend
+	if ( !is_admin() )
+		return false;
+
+
+	if ( $new_edit == "edit" )
+		return in_array( $pagenow, array( 'post.php', ) );
+	elseif ( $new_edit == "new" ) //check for new post page
+		return in_array( $pagenow, array( 'post-new.php' ) );
+	else //check for either new or edit
+		return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
 }
