@@ -49,7 +49,8 @@
 		<ul>
 			<?php
 			// Get meta value containing array of entries
-			$new_entries = get_post_meta( get_the_ID(), 'ppo-info-content' )[0];
+			$new_entries_array = get_post_meta( get_the_ID(), 'ppo-info-content' );
+			$new_entries = $new_entries_array[0];
 			// Iterate over entries and display
 			foreach ( $new_entries as $entry ) {
 				?>		
@@ -68,7 +69,8 @@
 		<ul>
 			<?php
 			// Get meta value containing array of entries
-			$new_entries = get_post_meta( get_the_ID(), 'quick-links-content' )[0];
+			$new_entries_array = get_post_meta( get_the_ID(), 'quick-links-content' );
+			$new_entries = $new_entries_array[0];
 			// Iterate over entries and display
 			foreach ( $new_entries as $entry ) {
 				?>		
