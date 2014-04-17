@@ -19,7 +19,8 @@
 			$content[$key] = $row['content'];
 		}
 		// Sort data as per the home-order option
-		switch ( get_post_meta( get_the_ID(), 'home-order' )[0] ) {
+		$order = get_post_meta( get_the_ID(), 'home-order' );
+		switch ( $order[0] ) {
 			case 'abc': // Chronological
 				array_multisort( $date, SORT_ASC, $content, SORT_ASC, $new_entries );
 				break;
