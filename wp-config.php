@@ -78,11 +78,9 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
-
-define('WP_HOME','http://172.22.6.36/ppo');
-//define('WP_HOME','http://172.22.6.36/ppo');
+define('WP_HOME','http://localhost/ppo');
 define('WP_SITEURL',WP_HOME);
 
 /* That's all, stop editing! Happy blogging. */

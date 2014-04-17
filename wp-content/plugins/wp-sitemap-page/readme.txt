@@ -4,7 +4,7 @@ Donate link: http://www.infowebmaster.fr/dons.php
 Tags: sitemap, generator, page list, site map, html sitemap, sitemap generator, dynamic sitemap, seo
 Requires at least: 3.0
 Tested up to: 3.8.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 
 
@@ -63,7 +63,10 @@ This plugin is available through the following languages :
 *   Italian (`it_IT`) by Nima
 *   Spanish (`es_ES`) by Raul
 *   Czech (`cs_CZ`) by [Roman Opet](https://www.high-definition.cz/)
-*   Polish (`pl_PL`) by Mariusz
+*   Polish (`pl_PL`) by [Mariusz](http://www.wordpresscup.com/)
+*   Deutsch (`de_DE`) by Arno
+*   Swedish (`sv_SE`)
+*   Brazilian Portuguese (`pt_BR`) by Miguel Müller
 
 If you want to add another language, feel free to [contact me](http://en.tonyarchambeau.com/contact.html) in order to send the file with the correct translation files (.mo and .po). Thanks a lot!
 
@@ -75,10 +78,13 @@ If you want to add another language, feel free to [contact me](http://en.tonyarc
 
 == Changelog ==
 
+= 1.1.1 =
+* Add languages : Deutsch, Swedish and Brazilian Portuguese
 = 1.1.0 =
-* Add polish language
 * Add archives pages on the sitemap (optional)
 * Add authors pages on the sitemap (optional)
+* Improve the security
+* Add polish language
 = 1.0.12 =
 * Add czech language
 = 1.0.11 =
