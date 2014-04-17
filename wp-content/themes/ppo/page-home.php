@@ -11,7 +11,8 @@
 	<ul>
 		<?php
 		// Get meta value containing array of entries
-		$new_entries = get_post_meta( get_the_ID(), 'whats-new-content' )[0];
+		$new_entries = get_post_meta( get_the_ID(), 'whats-new-content' );
+		$new_entries = $new_entries[0];
 		// Split entries into date and content columns
 		foreach ( $new_entries as $key => $row ) {
 			$date[$key] = $new_entries[$key]['date'] = strtotime( $row['date'] );
