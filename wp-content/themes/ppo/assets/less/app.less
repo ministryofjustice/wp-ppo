@@ -17,7 +17,7 @@
 */
 
 @ppo-red: #CA1C00;
-@ppo-dark: #831200;
+@ppo-dark: #831200; 
 
 /* ==========================================================================
    Base
@@ -37,7 +37,7 @@ body { }
         background-color: @ppo-dark;
     }
     .container {
-        max-width: @container-desktop;
+        /*max-width: @container-desktop;*/
     }
     a.brand {
         line-height: 130px; margin: 0 5px; width: 100%; margin-right: -79px;
@@ -61,7 +61,10 @@ body { }
         min-height: 130px;
         font-size: 13px;
         border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
         display: table;
+        position: relative;
+        overflow: hidden;
     }
 }
 
@@ -72,7 +75,7 @@ body { }
 .dropdown-menu {
     display: block;
     width: 100%;
-    max-width: 972px;
+    /*max-width: 972px;*/
     margin: 0 auto;
     float: none;
     overflow: hidden;
@@ -83,6 +86,7 @@ body { }
     padding: 0;
     .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
         background-color: rgba(245,245,245,0.8);
+        color: #b00c00;
     }
 }
 
@@ -106,22 +110,33 @@ nav>ul>li>.menu-container>ul>li {
     }
 }
 
+.navbar-default .navbar-nav>.active>a {
+    background-color: #ca1c00;
+    color: white;
+}
+
 // Menu icons/bg
-.dropdown:after {
+.dropdown-menu>li:after {
     content: "";
     display: block;
-    background-position: right 10px center;
+    background-position: left center;
     background-repeat: no-repeat;
-    background-size: 50%;
-    opacity: 0.15;
+    background-size: 100%;
+    opacity: 0.025;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 55%;
+    width: 50%;
     height: 100%;
     pointer-events: none;
 }
-.dropdown.menu-what-we-do:after { background-image: url('../icons/small43.svg'); }
+.icon-cogs:after     { background-image: url('../icons/cogs.svg'); }
+.icon-people:after   { background-image: url('../icons/people.svg'); }
+.icon-list:after     { background-image: url('../icons/terms.svg'); }
+.icon-eye:after      { background-image: url('../icons/vision.svg'); }
+.icon-search:after   { background-image: url('../icons/search.svg'); }
+.icon-question:after { background-image: url('../icons/question.svg'); }
+.icon-disc:after     { background-image: url('../icons/disc.svg'); }
 
 // Sets dynamic width of megamenu items 
 /*@max-menuitems: 8;
@@ -168,13 +183,13 @@ nav>ul>li>.menu-container>ul>li {
     width: 33.3%;
 }
 
-.dropdown-menu>li:first-child:nth-last-child(2) ~ li:nth-child(2),
-.dropdown-menu>li:first-child:nth-last-child(3) ~ li:nth-child(3),
-.dropdown-menu>li:first-child:nth-last-child(4) ~ li:nth-child(4),
-.dropdown-menu>li:first-child:nth-last-child(5) ~ li:nth-child(5),
-.dropdown-menu>li:first-child:nth-last-child(6) ~ li:nth-child(3),
-.dropdown-menu>li:first-child:nth-last-child(8) ~ li:nth-child(4),
-.dropdown-menu>li:first-child:nth-last-child(9) ~ li:nth-child(3) {
+.dropdown-menu>li:first-child:nth-last-child(2) ~ li:nth-child(2n),
+.dropdown-menu>li:first-child:nth-last-child(3) ~ li:nth-child(3n),
+.dropdown-menu>li:first-child:nth-last-child(4) ~ li:nth-child(4n),
+.dropdown-menu>li:first-child:nth-last-child(5) ~ li:nth-child(5n),
+.dropdown-menu>li:first-child:nth-last-child(6) ~ li:nth-child(3n),
+.dropdown-menu>li:first-child:nth-last-child(8) ~ li:nth-child(4n),
+.dropdown-menu>li:first-child:nth-last-child(9) ~ li:nth-child(3n) {
     border-right: none;
 }
 
@@ -186,12 +201,19 @@ nav>ul>li>.menu-container>ul>li {
     }
 }
 
+.dropdown-menu>li:first-child:nth-last-child(4) ~ li:after {
+    background-size: 200%;
+    left: 50%;
+    width: 50%;
+}
+
 /* ==========================================================================
    Content
    ========================================================================== */
 
 .content { 
-    max-width: @container-desktop; margin: 0 auto;
+    /*max-width: @container-desktop;*/
+    margin: 0 auto;
     .row { margin-right: 0; }
     .child-pages {
         background-color: @gray-lighter; padding: 15px; overflow: hidden;
@@ -321,7 +343,8 @@ section.filelist {
         color: white;
     }
     .row {
-        margin: 0 auto; max-width: @container-desktop;
+        margin: 0 auto;
+        /*max-width: @container-desktop;*/
     }
 }
 
@@ -362,9 +385,12 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
         }
     }
     .navbar-nav {
-        width: @container-desktop; margin: 0 auto;
+        /*width: @container-desktop;*/
+        margin: 0 auto;
         >li>a {
             text-align: center;
+            width: 150px;
+            margin: 0 auto;
         }
     }
     .nav-container {

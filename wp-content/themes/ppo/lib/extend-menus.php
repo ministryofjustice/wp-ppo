@@ -247,12 +247,12 @@ class Walker_Nav_Menu_Edit_Custom extends Walker_Nav_Menu {
 				<?php
 				/* New fields insertion starts here */
 				?>      
-				<p class="field-custom description description-wide">
+<!--				<p class="field-custom description description-wide">
 					<label for="edit-menu-item-icon-<?php echo $item_id; ?>">
 						<?php _e( 'Icon' ); ?><br />
 						<input type="text" id="edit-menu-item-icon-<?php echo $item_id; ?>" class="widefat code edit-menu-item-custom" name="menu-item-icon[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->icon ); ?>" />
 					</label>
-				</p>
+				</p>-->
 				<?php
 				/* New fields insertion ends here */
 				?>
@@ -322,7 +322,7 @@ class Walker_Nav_Menu_Edit_Custom extends Walker_Nav_Menu {
 			$item_output .= '<a' . $attributes . '>';
 			$item_output .= $args->link_before . $prepend . apply_filters( 'the_title', $item->title, $item->ID ) . $append;
 			$item_output .= $description . $args->link_after;
-			$item_output .= ' ' . $item->icon . '</a>';
+//			$item_output .= ' ' . $item->icon . '</a>';
 			$item_output .= $args->after;
 
 			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );

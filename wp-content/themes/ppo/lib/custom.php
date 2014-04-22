@@ -1,20 +1,28 @@
 
 <?php
+
 /**
  * Custom functions
  */
+require_once locate_template( '/lib/extend-menus.php' );
 
-require_once locate_template('/lib/extend-menus.php');
+// Load CPTs
+$cpt_declarations = scandir( get_template_directory() . "/lib/cpt/" );
+foreach ( $cpt_declarations as $cpt_declaration ) {
+	if ($cpt_declaration[0]!=".")
+		require get_template_directory() . '/lib/cpt/' . $cpt_declaration;
+}
 
 // Add JS
 function custom_scripts() {
-	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array('jquery'), null, false );
+	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array( 'jquery' ), null, false );
 	wp_enqueue_script( 'equalheight' );
 }
 
 add_action( 'wp_enqueue_scripts', 'custom_scripts', 100 );
 
 /* Change OT datepicker format */
+
 function change_ot_date_format() {
 	return "dd/mm/yy";
 }

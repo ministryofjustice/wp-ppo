@@ -160,6 +160,25 @@ function custom_meta_boxes() {
 					)
 				)
 			)
+		), // faq-meta-box
+		array(
+			'slug' => get_template_pages( 'document' ),
+			'id' => 'document-meta-box',
+			'title' => 'Document details',
+			'pages' => array( 'page' ),
+			'context' => 'normal',
+			'priority' => 'high',
+			'fields' => array(
+				array(
+					'id' => 'filelist-entries',
+					'label' => 'Files',
+					'type' => 'list-item',
+					'settings' => array(
+						array( 'id' => 'file', 'label' => 'File', 'type' => 'upload' ),
+						array( 'id' => 'date', 'label' => 'Upload Date', 'type' => 'date-picker', 'std' => date( 'd/m/Y' ) )
+					)
+				)
+			)
 		) // faq-meta-box
 	);
 

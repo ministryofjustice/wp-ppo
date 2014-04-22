@@ -127,8 +127,8 @@ module.exports = function(grunt) {
         'clean',
         'less',
         'uglify',
-        'version',
-        'grunticon:myIcons'
+        'version'
+//        'grunticon:myIcons'
     ]);
     grunt.registerTask('dev', [
         'watch'

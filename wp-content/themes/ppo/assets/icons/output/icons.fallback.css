@@ -148,6 +148,8 @@
 
 .icon-bulb { background-image: url('png/bulb.png'); background-repeat: no-repeat; }
 
+.icon-bullet-list { background-image: url('png/bullet-list.png'); background-repeat: no-repeat; }
+
 .icon-bullet { background-image: url('png/bullet.png'); background-repeat: no-repeat; }
 
 .icon-bullhorn { background-image: url('png/bullhorn.png'); background-repeat: no-repeat; }
@@ -183,6 +185,8 @@
 .icon-cloud9 { background-image: url('png/cloud9.png'); background-repeat: no-repeat; }
 
 .icon-code2 { background-image: url('png/code2.png'); background-repeat: no-repeat; }
+
+.icon-cogs { background-image: url('png/cogs.png'); background-repeat: no-repeat; }
 
 .icon-commit { background-image: url('png/commit.png'); background-repeat: no-repeat; }
 
@@ -233,6 +237,8 @@
 .icon-delete12 { background-image: url('png/delete12.png'); background-repeat: no-repeat; }
 
 .icon-delete13 { background-image: url('png/delete13.png'); background-repeat: no-repeat; }
+
+.icon-disc { background-image: url('png/disc.png'); background-repeat: no-repeat; }
 
 .icon-distribute { background-image: url('png/distribute.png'); background-repeat: no-repeat; }
 
@@ -462,6 +468,8 @@
 
 .icon-pencil6 { background-image: url('png/pencil6.png'); background-repeat: no-repeat; }
 
+.icon-people { background-image: url('png/people.png'); background-repeat: no-repeat; }
+
 .icon-piano { background-image: url('png/piano.png'); background-repeat: no-repeat; }
 
 .icon-pin7 { background-image: url('png/pin7.png'); background-repeat: no-repeat; }
@@ -493,6 +501,8 @@
 .icon-pull { background-image: url('png/pull.png'); background-repeat: no-repeat; }
 
 .icon-pullup { background-image: url('png/pullup.png'); background-repeat: no-repeat; }
+
+.icon-question { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%22512px%22%20height%3D%22512px%22%20viewBox%3D%220%200%20512%20512%22%20enable-background%3D%22new%200%200%20512%20512%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20id%3D%22help-3-icon%22%20d%3D%22M256%2C90c91.74%2C0%2C166%2C74.244%2C166%2C166c0%2C91.741-74.245%2C166-166%2C166c-91.741%2C0-166-74.245-166-166%20C90%2C164.259%2C164.244%2C90%2C256%2C90%20M256%2C50C142.229%2C50%2C50%2C142.229%2C50%2C256s92.229%2C206%2C206%2C206s206-92.229%2C206-206S369.771%2C50%2C256%2C50%20L256%2C50z%20M258.025%2C379.511c-14.546%2C0-26.343-11.797-26.343-26.349c0-14.543%2C11.797-26.336%2C26.343-26.336%20c14.549%2C0%2C26.342%2C11.793%2C26.342%2C26.336C284.367%2C367.714%2C272.574%2C379.511%2C258.025%2C379.511z%20M278.735%2C301.646v4.739%20c0%2C0-39.494%2C0-43.423%2C0v-4.739c0-13.408%2C1.956-30.61%2C17.523-45.565c15.569-14.958%2C35.024-27.312%2C35.024-45.996%20c0-20.655-14.335-31.581-32.409-31.581c-30.116%2C0-32.085%2C31.234-32.827%2C38.112H180.39c1.125-32.57%2C14.891-78.127%2C75.315-78.127%20c52.363%2C0%2C75.905%2C35.07%2C75.905%2C67.957C331.61%2C258.793%2C278.735%2C267.886%2C278.735%2C301.646z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; }
 
 .icon-quill { background-image: url('png/quill.png'); background-repeat: no-repeat; }
 
@@ -646,6 +656,8 @@
 
 .icon-terminal6 { background-image: url('png/terminal6.png'); background-repeat: no-repeat; }
 
+.icon-terms { background-image: url('png/terms.png'); background-repeat: no-repeat; }
+
 .icon-thermometer2 { background-image: url('png/thermometer2.png'); background-repeat: no-repeat; }
 
 .icon-three12 { background-image: url('png/three12.png'); background-repeat: no-repeat; }
@@ -691,6 +703,8 @@
 .icon-video8 { background-image: url('png/video8.png'); background-repeat: no-repeat; }
 
 .icon-vinyl { background-image: url('png/vinyl.png'); background-repeat: no-repeat; }
+
+.icon-vision { background-image: url('png/vision.png'); background-repeat: no-repeat; }
 
 .icon-voicemail { background-image: url('png/voicemail.png'); background-repeat: no-repeat; }
 
