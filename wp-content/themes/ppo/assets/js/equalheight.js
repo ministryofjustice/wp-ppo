@@ -2,8 +2,8 @@ function setConformingHeight(el, newHeight) {
     // set the height to something new, but remember the original height in case things change
     el.data("originalHeight", (el.data("originalHeight") == undefined) ? (el.height()) : (el.data("originalHeight")));
     el.height(newHeight);
-    console.log(el);
-    console.log(el.height());
+//    console.log(el);
+//    console.log(el.height());
 }
 
 function getOriginalHeight(el) {

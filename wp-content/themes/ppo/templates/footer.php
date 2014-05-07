@@ -11,4 +11,8 @@
 	</div>
 </footer>
 
+<script>
+	new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
+</script>
+
 <?php wp_footer(); ?>

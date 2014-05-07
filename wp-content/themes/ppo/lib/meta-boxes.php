@@ -162,24 +162,44 @@ function custom_meta_boxes() {
 			)
 		), // faq-meta-box
 		array(
-			'slug' => get_template_pages( 'document' ),
-			'id' => 'document-meta-box',
-			'title' => 'Document details',
-			'pages' => array( 'page' ),
-			'context' => 'normal',
-			'priority' => 'high',
+			'id' => 'document-type-meta-box',
+			'title' => 'Document type',
+			'pages' => array( 'document' ),
+			'context' => 'side',
+			'priority' => 'default',
 			'fields' => array(
 				array(
-					'id' => 'filelist-entries',
-					'label' => 'Files',
-					'type' => 'list-item',
-					'settings' => array(
-						array( 'id' => 'file', 'label' => 'File', 'type' => 'upload' ),
-						array( 'id' => 'date', 'label' => 'Upload Date', 'type' => 'date-picker', 'std' => date( 'd/m/Y' ) )
-					)
+					'id' => 'document-type',
+					'label' => 'Document type',
+					'type' => 'taxonomy-select',
+					'taxonomy' => 'document_type'
+				),
+				array(
+					'id' => 'document-date',
+					'label' => 'Document date',
+					'type' => 'date_picker'
 				)
 			)
-		) // faq-meta-box
+		), // document-type-meta-box
+		array(
+			'id' => 'document-meta-box',
+			'title' => 'Document upload',
+			'pages' => array( 'document' ),
+			'context' => 'normal',
+			'priority' => 'default',
+			'fields' => array(
+				array(
+					'id' => 'document-upload',
+					'label' => 'Upload document',
+					'type' => 'upload'
+				),
+				array(
+					'id' => 'document-description',
+					'label' => 'Description',
+					'type' => 'textarea'
+				)
+			)
+		) // document-meta-box
 	);
 
 	$admin_post_id = (isset( $_GET['post'] ) ? $_GET['post'] : 0);
@@ -187,11 +207,10 @@ function custom_meta_boxes() {
 //	var_dump($_POST);
 
 	if ( is_edit_page() ) {
-
 		foreach ( $my_meta_boxes as $meta_box ) {
 			// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
 			$post_details = get_post( $admin_post_id );
-			if ( isset( $meta_box['slug'] ) ) {
+			if ( isset( $meta_box['slug'] ) && isset( $post_details ) ) {
 				if (
 						($post_details->post_name == $meta_box['slug']) ||
 						(is_array( $meta_box['slug'] ) &&
@@ -200,6 +219,8 @@ function custom_meta_boxes() {
 				) {
 					ot_register_meta_box( $meta_box );
 				}
+			} else {
+				ot_register_meta_box( $meta_box );
 			}
 		}
 	}
@@ -208,14 +229,16 @@ function custom_meta_boxes() {
 function is_edit_page( $new_edit = null ) {
 	global $pagenow;
 	//make sure we are on the backend
-	if ( !is_admin() )
+	if ( !is_admin() ) {
 		return false;
+	}
 
 
-	if ( $new_edit == "edit" )
+	if ( $new_edit == "edit" ) {
 		return in_array( $pagenow, array( 'post.php', ) );
-	elseif ( $new_edit == "new" ) //check for new post page
+	} elseif ( $new_edit == "new" ) { //check for new post page
 		return in_array( $pagenow, array( 'post-new.php' ) );
-	else //check for either new or edit
+	} else { //check for either new or edit
 		return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
+	}
 }

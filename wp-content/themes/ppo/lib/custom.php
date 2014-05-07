@@ -1,22 +1,36 @@
-
 <?php
 
 /**
  * Custom functions
  */
 require_once locate_template( '/lib/extend-menus.php' );
+require_once locate_template( '/lib/nav-mob.php' );
 
 // Load CPTs
 $cpt_declarations = scandir( get_template_directory() . "/lib/cpt/" );
 foreach ( $cpt_declarations as $cpt_declaration ) {
-	if ($cpt_declaration[0]!=".")
+	if ( $cpt_declaration[0] != "." )
 		require get_template_directory() . '/lib/cpt/' . $cpt_declaration;
 }
 
+// Add image sizes
+add_image_size( 'admin-list-thumb', 100, 100, false );
+
 // Add JS
 function custom_scripts() {
+	wp_enqueue_style( 'mlpush-component', get_template_directory_uri() . '/assets/css/component.css', false );
+	wp_enqueue_style( 'mlpush-icons', get_template_directory_uri() . '/assets/css/icons.css', false );
+	
 	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array( 'jquery' ), null, false );
 	wp_enqueue_script( 'equalheight' );
+	wp_register_script( 'isotope', get_template_directory_uri() . '/assets/js/vendor/isotope.min.js', array( 'jquery', 'jquery-masonry' ), null, false );
+	wp_enqueue_script( 'isotope' );
+	wp_register_script( 'classie', get_template_directory_uri() . '/assets/js/classie.js', array(), null, false );
+	wp_enqueue_script( 'classie' );
+	wp_register_script( 'mlpushmenu', get_template_directory_uri() . '/assets/js/mlpushmenu.js', array(), null, false );
+	wp_enqueue_script( 'mlpushmenu' );
+	wp_register_script( 'modernizr.custom', get_template_directory_uri() . '/assets/js/modernizr.custom.js', array( 'jquery' ), null, false );
+	wp_enqueue_script( 'modernizr.custom' );
 }
 
 add_action( 'wp_enqueue_scripts', 'custom_scripts', 100 );
@@ -94,6 +108,6 @@ function file_size_convert( $bytes ) {
 function get_filesize( $file_url, $brackets = false ) {
 	$attachment_id = get_attachment_id_from_src( $file_url );
 	$local_path = get_attached_file( $attachment_id );
-//	return ($brackets ? "(" : "") . file_size_convert( filesize( $local_path ) ) . ($brackets ? ")" : "");
-	return $file_url;
+	return ($brackets ? "(" : "") . file_size_convert( filesize( $local_path ) ) . ($brackets ? ")" : "");
+//	return $file_url;
 }
