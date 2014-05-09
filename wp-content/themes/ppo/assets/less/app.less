@@ -343,17 +343,23 @@ section.filelist {
 
 .tile-container {
     clear: both;
+    margin-top: 80px;
     article {
         float: left;
         margin: 10px;
         border: 10px solid #eee;
         border-right: 5px solid #eee;
+        width: 255px;
         .tile-image {
             float: left;
+            img {
+                width: 159px;
+                height: 224px;
+            }
         }
         .tile-details {
             width: 81px;
-            height: 259px;
+            height: 224px;
             float: left;
             background-color: #eee;
             padding: 4px;
@@ -374,10 +380,25 @@ section.filelist {
             .tile-size {
                 font-size: 11px;
                 font-weight: bold;
+                color: #aaa;
+            }
+            .tile-social {
                 position: absolute;
                 bottom: 0;
-                right: 0;
-                color: #aaa;
+                right: 14px;
+                a {
+                    img {
+                        height: 48px;
+                        opacity: 0.4;
+                        -webkit-transition: opacity 150ms ease-out 0.1s;
+                        -moz-transition: opacity 150ms ease-out 0.1s;
+                        -o-transition: opacity 150ms ease-out 0.1s;
+                        transition: opacity 150ms ease-out 0.1s;
+                        &:hover {
+                            opacity: 0.9
+                        }
+                    }
+                }
             }
         }
     }
@@ -412,10 +433,33 @@ section.filelist {
 /* ==========================================================================
    Sort/Filter controls
    ========================================================================== */
+#sort-filter {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    margin: -20px -15px;
+    padding: 20px 15px;
+    box-sizing: content-box;
+    background: #ddd;
+    z-index: 100;
+    top: -80px;
+}
 .sort-control {
     background-color: #eee;
-    padding: 15px;
+    padding: 15px 30px 15px 15px;
     float: left;
+    cursor: pointer;
+    &.asc:after {
+        content: "\25B2";
+        margin-left: 5px;
+        position: absolute;
+    }
+    &.desc:after {
+        content: "\25BC";
+        margin-left: 5px;
+        position: absolute;
+    }
 }
 
 /* ==========================================================================
@@ -470,6 +514,10 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     }
     .sidebar {
         margin-top: 20px;
+    }
+
+    #sort-filter {
+        top: 0;
     }
 }
 

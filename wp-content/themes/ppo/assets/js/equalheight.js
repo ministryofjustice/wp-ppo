@@ -47,10 +47,12 @@ function columnConform(selector) {
 
 }
 
-$(window).resize(function() {
-    columnConform('nav>ul>li>a');
-});
-
 $(document).ready(function() {
     columnConform('nav>ul>li>a');
+
+    $(window).resize(function() {
+        console.log("resize");
+        columnConform('nav>ul>li>a');
+    });
+
 });

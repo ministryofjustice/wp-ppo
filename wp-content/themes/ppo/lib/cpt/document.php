@@ -142,8 +142,8 @@ function create_doc_thumbnail( $post_id ) {
 
 			//Setup various variables
 			//Assuming A4 - portrait - 1.00x1.41
-			$width = '183';
-			$height = '258';
+			$width = '159';
+			$height = $width*1.41;
 			$quality = '90';
 			$dpi = '300';
 			$resize = $width . 'x' . $height;
