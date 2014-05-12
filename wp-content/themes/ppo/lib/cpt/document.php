@@ -136,9 +136,9 @@ function create_doc_thumbnail( $post_id ) {
 			//Thumbnail format
 			$tn_format = 'jpg';
 			//Thumbnail output as path + format
-			$thumb_out = $attachment_path . '.' . $tn_format;
+			$thumb_out = str_replace(".pdf","",$attachment_path . '.' . $tn_format);
 			//Thumbnail URL
-			$thumb_url = $attachment_url . '.' . $tn_format;
+			$thumb_url = str_replace(".pdf","",$attachment_url . '.' . $tn_format);
 
 			//Setup various variables
 			//Assuming A4 - portrait - 1.00x1.41
@@ -163,7 +163,7 @@ function create_doc_thumbnail( $post_id ) {
 			$wp_filetype = wp_check_filetype( $thumb_out, null );
 			$attachment = array(
 				'post_mime_type' => $wp_filetype['type'],
-				'post_title' => sanitize_file_name( $thumb_out ),
+				'post_title' => sanitize_file_name( basename($thumb_out )),
 				'post_content' => '',
 				'post_status' => 'inherit',
 				'guid' => $thumb_url
