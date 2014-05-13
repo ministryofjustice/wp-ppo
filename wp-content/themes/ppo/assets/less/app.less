@@ -350,6 +350,7 @@ section.filelist {
         border: 10px solid #eee;
         border-right: 5px solid #eee;
         width: 255px;
+        font-family: tahoma;
         .tile-image {
             float: left;
             img {
@@ -362,23 +363,25 @@ section.filelist {
             height: 224px;
             float: left;
             background-color: #eee;
-            padding: 4px;
-            letter-spacing: -1px;
+            padding: 4px 4px 4px 9px;
+            /*letter-spacing: -1px;*/
             position: relative;
-            text-align: right;
+            /*text-align: right;*/
             h3 {
                 margin-top: 0;
-                font-size: 15px;
+                font-size: 13px;
                 line-height: 18px;
                 color: #888;
+                font-family: tahoma;
             }
             h4 {
                 padding: 5px 0;
-                font-size: 13px;
+                font-size: 11px;
                 color: #aaa;
+                font-family: tahoma;
             }
             .tile-size {
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: bold;
                 color: #aaa;
             }
@@ -445,6 +448,10 @@ section.filelist {
     z-index: 100;
     top: -80px;
 }
+.sorts, .filters {
+    display: inline-block;
+    margin: 0 5px;
+}
 .sort-control {
     background-color: #eee;
     padding: 15px 30px 15px 15px;
@@ -459,6 +466,32 @@ section.filelist {
         content: "\25BC";
         margin-left: 5px;
         position: absolute;
+    }
+}
+
+.filter-control {
+    background-color: #eee;
+    padding: 10px 15px;
+    float: left;
+    .filter-header {
+        display: inline-block;
+        font-weight: bold;
+        float: left;
+        border-right: 2px solid #ddd;
+        padding: 5px 10px 5px 0;
+    }
+    .filter-options {
+        float: left;
+        .filter-option {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px;
+            cursor: pointer;
+            color: #bbb;
+            &.on {
+                color: black;
+            }
+        }
     }
 }
 
