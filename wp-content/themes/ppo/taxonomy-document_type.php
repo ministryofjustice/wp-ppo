@@ -116,7 +116,7 @@
 
 		// Fix scroll position of sort-filter
 		navBottom = $(".nav-container").position().top + $(".nav-container").outerHeight(true);
-		$(window).scroll(function() {
+		$(window).on('scroll resize load touchmove', function() {
 			if ($(window).width() < 768) {
 				sortTop = "20px";
 				sortReset = "-80px";
