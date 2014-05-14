@@ -26,7 +26,7 @@ function cpt_init() {
 		'show_in_nav_menus' => false,
 		'query_var' => true,
 		'exclude_from_search' => false,
-		'rewrite' => array('slug' => 'document/%document_type%','with_front' => FALSE),
+		'rewrite' => array( 'slug' => 'document/%document_type%', 'with_front' => FALSE ),
 		'capabilities' => array(
 			'publish_posts' => 'delete_others_posts',
 			'edit_posts' => 'delete_others_posts',
@@ -42,7 +42,7 @@ function cpt_init() {
 		'hierarchical' => false,
 		'menu_position' => null,
 		'supports' => array( 'title', 'thumbnail' ),
-		'taxonomies' => array('document_type')
+		'taxonomies' => array( 'document_type' )
 	);
 	register_post_type( 'document', $document_args );
 }
@@ -126,8 +126,6 @@ function create_doc_thumbnail( $post_id ) {
 		$attachment_obj = get_post( $attachment_id );
 		// Check to see if attachment is PDF
 		if ( 'application/pdf' == get_post_mime_type( $attachment_obj ) ) {
-			putenv( "MAGICK_THREAD_LIMIT=1" );
-
 			$attachment_path = get_attached_file( $attachment_id );
 
 			//By adding [0] the first page gets selected, important because otherwise multi paged files wont't work
@@ -136,14 +134,14 @@ function create_doc_thumbnail( $post_id ) {
 			//Thumbnail format
 			$tn_format = 'jpg';
 			//Thumbnail output as path + format
-			$thumb_out = str_replace(".pdf","",$attachment_path . '.' . $tn_format);
+			$thumb_out = str_replace( ".pdf", "", $attachment_path . '.' . $tn_format );
 			//Thumbnail URL
-			$thumb_url = str_replace(".pdf","",$attachment_url . '.' . $tn_format);
+			$thumb_url = str_replace( ".pdf", "", $attachment_url . '.' . $tn_format );
 
 			//Setup various variables
 			//Assuming A4 - portrait - 1.00x1.41
 			$width = '159';
-			$height = $width*1.41;
+			$height = $width * 1.41;
 			$quality = '90';
 			$dpi = '300';
 			$resize = $width . 'x' . $height;
@@ -156,14 +154,23 @@ function create_doc_thumbnail( $post_id ) {
 			$s_exec = "convert -scale $width $pdf_source $thumb_out";
 
 			//Create the thumbnail with choosen option
-			exec( $r_exec );
+//			exec( $r_exec );
+			$im = new imagick( $pdf_source );
+			$im = $im->flattenImages();
+			$im->setImageFormat( $tn_format );
+
+			$width = $im->getImageheight();
+			//$im->cropImage( $width, $width, 0, 0 );
+			$im->scaleImage( $width, $height, true );
+
+			$im->writeImage( $thumb_out );
 
 			//Add thumbnail URL as metadata of pdf attachment
 			//$metadata['thumbnail'] = $thumb_url;
 			$wp_filetype = wp_check_filetype( $thumb_out, null );
 			$attachment = array(
 				'post_mime_type' => $wp_filetype['type'],
-				'post_title' => sanitize_file_name( basename($thumb_out )),
+				'post_title' => sanitize_file_name( basename( $thumb_out ) ),
 				'post_content' => '',
 				'post_status' => 'inherit',
 				'guid' => $thumb_url
@@ -209,13 +216,13 @@ function display_document_thumbnail_column( $col, $id ) {
 add_action( 'manage_document_posts_custom_column', 'display_document_thumbnail_column', 5, 2 );
 
 // Change document_type permalink
-function filter_post_type_link($link, $post)
-{
-    if ($post->post_type != 'document')
-        return $link;
+function filter_post_type_link( $link, $post ) {
+	if ( $post->post_type != 'document' )
+		return $link;
 
-    if ($cats = get_the_terms($post->ID, 'document_type'))
-        $link = str_replace('%document_type%', array_pop($cats)->slug, $link);
-    return $link;
+	if ( $cats = get_the_terms( $post->ID, 'document_type' ) )
+		$link = str_replace( '%document_type%', array_pop( $cats )->slug, $link );
+	return $link;
 }
-add_filter('post_type_link', 'filter_post_type_link', 10, 2);
+
+add_filter( 'post_type_link', 'filter_post_type_link', 10, 2 );
