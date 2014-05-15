@@ -159,8 +159,12 @@ function create_doc_thumbnail( $post_id ) {
 			$im = $im->flattenImages();
 			$im->setImageFormat( $tn_format );
 
-			$width = $im->getImageheight();
-			//$im->cropImage( $width, $width, 0, 0 );
+			$new_height = $im->getImageheight();
+			$new_width = $im->getImagewidth();
+			if ( $new_width > $new_height ) {
+//				echo $new_width . ' x ' . $new_height; exit();
+				$im->cropImage( $new_width/2, $new_height, $new_width/2, 0 );
+			}
 			$im->scaleImage( $width, $height, true );
 
 			$im->writeImage( $thumb_out );
