@@ -11,7 +11,7 @@ $document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
 $document_datetime = date( "Y-m-d", strtotime( str_replace( "/", "-", $document_date ) ) );
 $document_decade = substr($document_datetime, 0,3) . "0";
 
-$document_size = get_filesize( wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ) );
+$document_size = get_filesize( get_metadata( 'post', get_the_ID(), 'document-upload', true ) );
 ?>
 
 <article id="<?php echo 'doc-' . get_the_ID(); ?>" class="<?php echo $doc_classes; ?>" data-doc-date="<?php echo $document_datetime; ?>" data-size="<?php echo $document_size; ?>" data-decade="<?php echo $document_decade; ?>">
