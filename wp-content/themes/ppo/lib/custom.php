@@ -20,7 +20,7 @@ add_image_size( 'admin-list-thumb', 100, 100, false );
 function custom_scripts() {
 	wp_enqueue_style( 'mlpush-component', get_template_directory_uri() . '/assets/css/component.css', false );
 	wp_enqueue_style( 'mlpush-icons', get_template_directory_uri() . '/assets/css/icons.css', false );
-	
+
 	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array( 'jquery' ), null, false );
 	wp_enqueue_script( 'equalheight' );
 	wp_register_script( 'isotope', get_template_directory_uri() . '/assets/js/vendor/isotope.min.js', array( 'jquery', 'jquery-masonry' ), null, false );
@@ -111,3 +111,55 @@ function get_filesize( $file_url, $brackets = false ) {
 	return ($brackets ? "(" : "") . file_size_convert( filesize( $local_path ) ) . ($brackets ? ")" : "");
 //	return $file_url;
 }
+
+/* Adds query params to menu items */
+/*
+
+  add_filter( 'wp_get_nav_menu_items','nav_items', 11, 3 );
+
+  function nav_items( $items, $menu, $args )
+  {
+  if( is_admin() )
+  return $items;
+
+  foreach( $items as $item )
+  {
+  if( 'Home' == $item->post_title)
+  $item->url .= '?my_var=test';
+
+  }
+  return $items;
+  }
+
+ */
+
+/* Add custom filter to Documents listing */
+
+function ppo_add_doc_filters() {
+	global $typenow;
+
+	// an array of all the taxonomyies you want to display. Use the taxonomy name or slug
+	$taxonomies = array( 'document_type' );
+
+	// must set this to the post type you want the filter(s) displayed on
+	if ( $typenow == 'document' ) {
+
+		foreach ( $taxonomies as $tax_slug ) {
+			$tax_obj = get_taxonomy( $tax_slug );
+			$tax_name = $tax_obj->labels->name;
+			$terms = get_terms( $tax_slug );
+			$current_tax_slug = isset( $_GET[$tax_slug] ) ? $_GET[$tax_slug] : false;
+			if ( count( $terms ) > 0 ) {
+				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+				echo "<option value=''>Show All $tax_name</option>";
+				foreach ( $terms as $term ) {
+					
+					echo '<option value=' . $term->slug, $current_tax_slug == $term->slug ? ' selected="selected"' : '', '>' . $term->name . ' (' . $term->count . ')</option>';
+				}
+				echo "</select>";
+			}
+		}
+	}
+}
+
+add_action( 'restrict_manage_posts', 'ppo_add_doc_filters' );
