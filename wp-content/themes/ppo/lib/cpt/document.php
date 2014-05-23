@@ -1,7 +1,7 @@
 <?php
 
 // Document CPT
-function cpt_init() {
+function document_cpt_init() {
 	$document_labels = array(
 		'name' => 'Documents',
 		'singular_name' => 'Document',
@@ -47,10 +47,11 @@ function cpt_init() {
 	register_post_type( 'document', $document_args );
 }
 
-add_action( 'init', 'cpt_init' );
+add_action( 'init', 'document_cpt_init' );
 
 function create_document_taxonomies() {
-	$labels = array(
+	// Document Type
+	$document_type_labels = array(
 		'name' => _x( 'Document Types', 'taxonomy general name' ),
 		'singular_name' => _x( 'Document Type', 'taxonomy singular name' ),
 		'search_items' => __( 'Search Document Types' ),
@@ -63,39 +64,66 @@ function create_document_taxonomies() {
 		'new_item_name' => __( 'New Document Type Name' ),
 		'menu_name' => __( 'Document Types' ),
 	);
-
-	$args = array(
+	$document_type_args = array(
 		'hierarchical' => true,
-		'labels' => $labels,
+		'labels' => $document_type_labels,
 		'show_ui' => true,
 		'show_admin_column' => true,
 		'query_var' => true,
 		'rewrite' => array( 'slug' => 'document', 'with_front' => false ),
 	);
+	register_taxonomy( 'document_type', array( 'document' ), $document_type_args );
 
-	register_taxonomy( 'document_type', array( 'document' ), $args );
+	// Death Type
+	$death_type_labels = array(
+		'name' => _x( 'Death Types', 'taxonomy general name' ),
+		'singular_name' => _x( 'Death Type', 'taxonomy singular name' ),
+		'search_items' => __( 'Search Death Types' ),
+		'all_items' => __( 'All Death Types' ),
+		'parent_item' => __( 'Parent Death Type' ),
+		'parent_item_colon' => __( 'Parent Death Type:' ),
+		'edit_item' => __( 'Edit Death Type' ),
+		'update_item' => __( 'Update Death Type' ),
+		'add_new_item' => __( 'Add New Death Type' ),
+		'new_item_name' => __( 'New Death Type Name' ),
+		'menu_name' => __( 'Death Types' ),
+	);
+	$death_type_args = array(
+		'hierarchical' => true,
+		'labels' => $death_type_labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'document', 'with_front' => false ),
+	);
+	register_taxonomy( 'fii-death-type', array( 'document' ), $death_type_args );
+
+	// FII status
+	$fii_status_labels = array(
+		'name' => _x( 'FII Status', 'taxonomy general name' ),
+		'singular_name' => _x( 'FII Status', 'taxonomy singular name' ),
+		'search_items' => __( 'Search Statuses' ),
+		'all_items' => __( 'All Statuses' ),
+		'parent_item' => __( 'Parent Status' ),
+		'parent_item_colon' => __( 'Parent Status:' ),
+		'edit_item' => __( 'Edit Status' ),
+		'update_item' => __( 'Update Status' ),
+		'add_new_item' => __( 'Add New Status' ),
+		'new_item_name' => __( 'New Status Name' ),
+		'menu_name' => __( 'FII Status' ),
+	);
+	$fii_status_args = array(
+		'hierarchical' => true,
+		'labels' => $fii_status_labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'document', 'with_front' => false ),
+	);
+	register_taxonomy( 'fii-status', array( 'document' ), $fii_status_args );
 }
 
 add_action( 'init', 'create_document_taxonomies', 0 );
-
-// Sets document_type taxonomy to equal drop down value on save
-function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
-	if ( $meta_key == "document-type" ) {
-//		print_r(wp_set_post_terms( $object_id, 'document_type', $meta_value ));
-		wp_set_object_terms( $object_id, intval( $meta_value ), 'document_type' );
-	}
-}
-
-add_action( 'update_post_meta', 'update_document_type', 10, 4 );
-
-function add_document_type( $object_id, $meta_key, $meta_value ) {
-	if ( $meta_key == "document-type" ) {
-//		print_r(wp_set_post_terms( $object_id, 'document_type', $meta_value ));
-		wp_set_object_terms( $object_id, intval( $meta_value ), 'document_type' );
-	}
-}
-
-add_action( 'add_post_meta', 'add_document_type', 10, 3 );
 
 // Rename Featured Image metabox
 function document_image_box() {
@@ -144,33 +172,23 @@ function create_doc_thumbnail( $post_id ) {
 			$height = $width * 1.41;
 			$quality = '90';
 			$dpi = '300';
-			$resize = $width . 'x' . $height;
-			$density = $dpi . 'x' . $dpi;
-
-			//For configuration/options see: http://www.imagemagick.org/script/command-line-options.php
-			$a_exec = "convert -adaptive-resize $width -density $dpi -quality $quality $pdf_source $thumb_out";
-			$r_exec = "convert -resize $width -density $dpi -quality $quality $pdf_source $thumb_out";
-			$t_exec = "convert -thumbnail $width -density $dpi -quality $quality $pdf_source $thumb_out";
-			$s_exec = "convert -scale $width $pdf_source $thumb_out";
 
 			//Create the thumbnail with choosen option
-//			exec( $r_exec );
 			$im = new imagick( $pdf_source );
+			$im->setCompressionQuality( $quality );
 			$im = $im->flattenImages();
 			$im->setImageFormat( $tn_format );
 
 			$new_height = $im->getImageheight();
 			$new_width = $im->getImagewidth();
 			if ( $new_width > $new_height ) {
-//				echo $new_width . ' x ' . $new_height; exit();
-				$im->cropImage( $new_width/2, $new_height, $new_width/2, 0 );
+				$im->cropImage( $new_width / 2, $new_height, $new_width / 2, 0 );
 			}
 			$im->scaleImage( $width, $height, true );
 
 			$im->writeImage( $thumb_out );
 
 			//Add thumbnail URL as metadata of pdf attachment
-			//$metadata['thumbnail'] = $thumb_url;
 			$wp_filetype = wp_check_filetype( $thumb_out, null );
 			$attachment = array(
 				'post_mime_type' => $wp_filetype['type'],
@@ -209,10 +227,11 @@ add_filter( 'manage_document_posts_columns', 'add_document_thumbnail_column', 5 
 function display_document_thumbnail_column( $col, $id ) {
 	switch ( $col ) {
 		case 'doc_thumb':
-			if ( function_exists( 'the_post_thumbnail' ) )
+			if ( function_exists( 'the_post_thumbnail' ) ) {
 				echo the_post_thumbnail( 'admin-list-thumb' );
-			else
+			} else {
 				echo 'Not supported in theme';
+			}
 			break;
 	}
 }
@@ -221,11 +240,12 @@ add_action( 'manage_document_posts_custom_column', 'display_document_thumbnail_c
 
 // Change document_type permalink
 function filter_post_type_link( $link, $post ) {
-	if ( $post->post_type != 'document' )
+	if ( $post->post_type != 'document' ) {
 		return $link;
-
-	if ( $cats = get_the_terms( $post->ID, 'document_type' ) )
+	}
+	if ( $cats = get_the_terms( $post->ID, 'document_type' ) ) {
 		$link = str_replace( '%document_type%', array_pop( $cats )->slug, $link );
+	}
 	return $link;
 }
 

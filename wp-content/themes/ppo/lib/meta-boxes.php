@@ -199,27 +199,121 @@ function custom_meta_boxes() {
 					'type' => 'textarea'
 				)
 			)
-		) // document-meta-box
+		), // document-meta-box
+		array(
+			'id' => 'document-fii-meta-box',
+			'title' => 'FII Details',
+			'pages' => 'document',
+			'control' => array(
+				array( 'taxonomy' => 'document_type', 'value' => 'fii-report' )
+			),
+			'context' => 'normal',
+			'priority' => 'default',
+			'fields' => array(
+				array(
+					'id' => 'fii-death-date',
+					'label' => 'Date of death',
+					'type' => 'date_picker'
+				),
+				array(
+					'id' => 'fii-death-type',
+					'label' => 'Type of death',
+					'type' => 'taxonomy_select',
+					'taxonomy' => 'fii-death-type'
+				),
+				array(
+					'id' => 'fii-establishment',
+					'label' => 'Establishment',
+					'type' => 'custom_post_type_select',
+					'post_type' => 'establishment'
+				),
+				array(
+					'id' => 'fii-status',
+					'label' => 'Status',
+					'type' => 'taxonomy_select',
+					'taxonomy' => 'fii-status'
+				),
+				array(
+					'id' => 'fii-gender',
+					'label' => 'Gender',
+					'type' => 'select',
+					'choices' => array(
+						array( 'value' => 'm', 'label' => 'Male' ),
+						array( 'value' => 'f', 'label' => 'Female' )
+					)
+				),
+				array(
+					'id' => 'fii-age',
+					'label' => 'Age group',
+					'type' => 'select',
+					'choices' => array(
+						array( 'value' => '18-21', 'label' => '18-21' ),
+						array( 'value' => '22-30', 'label' => '22-30' ),
+						array( 'value' => '31-40', 'label' => '31-40' ),
+						array( 'value' => '41-50', 'label' => '41-50' ),
+						array( 'value' => '51-60', 'label' => '51-60' ),
+						array( 'value' => '61+', 'label' => '61+' ),
+					)
+				),
+				array(
+					'id' => 'fii-case-id',
+					'label' => 'Case ID',
+					'type' => 'text',
+				),
+			)
+		),
+		array(
+			'id' => 'establishment-meta-box',
+			'title' => 'Establishment Details',
+			'pages' => 'establishment',
+			'context' => 'normal',
+			'priority' => 'default',
+			'fields' => array(
+				array(
+					'id' => 'establishment-type',
+					'label' => 'Establishment Type',
+					'type' => 'taxonomy_select',
+					'taxonomy' => 'establishment-type'
+				)
+			)
+		)
 	);
 
-	$admin_post_id = (isset( $_GET['post'] ) ? $_GET['post'] : 0);
+	$admin_post_id = (filter_input( INPUT_GET, 'post' ) ? filter_input( INPUT_GET, 'post' ) : 0);
 
-//	var_dump($_POST);
+	// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
+	// TODO: Refactor into seperate function (and possibly add to wp-util or branch option-tree and include there)
+	// function filter_metabox($post_id,$metabox_array) {
+	$post_details = get_post( $admin_post_id );
+	$post_exists = isset( $post_details );
 
 	if ( is_edit_page() ) {
 		foreach ( $my_meta_boxes as $meta_box ) {
-			// Hacky way to stop meta-box appearing on other pages, yet still be processed when submitted
-			$post_details = get_post( $admin_post_id );
-			if ( isset( $meta_box['slug'] ) && isset( $post_details ) ) {
-				if (
-						($post_details->post_name == $meta_box['slug']) ||
-						(is_array( $meta_box['slug'] ) &&
-						in_array( $post_details->post_name, $meta_box['slug'] ) ) ||
-						!isset( $meta_box['slug'] ) || isset( $_POST['_wpnonce'] )
-				) {
-					ot_register_meta_box( $meta_box );
+			$show_metabox = false;
+			$has_slug = isset( $meta_box['slug'] );
+			$has_control = isset( $meta_box['control'] );
+			if ( !$has_control && !$has_slug || isset( $_POST['_wpnonce'] ) ) {
+				$show_metabox = true;
+			} elseif ( $post_exists ) {
+				if ( $has_slug ) { // Controls visibility by slug
+					if (
+							$post_details->post_name === $meta_box['slug'] ||
+							(is_array( $meta_box['slug'] ) &&
+							in_array( $post_details->post_name, $meta_box['slug'] ) )
+					) {
+						$show_metabox = true;
+					}
+				} elseif ( $has_control ) { // Controls visibility by taxonomy (but need to save first)
+					foreach ( $meta_box['control'] as $control ) {
+						$post_taxonomy = wp_get_post_terms( $admin_post_id, $control['taxonomy'] );
+						if ( $post_taxonomy && $post_taxonomy[0]->slug == $control['value'] ) {
+							$show_metabox = true;
+						}
+					}
 				}
-			} else {
+			}
+			// Show metabox 
+			if ( $show_metabox ) {
 				ot_register_meta_box( $meta_box );
 			}
 		}

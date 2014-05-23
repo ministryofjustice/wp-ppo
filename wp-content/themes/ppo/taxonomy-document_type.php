@@ -5,7 +5,14 @@
 		'annual-report' => array(
 			'filters' => array(
 				// Decade starting from year below (x) up to x + 9
-				'decade' => array( 1990, 2000, 2010 )
+				'decade' => array( 1990, 2000, 2010 ) // TODO: Make this automatic based on data
+			),
+			'sort' => array( 'date', 'size' ),
+			'default' => 'date'
+		),
+		'fii-report' => array(
+			'filters' => array(
+				'establishment-type' => 'all' // Provides all taxonomy values for the filter
 			),
 			'sort' => array( 'date', 'size' ),
 			'default' => 'date'
@@ -24,7 +31,7 @@
 // Output sort controls
 	echo "<div class='sorts'>";
 	foreach ( $current_sorts as $sort ) {
-		$sort_text = ucfirst( $sort );
+		$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
 		echo "<div class='sort-control " . ($sort == $doc_filters[$doc_type]['default'] ? "asc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
 	}
 	echo "</div>";
@@ -35,17 +42,27 @@
 		?>
 		<div class="filter-control">
 			<div class='filter-header'>
-				<?php echo ucfirst( $filter ); ?>
+				<?php echo str_replace( "-", " ", ucfirst( $filter ) ); ?>
 			</div>
 			<?php
 			echo "<div class='filter-options'>";
+			if ( !is_array( $values ) ) {
+				if ( $values === "all" ) {
+					$terms = get_terms( $filter, array( 'hide_empty' => 0 ) );
+					$values = array();
+					foreach($terms as $term) {
+						$values[] = array("label" => $term->name, "option" => $term->term_id);
+					}
+				}
+			}
 			foreach ( $values as $option ) {
 				if ( $filter == 'decade' ) {
 					$label = $option . " - " . ($option + 9);
 				} else {
-					$label = $option;
+					$label = $option['label'];
+					$option = $option['option'];
 				}
-				echo "<div class='filter-option on' data-filter-field='$option'>$label</div>";
+				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='$option'>$label</div>";
 			}
 			echo "</div>";
 			?>
@@ -103,13 +120,19 @@
 
 		// Setup filter controls
 		$('#sort-filter').on('click', '.filter-option', function() {
-			var filterValue = $(this).attr('data-filter-field');
+			var filterType = $(this).attr('data-filter-type');
 			$(this).toggleClass('on');
 			$container.isotope({
 				filter: function(tile) {
-					filterArray = $('#sort-filter .filter-option.on').map(function() {return $(this).attr('data-filter-field'); }).get();
-					var tileYear = $(this).attr('data-doc-date');
-					return ((jQuery.inArray(tileYear.substring(0, 3) + "0", filterArray)) > -1);
+					filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
+						return $(this).attr('data-filter-field');
+					}).get();
+					var filterValue = $(this).attr('data-'+filterType);
+					if (filterType==="date") {
+						return ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
+					} else {
+						return (jQuery.inArray(filterValue, filterArray) > -1);
+					}
 				}
 			});
 		});
