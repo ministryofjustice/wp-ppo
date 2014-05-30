@@ -437,7 +437,6 @@ section.filelist {
    Sort/Filter controls
    ========================================================================== */
 #sort-filter {
-    overflow: hidden;
     position: absolute;
     left: 0;
     width: 100%;
@@ -469,19 +468,34 @@ section.filelist {
     }
 }
 
+.sorts {
+    float: right;
+}
+
+.filters {
+    height: 50px;
+}
+
 .filter-control {
     background-color: #eee;
     padding: 10px 15px;
+    display: block;
     float: left;
-    .filter-header {
-        display: inline-block;
+    .filter-header {        
         font-weight: bold;
         float: left;
-        border-right: 2px solid #ddd;
-        padding: 5px 10px 5px 0;
+        padding: 5px;
+        display: inline-block;
+        cursor: pointer;
     }
     .filter-options {
-        float: left;
+        padding: 10px 15px;
+        background-color: #fff;
+        border: 1px solid #eee;
+        display: none;
+        position: absolute;
+        left: 20px;
+        top: 75px;
         .filter-option {
             display: inline-block;
             margin: 0 5px;
@@ -490,6 +504,11 @@ section.filelist {
             color: #bbb;
             &.on {
                 color: black;
+            }
+            input {
+                border: 0;
+                padding: 0;
+                margin: 0;
             }
         }
     }

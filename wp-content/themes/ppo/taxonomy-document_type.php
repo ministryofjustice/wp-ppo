@@ -4,15 +4,17 @@
 	$doc_filters = array(
 		'annual-report' => array(
 			'filters' => array(
-				// Decade starting from year below (x) up to x + 9
-				'decade' => array( 1990, 2000, 2010 ) // TODO: Make this automatic based on data
+				// Decade starting from year below (x) up to x + 9 of publish date
+				'date' => 'decades' // TODO: Make this automatic based on data
 			),
 			'sort' => array( 'date', 'size' ),
 			'default' => 'date'
 		),
 		'fii-report' => array(
 			'filters' => array(
-				'establishment-type' => 'all' // Provides all taxonomy values for the filter
+				'establishment-type' => 'all', // Provides all taxonomy values for the filter
+				//'fii-death-date' => 'range',
+				'fii-death-type' => 'all'
 			),
 			'sort' => array( 'date', 'size' ),
 			'default' => 'date'
@@ -42,27 +44,55 @@
 		?>
 		<div class="filter-control">
 			<div class='filter-header'>
-				<?php echo str_replace( "-", " ", ucfirst( $filter ) ); ?>
+				<?php echo str_replace( array( "-", "Fii" ), array( " ", "FII" ), ucfirst( $filter ) ); ?>
 			</div>
 			<?php
 			echo "<div class='filter-options'>";
-			if ( !is_array( $values ) ) {
-				if ( $values === "all" ) {
-					$terms = get_terms( $filter, array( 'hide_empty' => 0 ) );
-					$values = array();
-					foreach($terms as $term) {
-						$values[] = array("label" => $term->name, "option" => $term->term_id);
-					}
+			$extras = null;
+			$orig_values = $values;
+			$values = array();
+			if ( !is_array( $orig_values ) ) {
+				switch ( $orig_values ) {
+					case "all":
+						$terms = get_terms( $filter, array( 'hide_empty' => 0 ) );
+						foreach ( $terms as $term ) {
+							$values[] = array( "label" => $term->name, "option" => $term->term_id );
+						}
+						break;
+					case "decades":
+						$extras .= " data-filter-command='decades'";
+						$values = array( 1990, 2000, 2010 );
+						break;
+					case "years":
+						$extras .= " data-filter-command='years'";
+						for ( $y = 1990; $y <= date( "Y" ); $y++ ) {
+							$values[] = "$y";
+						}
+						break;
+					case "range":
+						$values = array( "start", "end" );
+						// NOTE: http://amsul.ca/pickadate.js/date.htm
+						break;
+					default:
+						break;
 				}
 			}
 			foreach ( $values as $option ) {
-				if ( $filter == 'decade' ) {
-					$label = $option . " - " . ($option + 9);
-				} else {
-					$label = $option['label'];
-					$option = $option['option'];
+				switch ( $orig_values ) {
+					case "decades":
+						$contents = $option . " - " . ($option + 9);
+						break;
+					case "years":
+						$contents = $option;
+						break;
+					case "range":
+						$contents = "<input type='text' id='$filter-$option'>";
+						break;
+					default:
+						$contents = $option['label'];
+						$option = $option['option'];
 				}
-				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='$option'>$label</div>";
+				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='$option'$extras>$contents</div>";
 			}
 			echo "</div>";
 			?>
@@ -127,10 +157,11 @@
 					filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
 						return $(this).attr('data-filter-field');
 					}).get();
-					var filterValue = $(this).attr('data-'+filterType);
-					if (filterType==="date") {
+					if (filterType === "date") {
+						var filterValue = $(this).attr('data-' + filterType);
 						return ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
 					} else {
+						var filterValue = $(this).attr('data-' + filterType);
 						return (jQuery.inArray(filterValue, filterArray) > -1);
 					}
 				}
@@ -155,6 +186,18 @@
 				$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px");
 			}
 		});
+
+		// Navigation for filters
+		$('.filter-header').on('click', function(f) {
+			menu = $(this).parent().find(".filter-options");
+			if (menu.css('display') == 'none') {
+				$('.filters .filter-options').hide();
+				menu.show();
+			} else {
+				menu.hide();
+			}
+		});
+
 	});
 
 </script>

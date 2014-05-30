@@ -37,6 +37,9 @@ function roots_scripts() {
 	wp_enqueue_script( 'roots_scripts' );
 	// jQueryUI Accordion
 	wp_enqueue_script( 'jquery-ui-accordion' );
+	// Horizontal accordion
+//	if ( is_tax( 'document_type' ) ) {
+//	}
 }
 
 add_action( 'wp_enqueue_scripts', 'roots_scripts', 100 );

@@ -15,7 +15,7 @@ $document_size = get_filesize( get_metadata( 'post', get_the_ID(), 'document-upl
 $document_establishment = get_metadata('post',  get_the_ID(), 'fii-establishment', true);
 $document_establishment_type = get_metadata('post', $document_establishment, 'establishment-type', true);
 
-$tile_data =  " data-doc-date='" . $document_datetime . "'"
+$tile_data =  " data-date='" . $document_datetime . "'"
 			. " data-size='" . $document_size . "'"
 			. " data-decade='" . $document_decade . "'"
 			. " data-establishment-type='" . $document_establishment_type . "'";
