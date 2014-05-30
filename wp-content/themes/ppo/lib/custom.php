@@ -181,3 +181,9 @@ function add_document_type( $object_id, $meta_key, $meta_value ) {
 }
 
 add_action( 'add_post_meta', 'add_document_type', 10, 3 );
+
+// add editor the privilege to edit theme
+$roleObject = get_role( 'editor' );
+if (!$roleObject->has_cap( 'edit_theme_options' ) ) {
+    $roleObject->add_cap( 'edit_theme_options' );
+}
