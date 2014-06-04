@@ -8,17 +8,25 @@ $doc_classes = join( " ", $doc_types );
 
 $document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
 $document_datetime = date( "Y-m-d", strtotime( str_replace( "/", "-", $document_date ) ) );
-$document_decade = substr($document_datetime, 0,3) . "0";
+$document_decade = substr( $document_datetime, 0, 3 ) . "0";
 
 $document_size = get_filesize( get_metadata( 'post', get_the_ID(), 'document-upload', true ) );
 
-$document_establishment = get_metadata('post',  get_the_ID(), 'fii-establishment', true);
-$document_establishment_type = get_metadata('post', $document_establishment, 'establishment-type', true);
+$document_establishment = get_metadata( 'post', get_the_ID(), 'fii-establishment', true );
+$document_establishment_type = get_metadata( 'post', $document_establishment, 'establishment-type', true );
 
-$tile_data =  " data-date='" . $document_datetime . "'"
-			. " data-size='" . $document_size . "'"
-			. " data-decade='" . $document_decade . "'"
-			. " data-establishment-type='" . $document_establishment_type . "'";
+$document_death_types = wp_get_post_terms( get_the_ID(), 'fii-death-type', array( "fields" => "ids" ) );
+if ( isset( $document_death_types[0] ) ) {
+	$document_death_type = $document_death_types[0];
+} else {
+	$document_death_type = "";
+}
+
+$tile_data = " data-date='" . $document_datetime . "'"
+		. " data-size='" . $document_size . "'"
+		. " data-decade='" . $document_decade . "'"
+		. " data-fii-death-type='" . str_replace( " ", "-", strtolower( $document_death_type ) ) . "'"
+		. " data-establishment-type='" . $document_establishment_type . "'";
 ?>
 
 <article id="<?php echo 'doc-' . get_the_ID(); ?>" class="<?php echo $doc_classes; ?>"<?php echo $tile_data; ?>>
@@ -28,10 +36,10 @@ $tile_data =  " data-date='" . $document_datetime . "'"
 		</a>
 	</div>
 	<div class="tile-details">
-		<?php if(!in_array('fii-report',$doc_types)) { ?>
-		<h3><?php the_title(); ?></h3>
+		<?php if ( !in_array( 'fii-report', $doc_types ) ) { ?>
+			<h3><?php the_title(); ?></h3>
 		<?php } else { ?>
-		<h4><?php echo ot_echo_option('fii-establishment'); ?></h4>
+			<h4><?php echo ot_echo_option( 'fii-establishment' ); ?></h4>
 		<?php } ?>
 		<h4><?php echo $document_date; ?></h4>
 		<div class="tile-size">

@@ -153,7 +153,7 @@ function ppo_add_doc_filters() {
 				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
 				echo "<option value=''>Show All $tax_name</option>";
 				foreach ( $terms as $term ) {
-					
+
 					echo '<option value=' . $term->slug, $current_tax_slug == $term->slug ? ' selected="selected"' : '', '>' . $term->name . ' (' . $term->count . ')</option>';
 				}
 				echo "</select>";
@@ -161,22 +161,29 @@ function ppo_add_doc_filters() {
 		}
 	}
 }
+
 add_action( 'restrict_manage_posts', 'ppo_add_doc_filters' );
 
-// Sets document_type taxonomy to equal drop down value on save
+// Sets document_type taxonomies to equal drop down value on save
+$meta_keys = array( 'document-type', 'fii-death-type' );
+
 function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
-	if ( $meta_key == "document-type" ) {
-//		print_r(wp_set_post_terms( $object_id, 'document_type', $meta_value ));
-		wp_set_object_terms( $object_id, intval( $meta_value ), 'document_type' );
+	global $meta_keys;
+	foreach ( $meta_keys as $current_meta_key ) {
+		if ( $meta_key == $current_meta_key) {
+			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key );
+		}
 	}
 }
 
 add_action( 'update_post_meta', 'update_document_type', 10, 4 );
 
 function add_document_type( $object_id, $meta_key, $meta_value ) {
-	if ( $meta_key == "document-type" ) {
-//		print_r(wp_set_post_terms( $object_id, 'document_type', $meta_value ));
-		wp_set_object_terms( $object_id, intval( $meta_value ), 'document_type' );
+	global $meta_keys;
+	foreach ( $meta_keys as $current_meta_key ) {
+		if ( $meta_key == $current_meta_key ) {
+			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key );
+		}
 	}
 }
 
@@ -184,6 +191,6 @@ add_action( 'add_post_meta', 'add_document_type', 10, 3 );
 
 // add editor the privilege to edit theme
 $roleObject = get_role( 'editor' );
-if (!$roleObject->has_cap( 'edit_theme_options' ) ) {
-    $roleObject->add_cap( 'edit_theme_options' );
+if ( !$roleObject->has_cap( 'edit_theme_options' ) ) {
+	$roleObject->add_cap( 'edit_theme_options' );
 }

@@ -1,5 +1,6 @@
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
 	<div class="nav-container">
+		<a class="brand" href="<?php echo home_url(); ?>/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo_screen.png" alt="<?php bloginfo( 'name' ); ?>"></a>
 		<nav class="collapse navbar-collapse" role="navigation">
 			<?php
 			if ( has_nav_menu( 'primary_navigation' ) ) :
@@ -16,7 +17,6 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="<?php echo home_url(); ?>/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo_screen.png" alt="<?php bloginfo( 'name' ); ?>"></a>
 		</div>
 	</div>
 </header>

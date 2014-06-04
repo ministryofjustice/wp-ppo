@@ -32,23 +32,32 @@ body { }
    ========================================================================== */
 
 .banner { 
-    background-color: @ppo-red; min-height: 130px;float: left;width: 100%;
+    background-color: @ppo-red;float: left;width: 100%;
     .nav-container {
         background-color: @ppo-dark;
+        position: relative;
     }
     .container {
         /*max-width: @container-desktop;*/
     }
     a.brand {
-        line-height: 130px; margin: 0 5px; width: 100%; margin-right: -79px;
+        line-height: 70px; margin: 0 5px; width: auto; position: absolute; left: 0; top: 0; text-align: center;
         img {
-            max-width: 100%;padding-right: 79px;
+            max-width: 100%;padding: 10px;max-height: 70px; 
         }
     }
     /*.navbar-collapse { clear: both; }*/
 }
 /*ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }*/
 /*.nav .dropdown-toggle .caret { display:none; }*/
+
+.navbar {
+    min-height: 70px;
+}
+.navbar-toggle {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
 
 .menu-container {
     display: none;
@@ -70,6 +79,9 @@ body { }
 
 .navbar-nav>li {
     width: 14.28%;
+}
+nav.collapse.navbar-collapse {
+    margin-left: 15%;
 }
 .mp-pusher {
     .navbar-nav>li {
@@ -554,8 +566,8 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
     .nav-container {
         position: fixed; top: 0; width: 100%;
     }
-    .navbar-header {
-        margin-top: 70px;
+    .banner a.brand {
+        width: 15%;
     }
     #menu-footer-navigation {
         text-align: left;

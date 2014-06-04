@@ -154,16 +154,19 @@
 			$(this).toggleClass('on');
 			$container.isotope({
 				filter: function(tile) {
+					showTile = false;
 					filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
 						return $(this).attr('data-filter-field');
 					}).get();
 					if (filterType === "date") {
 						var filterValue = $(this).attr('data-' + filterType);
-						return ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
+						showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
 					} else {
 						var filterValue = $(this).attr('data-' + filterType);
-						return (jQuery.inArray(filterValue, filterArray) > -1);
+						console.log(filterValue);
+						showTile = (jQuery.inArray(filterValue, filterArray) > -1);
 					}
+					return showTile;
 				}
 			});
 		});
