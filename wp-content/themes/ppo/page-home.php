@@ -1,10 +1,26 @@
+<div id="home-cta-container" class="container">
+	<div class="row">
+		<?php for ( $i = 1; $i <= 4; $i++ ) { ?>
+			<div class="col-md-3 home-cta">
+				<a href="<?php echo ot_get_option( "homepage_nav_url$i" ); ?>">
+					<div class="cta-inner">
+						<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
+						<div><?php echo ot_get_option( "homepage_nav_text$i" ); ?></div>
+						<img src="<?php echo ot_get_option( "homepage_nav_image$i" ); ?>">
+					</div>
+				</a>
+			</div>
+		<?php } ?>
+	</div>
+</div>
+
 <h1>Welcome to the PPO</h1>
 
 <?php while ( have_posts() ) : the_post(); ?>
 	<?php the_content(); ?>
 <?php endwhile; ?>
 
-<?php get_search_form(true); ?>
+<?php get_search_form( true ); ?>
 
 <div id="whats-new">
 	<h2>What's new</h2>

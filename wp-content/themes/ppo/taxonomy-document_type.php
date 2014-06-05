@@ -105,6 +105,14 @@
 
 <div class="tile-container">
 
+	<?php
+	// Modify query to retrive all docs
+	global $wp_query;
+	query_posts( array_merge( $wp_query->query, array(
+		'posts_per_page' => 200
+	) ) );
+	?>
+
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php get_template_part( 'templates/content-tile', get_post_format() ); ?>
 	<?php endwhile; ?>
@@ -163,8 +171,7 @@
 						showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
 					} else {
 						var filterValue = $(this).attr('data-' + filterType);
-						console.log(filterValue);
-						showTile = (jQuery.inArray(filterValue, filterArray) > -1);
+					showTile = (jQuery.inArray(filterValue, filterArray) > -1);
 					}
 					return showTile;
 				}

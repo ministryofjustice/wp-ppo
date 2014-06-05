@@ -55,7 +55,9 @@ add_action( 'init', 'create_footer_menu' );
 add_filter( 'ot_theme_mode', '__return_true' );
 add_filter( 'ot_show_pages', '__return_false' );
 add_filter( 'ot_show_new_layout', '__return_false' );
-add_filter( 'ot_use_theme_options', '__return_false' );
+add_filter( 'ot_use_theme_options', '__return_true' );
+
+add_filter( 'ot_header_version_text', '__return_null');
 
 //load_template( trailingslashit( get_template_directory() ) . 'inc/theme-options.php' );
 require_once (trailingslashit( get_template_directory() ) . 'option-tree/ot-loader.php');
@@ -100,7 +102,11 @@ function file_size_convert( $bytes ) {
 			break;
 		}
 	}
-	return $result;
+	if ( isset($result) ) {
+		return $result;
+	} else {
+		return false;
+	}
 }
 
 /* Returns file size */
@@ -165,12 +171,12 @@ function ppo_add_doc_filters() {
 add_action( 'restrict_manage_posts', 'ppo_add_doc_filters' );
 
 // Sets document_type taxonomies to equal drop down value on save
-$meta_keys = array( 'document-type', 'fii-death-type' );
+$meta_keys = array( 'document-type', 'fii-death-type', 'fii-status' );
 
 function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
 	foreach ( $meta_keys as $current_meta_key ) {
-		if ( $meta_key == $current_meta_key) {
+		if ( $meta_key == $current_meta_key ) {
 			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key );
 		}
 	}
