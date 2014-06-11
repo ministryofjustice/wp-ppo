@@ -23,8 +23,10 @@ function custom_scripts() {
 
 	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array( 'jquery' ), null, false );
 	wp_enqueue_script( 'equalheight' );
-	wp_register_script( 'isotope', get_template_directory_uri() . '/assets/js/vendor/isotope.min.js', array( 'jquery', 'jquery-masonry' ), null, false );
-	wp_enqueue_script( 'isotope' );
+	wp_register_script( 'jquery.query-object', get_template_directory_uri() . '/assets/js/plugins/jquery.query-object.js', array( 'jquery' ), null, false );
+	wp_enqueue_script( 'jquery.query-object' );
+//	wp_register_script( 'isotope', get_template_directory_uri() . '/assets/js/vendor/isotope.min.js', array( 'jquery', 'jquery-masonry' ), null, false );
+//	wp_enqueue_script( 'isotope' );
 	wp_register_script( 'classie', get_template_directory_uri() . '/assets/js/classie.js', array(), null, false );
 	wp_enqueue_script( 'classie' );
 	wp_register_script( 'mlpushmenu', get_template_directory_uri() . '/assets/js/mlpushmenu.js', array(), null, false );

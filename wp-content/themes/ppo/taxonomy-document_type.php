@@ -1,3 +1,5 @@
+<div id="loading-spinner"><img src="<?php echo get_template_directory_uri( __FILE__ ) . '/assets/img/ajax-loader.gif'; ?>"></div>
+
 <nav id="sort-filter">
 	<?php
 // Set up filter/sort controls array
@@ -108,106 +110,141 @@
 	<?php
 	// Modify query to retrive all docs
 	global $wp_query;
-	query_posts( array_merge( $wp_query->query, array(
-		'posts_per_page' => 200
-	) ) );
+	$post_per_page = 50;
+	$paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
+	$args = ( array_merge( $wp_query->query, array(
+				'posts_per_page' => $post_per_page,
+				'paged' => $paged
+			) ) );
+	echo "<script type='text/javascript'>curPage = $paged;maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";PPOAjax.queryParams='" . http_build_query( $args ) . "'</script>";
 	?>
 
-	<?php while ( have_posts() ) : the_post(); ?>
-		<?php get_template_part( 'templates/content-tile', get_post_format() ); ?>
-	<?php endwhile; ?>
+	<div class="live-results"></div>
 
 </div>
 
 <script type="text/javascript">
 
-	jQuery(document).ready(function($) {
-		var $container = $(".tile-container");
-		// Activate Isotop
-		$container.isotope({
-			itemSelector: 'article',
-			getSortData: {
-				date: '[data-doc-date]',
-				size: '[data-size] parseInt'
-			}
-		});
-
-		// Setup sort controls
-		$('#sort-filter').on('click', '.sort-control', function() {
-			var sortByValue = $(this).attr('data-sort-field');
-			var sortAsc;
-			if ($(this).hasClass("asc")) {
-				$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-				$(this).addClass("desc");
-				sortAsc = false;
-			} else if ($(this).hasClass("desc")) {
-				$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-				$(this).addClass("asc");
-				sortAsc = true;
-			} else {
-				$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-				$(this).removeClass("off");
-				$(this).addClass("asc");
-				sortAsc = true;
-			}
-			$container.isotope({
-				sortBy: sortByValue,
-				sortAscending: sortAsc
-			});
-		});
-
-		// Setup filter controls
-		$('#sort-filter').on('click', '.filter-option', function() {
-			var filterType = $(this).attr('data-filter-type');
-			$(this).toggleClass('on');
-			$container.isotope({
-				filter: function(tile) {
-					showTile = false;
-					filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
-						return $(this).attr('data-filter-field');
-					}).get();
-					if (filterType === "date") {
-						var filterValue = $(this).attr('data-' + filterType);
-						showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
-					} else {
-						var filterValue = $(this).attr('data-' + filterType);
-					showTile = (jQuery.inArray(filterValue, filterArray) > -1);
+	$(document).ready(
+			function() {
+				$contentLoadTriggered = false;
+				$(document).scroll(function() {
+					if (($(document).scrollTop() + $(window).height()) >= ($(document).height() -
+							150) &&
+							$contentLoadTriggered == false)
+					{
+						$contentLoadTriggered = true;
+						// Modify queryParams
+						PPOAjax.queryParams = PPOAjax.queryParams.replace("paged=" + curPage, "paged=" + (curPage + 1));
+						// Increment paged
+						curPage++;
+						// Load next results
+						if (curPage <= maxPage) {
+							$("#loading-spinner").show();
+							console.log(PPOAjax.queryParams);
+							update_tiles(PPOAjax.queryParams);
+						}
 					}
-					return showTile;
-				}
-			});
-		});
+				});
 
-		// Fix scroll position of sort-filter
-		navBottom = $(".nav-container").position().top + $(".nav-container").outerHeight(true);
-		$(window).on('scroll resize load touchmove', function() {
-			if ($(window).width() < 768) {
-				sortTop = "20px";
-				sortReset = "-80px";
-				scrollStart = 130;
-			} else {
-				sortTop = (navBottom + 20) + "px";
-				sortReset = 0;
-				scrollStart = 60;
-			}
-			if ($(window).scrollTop() - scrollStart > navBottom) {
-				$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0");
-			} else {
-				$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px");
-			}
-		});
+				// Setup sort controls
+				$('#sort-filter').on('click', '.sort-control', function() {
+					var sortByValue = $(this).attr('data-sort-field');
+					var sortAsc;
+					if ($(this).hasClass("asc")) {
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
+						$(this).addClass("desc");
+						sortAsc = false;
+					} else if ($(this).hasClass("desc")) {
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
+						$(this).addClass("asc");
+						sortAsc = true;
+					} else {
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
+						$(this).removeClass("off");
+						$(this).addClass("asc");
+						sortAsc = true;
+					}
 
-		// Navigation for filters
-		$('.filter-header').on('click', function(f) {
-			menu = $(this).parent().find(".filter-options");
-			if (menu.css('display') == 'none') {
-				$('.filters .filter-options').hide();
-				menu.show();
-			} else {
-				menu.hide();
-			}
-		});
+					/*
+					 * queryParameters -> handles the query string parameters
+					 * queryString -> the query string without the fist '?' character
+					 * re -> the regular expression
+					 * m -> holds the string matching the regular expression
+					 */
+					var queryParameters = {}, queryString = PPOAjax.queryParams,
+							re = /([^&=]+)=([^&]*)/g, m;
 
-	});
+					// Creates a map with the query string parameters
+					while (m = re.exec(queryString)) {
+						queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+					}
+					
+					sortByValue = sortByValue=="date"?"document-date":"";
+
+					queryParameters["order"] = (sortAsc ? "ASC" : "DESC");
+					queryParameters["orderby"] = 'meta_value';
+					queryParameters["meta_key"] = sortByValue;
+					queryParameters["paged"] = 1;
+					console.log(queryParameters);
+
+					PPOAjax.queryParams = $.param(queryParameters);
+					update_tiles(PPOAjax.queryParams,true);
+				});
+
+				// Setup filter controls
+				$('#sort-filter').on('click', '.filter-option', function() {
+					var filterType = $(this).attr('data-filter-type');
+					$(this).toggleClass('on');
+					$container.isotope({
+						filter: function(tile) {
+							showTile = false;
+							filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
+								return $(this).attr('data-filter-field');
+							}).get();
+							if (filterType === "date") {
+								var filterValue = $(this).attr('data-' + filterType);
+								showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
+							} else {
+								var filterValue = $(this).attr('data-' + filterType);
+								showTile = (jQuery.inArray(filterValue, filterArray) > -1);
+							}
+							return showTile;
+						}
+					});
+				});
+
+				// Fix scroll position of sort-filter
+				//		navBottom = $(".nav-container").position().top + $(".nav-container").outerHeight(true);
+				navBottom = 0;
+				$(window).on('scroll resize load touchmove', function() {
+					if ($(window).width() < 768) {
+						sortTop = "20px";
+						sortReset = "-80px";
+						scrollStart = 130;
+					} else {
+						sortTop = (navBottom + 20) + "px";
+						sortReset = 0;
+						scrollStart = 60;
+					}
+					if ($(window).scrollTop() - scrollStart > navBottom) {
+						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0");
+					} else {
+						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px");
+					}
+				});
+
+				// Navigation for filters
+				$('.filter-header').on('click', function(f) {
+					menu = $(this).parent().find(".filter-options");
+					if (menu.css('display') == 'none') {
+						$('.filters .filter-options').hide();
+						menu.show();
+					} else {
+						menu.hide();
+					}
+				});
+			}
+	);
 
 </script>

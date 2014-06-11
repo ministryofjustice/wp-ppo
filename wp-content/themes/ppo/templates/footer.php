@@ -13,6 +13,12 @@
 
 <script>
 	new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
+	jQuery(document).ready(function($) {
+		$(window).scroll(function(e) {
+			menuBottom = ($("header .nav-container").height() - $(document).scrollTop());
+			$('header .menu-container').css("top",menuBottom+"px");
+		});
+	});
 </script>
 
 <?php wp_footer(); ?>
