@@ -235,7 +235,7 @@ nav>ul>li>.menu-container>ul>li {
 .content { 
     /*max-width: @container-desktop;*/
     margin: 0 auto;
-    .row { margin-right: 0; }
+    .row { margin: 0; }
     .child-pages {
         background-color: @gray-lighter; padding: 15px; overflow: hidden;
         li {
@@ -249,7 +249,10 @@ nav>ul>li>.menu-container>ul>li {
 
 .home {
     .search-form {
-        padding: 15px; background-color: #ca1c00; margin: 20px -15px;
+        margin: 20px 0;
+        button.search-submit {
+            z-index: -1;
+        }
     }
 }
 
@@ -297,13 +300,54 @@ nav>ul>li>.menu-container>ul>li {
 .main {
     a { font-weight: bold; }
 
-    /* Home page */
-    #whats-new {
+    .boxout {
         background-color: @gray-lighter; padding: 15px; margin: 20px 0 0;
-        h2 { margin-top: 0; }
-        ul { 
+        h2,h3,h4 { margin: 0 0 10px; }
+        ul {
             margin-bottom: 0; list-style: none; padding: 0;
-            li { margin: 5px 0; }
+            li {
+            }
+        }
+    }
+
+    /* Home page */
+    #home-content-container {
+        .col-md-6:first-of-type {
+            padding-left: 0;
+        }
+        .col-md-6:last-of-type {
+            padding-right: 0;
+        }
+    }
+    #latest-news {
+        overflow: hidden;
+        ul { 
+            li {
+                margin: 5px 0;
+                .attachment-home-news-thumb {
+                    float: left;
+                    margin-right: 20px;
+                    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+                    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+                    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+                }
+                .news-details {
+                    display: table-cell;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+
+    #latest-publications {
+        ul {
+            li {
+                padding: 8px 0;
+                font-size: 1.1em;
+                i.fa {
+                    margin: 0 6px 0 3px;
+                }
+            }
         }
     }
 

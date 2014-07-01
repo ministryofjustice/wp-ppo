@@ -15,6 +15,7 @@ foreach ( $cpt_declarations as $cpt_declaration ) {
 
 // Add image sizes
 add_image_size( 'admin-list-thumb', 100, 100, false );
+add_image_size( 'home-news-thumb', 180, 90, true );
 
 // Add JS
 function custom_scripts() {
@@ -59,7 +60,7 @@ add_filter( 'ot_show_pages', '__return_false' );
 add_filter( 'ot_show_new_layout', '__return_false' );
 add_filter( 'ot_use_theme_options', '__return_true' );
 
-add_filter( 'ot_header_version_text', '__return_null');
+add_filter( 'ot_header_version_text', '__return_null' );
 
 //load_template( trailingslashit( get_template_directory() ) . 'inc/theme-options.php' );
 require_once (trailingslashit( get_template_directory() ) . 'option-tree/ot-loader.php');
@@ -104,7 +105,7 @@ function file_size_convert( $bytes ) {
 			break;
 		}
 	}
-	if ( isset($result) ) {
+	if ( isset( $result ) ) {
 		return $result;
 	} else {
 		return false;
