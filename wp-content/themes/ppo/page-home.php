@@ -46,7 +46,7 @@
 								echo $document_datetime;
 								?>,
 								<?php echo get_the_title( get_metadata( 'post', get_the_ID(), 'fii-establishment', true ) ); ?> 
-								(<?php echo get_term( get_metadata( 'post', get_the_ID(), 'fii-death-type', true ), 'fii-death-type', 'ARRAY_N' )[1]; ?>)
+								(<?php $death_type_array = get_term( get_metadata( 'post', get_the_ID(), 'fii-death-type', true ), 'fii-death-type', 'ARRAY_N' ); echo $death_type_array[1]; ?>)
 							</a>
 						</li>
 						<?php
