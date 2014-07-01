@@ -1,0 +1,388 @@
+/********************   Sync Admin Page   ***********************/ 
+img, a img, a{outline:0 none; border:0 none;}
+a:active, a:focus, li:focus, li:active {outline:0 none;}
+h2.logo {
+    background: url("../images/sync_icon.png") no-repeat top left;
+    line-height: 80px;
+    padding: 0 0 0 80px;
+    margin-bottom: 30px;
+}
+#wpsync .form-table {
+    margin-top: 3.5em;
+    width: 50%;
+}
+#wpsync .add-target {
+    width: 80%;
+}
+#wpsync #source-info {
+    margin-top: 5%;
+}
+
+#wpsync #source-info .left {
+    display: inline-block;
+    width: 15%;
+    padding: 0 30px 20px 0;
+}
+#wpsync #source-info .left h4 {
+    font-size: 16px;
+    margin: 0 0px 0 0;
+}
+#wpsync #source-info .right {
+    display: inline-block;
+    width: 65%;
+    padding-bottom: 20px;
+}
+#wpsync #source-info .right select {
+    margin: 0;
+    width: 160px;
+}
+#wpsync #source-info .right #detail-link {
+    float: right;
+    padding-left: 10px;
+}
+#wpsync #target-info .left {
+    display: inline-block;
+    width: 15%;
+    padding: 0 30px 20px 0;
+}
+#wpsync #target-info .left h4 {
+    font-size: 16px;
+    margin: 0 0px 0 0;
+}
+#wpsync #target-info .right {
+    display: inline-block;
+    width: 65%;
+    padding-bottom: 20px;
+}
+#wpsync #target-info .right select {
+    margin: 0;
+    width: 160px;
+}
+#wpsync #err-msg {
+    color: red;
+    font-size: 10px;
+    margin-left: 9%;
+}
+#wpsync .msg-box {
+    background: none repeat scroll 0 0 #EBEBEB;
+    border: 1px solid #CCCCCC;
+    color: #3469BF;
+    display: block;
+    margin: 0 0 20px 9%;
+    padding: 10px;
+    width: 45%;
+    font-weight:bold;
+}
+.clear {
+    clear: both;
+}
+.source_info{margin-left:80px;}
+
+
+
+/*************************** Tooltip *****************************/
+#tooltip{
+    position:absolute;
+    border:1px solid #ccc;
+    background:#333;
+    padding:5px;
+    color:#fff;
+}
+
+#tooltipList ul
+{
+    margin:0px;
+    padding:0px;
+}
+
+#tooltipList li
+{
+    display:block;
+    margin-bottom:20px;
+}
+
+#tooltipList{
+    display:inline-block;
+}
+/*************************** Form items**************************/
+textarea, input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="url"], .titlewrap input, select {
+    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.17) inset;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.17) inset;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.17) inset;
+}
+input.regular-text, #adduser .form-field input {
+    height: 34px;
+}
+
+/********************   Source Instance Detail Page  ********************/
+
+#wpsync-source h2 {
+}
+#wpsync-source #main {
+    margin-top: 6%;
+    padding-left: 0.5px;
+}
+#wpsync-source #head-subtext {
+    margin-top: 3%;
+}
+#wpsync-source .form-table {
+    width: 15%;
+}
+#wpsync-source .themes-list {
+    float: left;
+    width: 35%;
+}
+#wpsync-source .plugins-list {
+    float: left;
+    width: 35%;
+}
+#wpsync-source .media-list {
+}
+/********************   Content Details Page  ********************/
+
+#wpsync-content h2 {
+    
+}
+#wpsync-content #main {
+    margin-top: 0;
+    padding-left: 0.5px;
+}
+#wpsync-content #main h3 {
+    text-transform: capitalize;
+}
+#wpsync-content #head-subtext {
+    /*margin-top: 3%;*/
+}
+#wpsync-content .form-table {
+    width: 15%;
+}
+#wpsync-content .themes-list {
+
+}
+#wpsync-content .plugins-list {
+    float: left;
+}
+
+
+#wpsync-content .sync-btn {
+    margin: 15px 0;
+}
+
+#wpsync-content .syncdb{
+    margin-top:10px;
+}
+#wpsync-content .update-nag {
+    margin: 20px 0;
+}
+#wpsync-content .update-nag small {
+    display: block;
+}
+#wpsync-content .update-nag small.list {
+    margin: 5px 30px;
+}
+
+/********************   Add Instance Detail Page  ********************/
+
+
+#wpsync .add-target .left h4 {
+    font-size: 16px;
+}
+#wpsync .add-target .target-details {
+    float: left;
+    margin-left: 9%;
+}
+#wpsync .add-target .target-details #add-btn {
+    margin-top: 20px;
+}
+.field-wrapper {
+    margin: 0 0 10px;
+}
+.field-wrapper label {
+    margin: 0 0 5px;
+    display: block;
+}
+/********************   Target Instance listing Page (Configured Instances) ********************/
+
+#wpsync #targets-listing h4 {
+    font-size: 16px;
+}
+#wpsync #targets-listing .right {
+    float: none;
+    margin-left: 7.5%;
+    width:60%;
+}
+#wpsync #targets-listing .right ul{border:1px solid #ccc;}
+#wpsync #targets-listing .right ul li {
+    background: none repeat scroll 0 0 #ededed;
+    display: table;
+    margin: 0;
+    padding: 5px 1%;
+    width: 98%;
+    border-bottom:1px solid #ccc;
+}
+
+#wpsync #targets-listing .right ul li.head {
+    background: #0074A2;
+}
+#wpsync #targets-listing .right ul li.head div{font-weight:bold; font-size:14px; color:#fff;}
+#wpsync #targets-listing .right ul li:last-child{border-bottom:0 none;}
+#wpsync #targets-listing .right .tname {
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+    width: 40%;
+    font-weight:bold;
+}
+
+#wpsync #targets-listing .right .turl {
+    display: table-cell;
+    float: none;
+    margin-right: 0;
+    vertical-align: middle;
+    width: 50%;
+}
+#wpsync #targets-listing .right .options {
+    float: none;
+    display:table-cell;
+}
+#wpsync #targets-listing .right .options div {
+    float: left;
+    margin-left: 10px;
+}
+#wpsync #targets-listing .delete .button-primary{background:url(../images/delete_icn.png) no-repeat left top;
+                                                 border:0 none;
+                                                 box-shadow: none;
+                                                 color: #FFFFFF;
+                                                 text-decoration: none;
+                                                 text-indent:-9999em;
+                                                 padding:0;
+                                                 margin:5px 0 0;
+                                                 width:16px;
+                                                 height:16px;
+                                                 line-height:1;
+                                                 outline:0 none;
+}
+#wpsync #targets-listing .right .options .edit a{background:url(../images/edit_icn.png) no-repeat left top;
+                                                 border:0 none;
+                                                 box-shadow: none;
+                                                 color: #FFFFFF;
+                                                 text-decoration: none;
+                                                 text-indent:-9999em;
+                                                 padding:0;
+                                                 margin:5px 0 0;
+                                                 width:16px;
+                                                 height:16px;
+                                                 line-height:1;
+                                                 outline:0 none;
+}
+#targets-listing .right .options .edit a.active, #targets-listing .right .options .edit a.active:hover,#targets-listing .right .options .edit a.active:focus, #targets-listing .right .options .edit a:active{
+    vertical-align:baseline;
+}
+
+
+#targets-listing .no-instances{
+     margin-left: 7.5%;
+}
+
+
+.wp-core-ui .button-primary{background:#0074A2; }
+.sync-btn input[type="submit"], .sync-btn input[type="button"]{min-width:70px;}
+h3{margin:1.33em 0;}
+
+/*************************tab-wrapper*************************************/
+.tab-wrapper{}
+.tab-wrapper #head-subtext > h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+/*************************  Error Page *************************************/
+
+.wrapper { 
+  	width:98%;
+  	display:table;
+	background: url("../images/container_background.png") repeat-x scroll left top transparent;
+}
+
+.mainWrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 830px;
+}
+
+.leftHolder {
+   
+    display: block;
+    float: left;
+    height: 269px;
+    margin: 41px 0 0;
+    position: relative;
+    width: 410px;
+}
+.errorNumber {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    top: 52px;
+    font-size: 30px;
+    line-height: 58px;
+    font-weight: bold;
+    font-family: arial;
+}
+.errorNumber p{
+  
+    font-size: 30px;
+    line-height: 58px;
+}
+.rightHolder {
+    display: block;
+    float: right;
+    height: 351px;
+    margin: 0 0 31px;
+    width: 410px;
+}
+
+.robotik {
+    display: block;
+    float: left;
+    height: 129px;
+    margin: 0 19px 47px 72px;
+    width: 126px;
+}
+.message {
+    background: url("../images/message_stick.png") no-repeat scroll 41px 100% transparent;
+    display: block;
+    float: right;
+    font-family: 'Istok web',sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    margin: -30px 0 30px;
+    overflow: hidden;
+    padding: 0 0 10px;
+    position: relative;
+}
+.message p {
+    background: none repeat scroll 0 0 #41444B;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    padding: 10px;
+    width: 319px;
+    margin:0px;
+}
+
+.back-link {
+    float: left;
+    font-size: 16px;
+    margin-left: 26%;
+    margin-top: 10%;
+}
+
+.back-link a{
+    color:#fff;
+}
