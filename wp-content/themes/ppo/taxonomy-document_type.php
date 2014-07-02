@@ -36,7 +36,7 @@
 	echo "<div class='sorts'>";
 	foreach ( $current_sorts as $sort ) {
 		$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
-		echo "<div class='sort-control " . ($sort == $doc_filters[$doc_type]['default'] ? "asc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
+		echo "<div class='sort-control " . ($sort == $doc_filters[$doc_type]['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
 	}
 	echo "</div>";
 
@@ -114,7 +114,10 @@
 	$paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
 	$args = ( array_merge( $wp_query->query, array(
 				'posts_per_page' => $post_per_page,
-				'paged' => $paged
+				'paged' => $paged,
+				'order' => "DESC",
+				'orderby' => 'meta_value',
+				'meta_key' => 'document-date'
 			) ) );
 	echo "<script type='text/javascript'>curPage = $paged;maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";PPOAjax.queryParams='" . http_build_query( $args ) . "'</script>";
 	?>
