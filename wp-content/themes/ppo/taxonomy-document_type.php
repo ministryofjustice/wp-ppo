@@ -141,7 +141,6 @@
 						// Load next results
 						if (curPage <= maxPage) {
 							$("#loading-spinner").show();
-							console.log(PPOAjax.queryParams);
 							update_tiles(PPOAjax.queryParams);
 						}
 					}
@@ -196,22 +195,22 @@
 				$('#sort-filter').on('click', '.filter-option', function() {
 					var filterType = $(this).attr('data-filter-type');
 					$(this).toggleClass('on');
-					$container.isotope({
-						filter: function(tile) {
-							showTile = false;
-							filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
-								return $(this).attr('data-filter-field');
-							}).get();
-							if (filterType === "date") {
-								var filterValue = $(this).attr('data-' + filterType);
-								showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
-							} else {
-								var filterValue = $(this).attr('data-' + filterType);
-								showTile = (jQuery.inArray(filterValue, filterArray) > -1);
-							}
-							return showTile;
-						}
-					});
+//					$container.isotope({
+//						filter: function(tile) {
+//							showTile = false;
+//							filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
+//								return $(this).attr('data-filter-field');
+//							}).get();
+//							if (filterType === "date") {
+//								var filterValue = $(this).attr('data-' + filterType);
+//								showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
+//							} else {
+//								var filterValue = $(this).attr('data-' + filterType);
+//								showTile = (jQuery.inArray(filterValue, filterArray) > -1);
+//							}
+//							return showTile;
+//						}
+//					});
 				});
 
 				// Fix scroll position of sort-filter
@@ -221,16 +220,18 @@
 					if ($(window).width() < 768) {
 						sortTop = "20px";
 						sortReset = "-80px";
-						scrollStart = 130;
+						scrollStart = 70;
 					} else {
 						sortTop = (navBottom + 20) + "px";
 						sortReset = 0;
-						scrollStart = 60;
+						scrollStart = 70;
 					}
 					if ($(window).scrollTop() - scrollStart > navBottom) {
-						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0");
+						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding","0");
+						$(".sorts,.filters").css("margin","20px 35px");
 					} else {
-						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px");
+						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px").css("padding","0 15px");
+						$(".sorts,.filters").css("margin","20px");
 					}
 				});
 

@@ -252,6 +252,9 @@ nav>ul>li>.menu-container>ul>li {
         margin: 20px 0;
         button.search-submit {
             z-index: -1;
+            &:focus {
+                z-index: 1;
+            }
         }
     }
 }
@@ -536,15 +539,15 @@ section.filelist {
     left: 0;
     width: 100%;
     margin: -20px -15px;
-    padding: 20px 15px;
     box-sizing: content-box;
     background: #ddd;
     z-index: 100;
     top: -80px;
+    height: 90px;
 }
 .sorts, .filters {
     display: inline-block;
-    margin: 0 5px;
+    margin: 20px;
 }
 .sort-control {
     background-color: #eee;

@@ -22,7 +22,7 @@ function update_tiles(queryParams, clearData) {
         success: function(results) {
             console.log(queryParams);
             if (clearData === true) {
-                jQuery(".live-results").replace(results);
+                jQuery(".live-results").html(results);
             } else {
                 jQuery(".live-results").append(results);
             }
