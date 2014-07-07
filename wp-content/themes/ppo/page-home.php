@@ -9,7 +9,7 @@
 		</div>
 		<div class="col-md-6">
 			<?php get_search_form( true ); ?>
-			<iframe width="100%" height="315" src="//www.youtube.com/embed/t6bhdrnNl74" frameborder="0" allowfullscreen></iframe>
+			<iframe width="100%" height="315" src="//www.youtube.com/embed/t6bhdrnNl74?modestbranding=1&showinfo=0&autohide=1" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 
