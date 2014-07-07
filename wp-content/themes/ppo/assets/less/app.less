@@ -108,14 +108,14 @@ nav.collapse.navbar-collapse {
     padding: 0;
     .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
         background-color: rgba(245,245,245,0.8);
-        color: #b00c00;
+        color: @ppo-red;
     }
 }
 
 nav>ul>li>.menu-container>ul>li {
     >a, >.submenu-title {
         font-weight: bold;
-        color: #b00c00;
+        color: @ppo-red;
     }
     >.menu-container {
         display: block;
@@ -313,6 +313,11 @@ nav>ul>li>.menu-container>ul>li {
         h3 {
             border-bottom: 1px solid;
             padding-bottom: 5px;
+        }
+        a {
+            h4 {
+                color: @ppo-red;
+            }
         }
         ul {
             margin-bottom: 0; list-style: none; padding: 0;
