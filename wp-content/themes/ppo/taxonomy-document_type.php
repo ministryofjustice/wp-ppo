@@ -221,13 +221,13 @@
 				navBottom = 0;
 				$(window).on('scroll resize load touchmove', function() {
 					if ($(window).width() < 768) {
-						sortTop = "20px";
+						sortTop = "90px";
 						sortReset = "-80px";
-						scrollStart = 70;
+						scrollStart = 120;
 					} else {
-						sortTop = (navBottom + 20) + "px";
+						sortTop = (navBottom + 90) + "px";
 						sortReset = 0;
-						scrollStart = 70;
+						scrollStart = 0;
 					}
 					if ($(window).scrollTop() - scrollStart > navBottom) {
 						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding","0");

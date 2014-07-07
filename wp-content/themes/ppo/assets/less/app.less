@@ -35,7 +35,8 @@ body { }
     background-color: @ppo-red;float: left;width: 100%;
     .nav-container {
         background-color: @ppo-dark;
-        position: relative;
+        position: fixed;
+        top: 0;        
     }
     .container {
         /*max-width: @container-desktop;*/
@@ -260,6 +261,7 @@ nav>ul>li>.menu-container>ul>li {
 }
 
 #home-cta-container {
+    margin-top: 20px;
     >.row {
         margin: 0 -15px;
     }
@@ -316,10 +318,10 @@ nav>ul>li>.menu-container>ul>li {
     /* Home page */
     #home-content-container {
         .col-md-6:first-of-type {
-            padding-left: 0;
+            /*padding-left: 0;*/
         }
         .col-md-6:last-of-type {
-            padding-right: 0;
+            /*padding-right: 0;*/
         }
     }
     #latest-news {
