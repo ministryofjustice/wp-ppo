@@ -38,7 +38,7 @@
 				// Get meta value containing array of entries
 				$latest_publications_args = array(
 					'post_type' => 'document',
-					'posts_per_page' => 3
+					'posts_per_page' => 5
 				);
 				$latest_publications_query = new WP_Query( $latest_publications_args );
 				// Iterate over entries and display
