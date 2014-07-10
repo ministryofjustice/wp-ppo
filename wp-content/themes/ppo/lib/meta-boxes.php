@@ -76,6 +76,7 @@ function custom_meta_boxes() {
 		), //home_meta_box
 		array(
 			'id' => 'sidebar_meta',
+			'disabled' => true,
 			'title' => 'Sidebar Content',
 			'pages' => array( 'page', 'post' ),
 			'context' => 'normal',
@@ -289,32 +290,34 @@ function custom_meta_boxes() {
 
 	if ( is_edit_page() ) {
 		foreach ( $my_meta_boxes as $meta_box ) {
-			$show_metabox = false;
-			$has_slug = isset( $meta_box['slug'] );
-			$has_control = isset( $meta_box['control'] );
-			if ( !$has_control && !$has_slug || isset( $_POST['_wpnonce'] ) ) {
-				$show_metabox = true;
-			} elseif ( $post_exists ) {
-				if ( $has_slug ) { // Controls visibility by slug
-					if (
-							$post_details->post_name === $meta_box['slug'] ||
-							(is_array( $meta_box['slug'] ) &&
-							in_array( $post_details->post_name, $meta_box['slug'] ) )
-					) {
-						$show_metabox = true;
-					}
-				} elseif ( $has_control ) { // Controls visibility by taxonomy (but need to save first)
-					foreach ( $meta_box['control'] as $control ) {
-						$post_taxonomy = wp_get_post_terms( $admin_post_id, $control['taxonomy'] );
-						if ( $post_taxonomy && $post_taxonomy[0]->slug == $control['value'] ) {
+			if ( !isset( $meta_box['disabled'] ) || !$meta_box['disabled'] ) {
+				$show_metabox = false;
+				$has_slug = isset( $meta_box['slug'] );
+				$has_control = isset( $meta_box['control'] );
+				if ( !$has_control && !$has_slug || isset( $_POST['_wpnonce'] ) ) {
+					$show_metabox = true;
+				} elseif ( $post_exists ) {
+					if ( $has_slug ) { // Controls visibility by slug
+						if (
+								$post_details->post_name === $meta_box['slug'] ||
+								(is_array( $meta_box['slug'] ) &&
+								in_array( $post_details->post_name, $meta_box['slug'] ) )
+						) {
 							$show_metabox = true;
+						}
+					} elseif ( $has_control ) { // Controls visibility by taxonomy (but need to save first)
+						foreach ( $meta_box['control'] as $control ) {
+							$post_taxonomy = wp_get_post_terms( $admin_post_id, $control['taxonomy'] );
+							if ( $post_taxonomy && $post_taxonomy[0]->slug == $control['value'] ) {
+								$show_metabox = true;
+							}
 						}
 					}
 				}
-			}
-			// Show metabox 
-			if ( $show_metabox ) {
-				ot_register_meta_box( $meta_box );
+				// Show metabox 
+				if ( $show_metabox ) {
+					ot_register_meta_box( $meta_box );
+				}
 			}
 		}
 	}
