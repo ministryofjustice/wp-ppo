@@ -204,6 +204,20 @@ if ( !$roleObject->has_cap( 'edit_theme_options' ) ) {
 	$roleObject->add_cap( 'edit_theme_options' );
 }
 
-
 // Removes sidebar from entire site
-add_filter('roots_display_sidebar',false);
+add_filter( 'roots_display_sidebar', function() {
+	return false;
+} );
+
+// Store current menu item ID in global var
+function store_current_menu_id( $sorted_menu_items ) {
+	foreach ( $sorted_menu_items as $menu_item ) {
+		if ( $menu_item->current ) {
+			$GLOBALS['current_menu_id'] = $menu_item->ID;
+			break;
+		}
+	}
+	return $sorted_menu_items;
+}
+
+add_filter( 'wp_nav_menu_objects', 'store_current_menu_id', 10, 2 );
