@@ -203,3 +203,7 @@ $roleObject = get_role( 'editor' );
 if ( !$roleObject->has_cap( 'edit_theme_options' ) ) {
 	$roleObject->add_cap( 'edit_theme_options' );
 }
+
+
+// Removes sidebar from entire site
+add_filter('roots_display_sidebar',false);
