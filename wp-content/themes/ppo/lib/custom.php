@@ -221,3 +221,40 @@ function store_current_menu_id( $sorted_menu_items ) {
 }
 
 add_filter( 'wp_nav_menu_objects', 'store_current_menu_id', 10, 2 );
+
+// PPO breadcrumbs
+function ppo_breadcrumbs() {
+	// Get main menu object
+	$locations = get_nav_menu_locations();
+	$menu = wp_get_nav_menu_object( $locations['primary_navigation'] );
+
+	// Seperator between levels
+	$seperator = ">";
+
+// Level 1 - Home level
+	$level1_label = "Home";
+	$level1_url = get_site_url();
+
+	// Get remaining levels
+	$level4_item = wp_get_nav_menu_items( $menu->term_id, array( 'p' => $GLOBALS['current_menu_id'] ) );
+	$level4_label = $level4_item[0]->title;
+
+	$level3_item = wp_get_nav_menu_items( $menu->term_id, array( 'p' => $level4_item[0]->menu_item_parent ) );
+	$level3_label = $level3_item[0]->title;
+	
+	$level2_item = wp_get_nav_menu_items( $menu->term_id, array( 'p' => $level3_item[0]->menu_item_parent ) );
+	$level2_label = $level2_item[0]->title;
+
+	// Output breadcrumb
+	$output = "<div id='breadcrumbs'>";
+	$output .= "<a href='$level1_url'>$level1_label</a>";
+	$output .= " $seperator ";
+	$output .= $level2_label;
+	$output .= " $seperator ";
+	$output .= $level3_label;
+	$output .= " <span class='current'>$seperator</span> ";
+	$output .= $level4_label;
+	$output .= "</div>";
+	
+	echo $output;
+}
