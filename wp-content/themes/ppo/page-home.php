@@ -66,8 +66,21 @@
 			</ul>
 			<?php
 				$anon_reports = new WP_Query(array(
-					'post_type' => 'document'
-				));
+					'post_type' => 'document',
+					'posts_per_page' => -1,
+					'tax_query' => array(
+						array (
+							'taxonomy' => 'document_type',
+							'field' => 'slug',
+							'terms' => 'fii-report'
+						)
+					),
+					'date_query' => array(
+						array(
+							'after' => '1 week ago'
+						)
+					)
+				));				
 			?>
 			<a href=''>
 				<div id="anon-count-container">
@@ -75,7 +88,7 @@
 						Anonymised reports added in the last 7 days (click to view)
 					</div>
 					<div id="anon-count">
-						0
+						<?php echo $anon_reports->post_count; ?>
 					</div>
 				</div>
 			</a>
