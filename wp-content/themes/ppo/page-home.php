@@ -64,6 +64,21 @@
 				endwhile;
 				?>
 			</ul>
+			<?php
+				$anon_reports = new WP_Query(array(
+					'post_type' => 'document'
+				));
+			?>
+			<a href=''>
+				<div id="anon-count-container">
+					<div id='anon-count-text'>
+						Anonymised reports added in the last 7 days (click to view)
+					</div>
+					<div id="anon-count">
+						0
+					</div>
+				</div>
+			</a>
 		</div>
 	</div>
 	<div class="col-md-6">

@@ -349,6 +349,7 @@ nav>ul>li>.menu-container>ul>li {
     /* Home page */
     #home-content-container {
         padding: 0;
+        overflow: unset;
         .col-md-6:first-of-type {
             /*padding-left: 0;*/
         }
@@ -387,6 +388,31 @@ nav>ul>li>.menu-container>ul>li {
                     margin: 0 6px 0 3px;
                 }
             }
+        }
+    }
+
+    a #anon-count-container {
+        background-color: #b00c00;
+        color: #fff;
+        margin-top: 10px;
+        text-align: center;
+        overflow: hidden;
+        line-height: 34px;
+        font-weight: normal;
+        #anon-count-text {
+            float: left;
+            padding: 5px 10px;
+        }
+        #anon-count {
+            float: right;
+            font-size: 32px;
+            color: #b00c00;
+            background-color: white;
+            padding: 5px 20px;
+            border: 1px solid #b00c00;
+        }
+        &:hover #anon-count-text {
+            text-decoration: underline;
         }
     }
 
