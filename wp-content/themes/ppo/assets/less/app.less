@@ -501,7 +501,7 @@ section.filelist {
 
 .tile-container {
     clear: both;
-    margin-top: 80px;
+    margin-top: 100px;
     article {
         float: left;
         margin: 10px;
@@ -603,7 +603,7 @@ section.filelist {
     background: #ddd;
     z-index: 100;
     top: -80px;
-    height: 90px;
+    height: 110px;
 }
 .sorts, .filters {
     display: inline-block;
@@ -631,7 +631,7 @@ section.filelist {
 }
 
 .filters {
-    height: 50px;
+    height: 70px;
 }
 
 .filter-control {
@@ -645,6 +645,12 @@ section.filelist {
         padding: 5px;
         display: inline-block;
         cursor: pointer;
+        .filter-current {
+            font-size: 12px;
+            text-align: center;
+            color: @ppo-dark;
+            border-top: 1px solid #ccc;
+        }
     }
     .filter-options {
         padding: 10px 15px;
@@ -652,8 +658,8 @@ section.filelist {
         border: 1px solid #eee;
         display: none;
         position: absolute;
-        left: 20px;
-        top: 75px;
+        left: 35px;
+        top: 95px;
         .filter-option {
             display: inline-block;
             margin: 0 5px;

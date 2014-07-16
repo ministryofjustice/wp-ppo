@@ -20,7 +20,7 @@ function update_tiles(queryParams, clearData) {
             queryParams: queryParams
         },
         success: function(results) {
-            console.log(queryParams);
+//            console.log(queryParams);
             if (clearData === true) {
                 jQuery(".live-results").html(results);
             } else {

@@ -231,7 +231,7 @@ function ppo_breadcrumbs() {
 	// Seperator between levels
 	$seperator = ">";
 
-// Level 1 - Home level
+	// Level 1 - Home level
 	$level1_label = "Home";
 	$level1_url = get_site_url();
 

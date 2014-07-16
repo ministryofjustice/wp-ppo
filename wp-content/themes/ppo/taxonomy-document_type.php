@@ -47,9 +47,11 @@
 		<div class="filter-control">
 			<div class='filter-header'>
 				<?php echo str_replace( array( "-", "Fii" ), array( " ", "FII" ), ucfirst( $filter ) ); ?>
+				<div class='filter-current'>All</div>
 			</div>
 			<?php
 			echo "<div class='filter-options'>";
+			echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
 			$extras = null;
 			$orig_values = $values;
 			$values = array();
@@ -94,7 +96,7 @@
 						$contents = $option['label'];
 						$option = $option['option'];
 				}
-				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='$option'$extras>$contents</div>";
+				echo "<div class='filter-option' data-filter-type='$filter' data-filter-field='$option'$extras>$contents</div>";
 			}
 			echo "</div>";
 			?>
@@ -188,7 +190,7 @@
 					queryParameters["orderby"] = 'meta_value';
 					queryParameters["meta_key"] = sortByValue;
 					queryParameters["paged"] = 1;
-					console.log(queryParameters);
+//					console.log(queryParameters);
 
 					PPOAjax.queryParams = $.param(queryParameters);
 					update_tiles(PPOAjax.queryParams,true);
@@ -197,7 +199,11 @@
 				// Setup filter controls
 				$('#sort-filter').on('click', '.filter-option', function() {
 					var filterType = $(this).attr('data-filter-type');
-					$(this).toggleClass('on');
+					$(this).addClass('on');
+					all = $(this).parent().children('.filter-option').not(this).removeClass('on');
+					$(this).parent().parent().find('.filter-current').html($(this).html());
+					aaa = $(this).parent();
+//					$(this.parent('.filter-option')).not($(this)).toggleClass('on');
 //					$container.isotope({
 //						filter: function(tile) {
 //							showTile = false;
@@ -244,8 +250,11 @@
 					if (menu.css('display') == 'none') {
 						$('.filters .filter-options').hide();
 						menu.show();
+						$(this).parent().parent().find(".filter-control").css("border-bottom","none");
+						$(this).parent().css("border-bottom","5px solid #ccc");
 					} else {
 						menu.hide();
+						$(this).parent().css("border-bottom","none");
 					}
 				});
 			}
