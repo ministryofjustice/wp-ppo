@@ -36,7 +36,8 @@ body { }
     .nav-container {
         background-color: @ppo-dark;
         position: fixed;
-        top: 0;        
+        top: 0;
+        min-height: 70px;
     }
     .container {
         /*max-width: @container-desktop;*/
@@ -79,7 +80,7 @@ body { }
 }
 
 .navbar-nav>li {
-    width: 14.28%;
+    width: 20%;
 }
 nav.collapse.navbar-collapse {
     margin-left: 15%;
@@ -349,7 +350,7 @@ nav>ul>li>.menu-container>ul>li {
     /* Home page */
     #home-content-container {
         padding: 0;
-        overflow: unset;
+        overflow: visible;
         .col-md-6:first-of-type {
             /*padding-left: 0;*/
         }
@@ -727,8 +728,9 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
         margin: 0 auto;
         >li>a {
             text-align: center;
-            width: 150px;
+            width: 90%;
             margin: 0 auto;
+            min-height: 70px;
         }
     }
     .nav-container {

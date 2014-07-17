@@ -183,8 +183,8 @@
 					while (m = re.exec(queryString)) {
 						queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
 					}
-					
-					sortByValue = sortByValue=="date"?"document-date":"";
+
+					sortByValue = sortByValue == "date" ? "document-date" : "";
 
 					queryParameters["order"] = (sortAsc ? "ASC" : "DESC");
 					queryParameters["orderby"] = 'meta_value';
@@ -193,16 +193,40 @@
 //					console.log(queryParameters);
 
 					PPOAjax.queryParams = $.param(queryParameters);
-					update_tiles(PPOAjax.queryParams,true);
+					update_tiles(PPOAjax.queryParams, true);
 				});
 
 				// Setup filter controls
 				$('#sort-filter').on('click', '.filter-option', function() {
 					var filterType = $(this).attr('data-filter-type');
 					$(this).addClass('on');
-					all = $(this).parent().children('.filter-option').not(this).removeClass('on');
+					$(this).parent().children('.filter-option').not(this).removeClass('on');
 					$(this).parent().parent().find('.filter-current').html($(this).html());
-					aaa = $(this).parent();
+
+					/*
+					 * queryParameters -> handles the query string parameters
+					 * queryString -> the query string without the fist '?' character
+					 * re -> the regular expression
+					 * m -> holds the string matching the regular expression
+					 */
+					var queryParameters = {}, queryString = PPOAjax.queryParams,
+							re = /([^&=]+)=([^&]*)/g, m;
+
+					// Creates a map with the query string parameters
+					while (m = re.exec(queryString)) {
+						queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+					}
+
+					queryParameters["paged"] = 1;
+					queryParameters["tax_query"] = [];
+					queryParameters["tax_query"]["taxonomy"] = filterType;
+					queryParameters["tax_query"]["field"] = 'id';
+					queryParameters["tax_query"]["terms"] = $(this).attr('data-filter-field');
+					console.log(queryParameters);
+
+					PPOAjax.queryParams = $.param(queryParameters);
+					update_tiles(PPOAjax.queryParams, true);
+
 //					$(this.parent('.filter-option')).not($(this)).toggleClass('on');
 //					$container.isotope({
 //						filter: function(tile) {
@@ -236,11 +260,11 @@
 						scrollStart = 0;
 					}
 					if ($(window).scrollTop() - scrollStart > navBottom) {
-						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding","0");
-						$(".sorts,.filters").css("margin","20px 35px");
+						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding", "0");
+						$(".sorts,.filters").css("margin", "20px 35px");
 					} else {
-						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px").css("padding","0 15px");
-						$(".sorts,.filters").css("margin","20px");
+						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px").css("padding", "0 15px");
+						$(".sorts,.filters").css("margin", "20px");
 					}
 				});
 
@@ -250,11 +274,11 @@
 					if (menu.css('display') == 'none') {
 						$('.filters .filter-options').hide();
 						menu.show();
-						$(this).parent().parent().find(".filter-control").css("border-bottom","none");
-						$(this).parent().css("border-bottom","5px solid #ccc");
+						$(this).parent().parent().find(".filter-control").css("border-bottom", "none");
+						$(this).parent().css("border-bottom", "5px solid #ccc");
 					} else {
 						menu.hide();
-						$(this).parent().css("border-bottom","none");
+						$(this).parent().css("border-bottom", "none");
 					}
 				});
 			}
