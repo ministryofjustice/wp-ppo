@@ -30,6 +30,7 @@ function update_tiles(queryParams, clearData) {
             $("#loading-spinner").hide();
         },
         error: function(error) {
+            console.log(error);
             $("#loading-spinner").hide();
         }
     });

@@ -17,8 +17,51 @@ function ajax_scripts() {
 add_action( 'wp_enqueue_scripts', 'ajax_scripts', 101 );
 
 function update_tiles() {
-	add_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1);
-	$args = $_POST['queryParams'];
+
+	// Converts dates to datetime for correct ordering
+	add_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
+
+	$args_json = $_POST['queryParams'];
+
+	// Decode JSON to array
+	$args = json_decode( stripslashes( $args_json ), true );
+
+	foreach ( $args[tax_query] as $i => $tax_query ) {
+		if ( $tax_query[taxonomy] = "establishment-type" ) {
+			// Remove taxonomy query
+			unset($args[tax_query][$i]);
+
+			// Retrieve matching establishment IDs
+			$matching_establishments_args = array(
+				'post_type' => 'establishment',
+				'posts_per_page' => -1,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'establishment-type',
+						'terms' => $tax_query[terms]
+					)
+				)
+			);
+
+			$matching_establishments = new WP_Query( $matching_establishments_args );
+
+			while ( $matching_establishments->have_posts() ) {
+				$matching_establishments->the_post();
+				$matching_establishments_ids[] = get_the_ID();
+			}
+
+			// Add custom field query
+			$args[meta_query][] = array(
+				'key' => 'fii-establishment',
+				'value' => $matching_establishments_ids,
+				'compare' => 'IN',
+				'include_children' => false
+			);
+
+			wp_reset_postdata();
+		}
+	}
+
 	$ajax_query = new WP_Query( $args );
 	ob_start();
 ?>
@@ -30,7 +73,7 @@ function update_tiles() {
 	$tile_output = ob_get_contents();
 	ob_end_clean();
 	echo $tile_output;
-	remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1);
+	remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 	die();
 }
 

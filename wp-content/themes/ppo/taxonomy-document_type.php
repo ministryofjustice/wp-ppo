@@ -121,7 +121,7 @@
 				'orderby' => 'meta_value',
 				'meta_key' => 'document-date'
 			) ) );
-	echo "<script type='text/javascript'>curPage = $paged;maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";PPOAjax.queryParams='" . http_build_query( $args ) . "'</script>";
+	echo "<script type='text/javascript'>curPage = $paged;maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";PPOAjax.queryParams='" . json_encode( $args ) . "'</script>";
 	?>
 
 	<div class="live-results"></div>
@@ -170,29 +170,17 @@
 						sortAsc = true;
 					}
 
-					/*
-					 * queryParameters -> handles the query string parameters
-					 * queryString -> the query string without the fist '?' character
-					 * re -> the regular expression
-					 * m -> holds the string matching the regular expression
-					 */
-					var queryParameters = {}, queryString = PPOAjax.queryParams,
-							re = /([^&=]+)=([^&]*)/g, m;
-
-					// Creates a map with the query string parameters
-					while (m = re.exec(queryString)) {
-						queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-					}
+					var queryParameters = JSON.parse(PPOAjax.queryParams);
 
 					sortByValue = sortByValue == "date" ? "document-date" : "";
 
-					queryParameters["order"] = (sortAsc ? "ASC" : "DESC");
-					queryParameters["orderby"] = 'meta_value';
-					queryParameters["meta_key"] = sortByValue;
-					queryParameters["paged"] = 1;
-//					console.log(queryParameters);
+					queryParameters.order = (sortAsc ? "ASC" : "DESC");
+					queryParameters.orderby = 'meta_value';
+					queryParameters.meta_key = sortByValue;
+					queryParameters.paged = 1;
 
-					PPOAjax.queryParams = $.param(queryParameters);
+					PPOAjax.queryParams = JSON.stringify(queryParameters);
+//					console.log(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 				});
 
@@ -203,29 +191,18 @@
 					$(this).parent().children('.filter-option').not(this).removeClass('on');
 					$(this).parent().parent().find('.filter-current').html($(this).html());
 
-					/*
-					 * queryParameters -> handles the query string parameters
-					 * queryString -> the query string without the fist '?' character
-					 * re -> the regular expression
-					 * m -> holds the string matching the regular expression
-					 */
-					var queryParameters = {}, queryString = PPOAjax.queryParams,
-							re = /([^&=]+)=([^&]*)/g, m;
+					var queryParameters = JSON.parse(PPOAjax.queryParams);
 
-					// Creates a map with the query string parameters
-					while (m = re.exec(queryString)) {
-						queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+					queryParameters.paged = 1;
+					if ($(this).attr('data-filter-field') > -1) {
+						queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
+					} else {
+						queryParameters.tax_query = null;
 					}
 
-					queryParameters["paged"] = 1;
-					queryParameters["tax_query"] = [];
-					queryParameters["tax_query"]["taxonomy"] = filterType;
-					queryParameters["tax_query"]["field"] = 'id';
-					queryParameters["tax_query"]["terms"] = $(this).attr('data-filter-field');
-					console.log(queryParameters);
-
-					PPOAjax.queryParams = $.param(queryParameters);
+					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
+//					console.log(PPOAjax);
 
 //					$(this.parent('.filter-option')).not($(this)).toggleClass('on');
 //					$container.isotope({
@@ -275,7 +252,7 @@
 						$('.filters .filter-options').hide();
 						menu.show();
 						$(this).parent().parent().find(".filter-control").css("border-bottom", "none");
-						$(this).parent().css("border-bottom", "5px solid #ccc");
+						$(this).parent().css("border-bottom", "8px solid #ccc");
 					} else {
 						menu.hide();
 						$(this).parent().css("border-bottom", "none");
