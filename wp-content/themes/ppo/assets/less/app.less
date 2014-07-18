@@ -506,8 +506,8 @@ section.filelist {
     article {
         float: left;
         margin: 10px;
-        border: 10px solid #eee;
-        border-right: 5px solid #eee;
+        /*border: 10px solid #eee;*/
+        /*border-right: 5px solid #eee;*/
         width: 255px;
         font-family: tahoma;
         .tile-image {
@@ -517,26 +517,28 @@ section.filelist {
                 height: 224px;
             }
         }
+        h3 {
+            margin: 0;
+            font-size: 13px;
+            line-height: 18px;
+            color: #444;
+            font-family: tahoma;
+            font-weight: bold;
+        }
         .tile-details {
             width: 81px;
             height: 224px;
             float: left;
             background-color: #eee;
-            padding: 4px 4px 4px 9px;
+            padding: 5px;
+            /*padding: 4px 4px 4px 9px;*/
             /*letter-spacing: -1px;*/
             position: relative;
             /*text-align: right;*/
-            h3 {
-                margin-top: 0;
-                font-size: 13px;
-                line-height: 18px;
-                color: #888;
-                font-family: tahoma;
-            }
             h4 {
                 padding: 5px 0;
                 font-size: 11px;
-                color: #aaa;
+                color: #888;
                 font-family: tahoma;
             }
             .tile-size {
@@ -562,7 +564,35 @@ section.filelist {
                     }
                 }
             }
+            table {
+                font-size: 12px;
+                font-weight: normal;
+                color: #000;
+                width: 100%;
+                tr {
+                    padding: 1px 0;
+                }
+            }
+            transition: position 0.1s ease;
         }
+        &.fii-report {
+            h3 {
+                width: 100%;
+                padding: 12px 12px 2px;
+                background-color: #eee;
+                color: #831200;
+                font-size: 22px;
+                min-height: 50px;
+            }
+            .tile-details {
+                width: 100%;
+                height: 125px;
+                padding: 5px 10px;
+            }
+        }
+    }
+    a:hover {
+        text-decoration: none;
     }
 }
 
