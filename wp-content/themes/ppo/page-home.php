@@ -85,7 +85,7 @@
 			<a href=''>
 				<div id="anon-count-container">
 					<div id='anon-count-text'>
-						Anonymised reports added in the last 7 days (click to view)
+						Anonymised reports added in the last 7 days<br>(click to view)
 					</div>
 					<div id="anon-count">
 						<?php echo $anon_reports->post_count; ?>
