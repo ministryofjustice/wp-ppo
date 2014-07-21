@@ -258,3 +258,6 @@ function ppo_breadcrumbs() {
 	
 	echo $output;
 }
+
+// OptionTree filter to allow for textarea in list-item
+add_filter( 'ot_override_forced_textarea_simple', '__return_true' );
