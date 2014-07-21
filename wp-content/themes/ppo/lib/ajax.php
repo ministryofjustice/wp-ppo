@@ -91,7 +91,7 @@ function update_tiles() {
 		remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 		die();
 	} else {
-		echo "<h2>No results found</h2>";
+		if ($args['paged']==1) echo "<br><h2>No results found</h2>";
 		die();
 	}
 }

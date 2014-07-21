@@ -140,12 +140,15 @@
 					{
 						$contentLoadTriggered = true;
 						// Modify queryParams
-						PPOAjax.queryParams = PPOAjax.queryParams.replace("paged=" + curPage, "paged=" + (curPage + 1));
+						var queryParameters = JSON.parse(PPOAjax.queryParams);
+//						PPOAjax.queryParams = PPOAjax.queryParams.replace("paged=" + curPage, "paged=" + (curPage + 1));
 						// Increment paged
 						curPage++;
 						// Load next results
 						if (curPage <= maxPage) {
 							$("#loading-spinner").show();
+							queryParameters.paged++;
+							PPOAjax.queryParams = JSON.stringify(queryParameters);
 							update_tiles(PPOAjax.queryParams);
 						}
 					}

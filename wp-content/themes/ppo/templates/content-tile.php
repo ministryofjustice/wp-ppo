@@ -16,7 +16,8 @@ $death_date = get_metadata( 'post', get_the_ID(), 'fii-death-date', true );
 $document_size = get_filesize( get_metadata( 'post', get_the_ID(), 'document-upload', true ) );
 
 // Set flags for determining document type
-$is_fii = ($doc_types[0] == "fii-report" ? true : false);
+$fii_term_object = get_term_by('slug','fii-report','document-type');
+$is_fii = ($doc_types[0] == "fii-report" || (get_metadata( 'post', get_the_ID(), 'document-type' ) == $fii_term_object['term_id']) ? true : false);
 
 // Conditionals for document type
 if ( $is_fii ) {
