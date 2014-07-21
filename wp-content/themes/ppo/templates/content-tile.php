@@ -88,13 +88,13 @@ $tile_data = " data-date='" . $document_datetime . "'"
 			</div>
 		<?php } ?>
 		<!--		<div class="tile-size">
-		<?php echo $document_size; ?>
+		<?php //echo $document_size; ?>
 				</div>-->
 		<!--		<div class="tile-social">
 					<a href="//twitter.com/intent/tweet?url=<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>&text=<?php echo get_the_title(); ?>&via=sparkdevelop" target="_blank">
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/twitter.png" alt="Share on Twitter" title="Share on Twitter">
 					</a>
-				</div>-->
-		</div>
+				</div>
+		</div>-->
 	</a>
 </article>

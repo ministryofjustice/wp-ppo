@@ -90,7 +90,7 @@
 					)
 				));				
 			?>
-			<a href=''>
+			<a href='<?php echo site_url('last-seven-days'); ?>'>
 				<div id="anon-count-container">
 					<div id='anon-count-text'>
 						Anonymised reports added in the last 7 days<br>(click to view)
