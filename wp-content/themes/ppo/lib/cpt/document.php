@@ -25,7 +25,7 @@ function document_cpt_init() {
 		'show_in_menu' => true,
 		'show_in_nav_menus' => false,
 		'query_var' => true,
-		'exclude_from_search' => false,
+		'exclude_from_search' => true,
 		'rewrite' => array( 'slug' => 'document/%document_type%', 'with_front' => FALSE ),
 		'capabilities' => array(
 			'publish_posts' => 'delete_others_posts',

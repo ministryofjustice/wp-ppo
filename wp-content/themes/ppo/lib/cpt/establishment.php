@@ -25,7 +25,7 @@ function establishment_cpt_init() {
 		'show_in_menu' => true,
 		'show_in_nav_menus' => false,
 		'query_var' => true,
-		'exclude_from_search' => false,
+		'exclude_from_search' => true,
 		'rewrite' => true,
 		'capabilities' => array(
 			'publish_posts' => 'delete_others_posts',
