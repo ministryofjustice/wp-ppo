@@ -198,9 +198,17 @@
 
 					queryParameters.paged = 1;
 					if ($(this).attr('data-filter-field') > -1) {
-						queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
+						if (filterType=='establishment-type') {
+							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
+						} else {
+							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')},'AND'];
+						}
 					} else {
-						queryParameters.tax_query = null;
+						if (filterType=='establishment-type') {
+							delete queryParameters.tax_query;
+						} else {
+							delete queryParameters.meta_query;
+						}
 					}
 
 					PPOAjax.queryParams = JSON.stringify(queryParameters);

@@ -74,6 +74,7 @@ function update_tiles() {
 	}
 
 	$ajax_query = new WP_Query( $args );
+//	print_r($ajax_query);
 	if ( $ajax_query->have_posts() && !$stop_query ) {
 		ob_start();
 		?>
