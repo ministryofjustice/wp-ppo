@@ -141,11 +141,10 @@
 						$contentLoadTriggered = true;
 						// Modify queryParams
 						var queryParameters = JSON.parse(PPOAjax.queryParams);
-//						PPOAjax.queryParams = PPOAjax.queryParams.replace("paged=" + curPage, "paged=" + (curPage + 1));
-						// Increment paged
-						curPage++;
 						// Load next results
-						if (curPage <= maxPage) {
+						if (curPage < maxPage) {
+							// Increment paged
+							curPage++;
 							$("#loading-spinner").show();
 							queryParameters.paged++;
 							PPOAjax.queryParams = JSON.stringify(queryParameters);
@@ -198,13 +197,13 @@
 
 					queryParameters.paged = 1;
 					if ($(this).attr('data-filter-field') > -1) {
-						if (filterType=='establishment-type') {
+						if (filterType == 'establishment-type') {
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
 						} else {
-							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')},'AND'];
+							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
 						}
 					} else {
-						if (filterType=='establishment-type') {
+						if (filterType == 'establishment-type') {
 							delete queryParameters.tax_query;
 						} else {
 							delete queryParameters.meta_query;
@@ -213,29 +212,9 @@
 
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
-//					console.log(PPOAjax);
-
-//					$(this.parent('.filter-option')).not($(this)).toggleClass('on');
-//					$container.isotope({
-//						filter: function(tile) {
-//							showTile = false;
-//							filterArray = $('#sort-filter .filter-option.on[data-filter-type="' + filterType + '"]').map(function() {
-//								return $(this).attr('data-filter-field');
-//							}).get();
-//							if (filterType === "date") {
-//								var filterValue = $(this).attr('data-' + filterType);
-//								showTile = ((jQuery.inArray(filterValue.substring(0, 3) + "0", filterArray)) > -1);
-//							} else {
-//								var filterValue = $(this).attr('data-' + filterType);
-//								showTile = (jQuery.inArray(filterValue, filterArray) > -1);
-//							}
-//							return showTile;
-//						}
-//					});
 				});
 
 				// Fix scroll position of sort-filter
-				//		navBottom = $(".nav-container").position().top + $(".nav-container").outerHeight(true);
 				navBottom = 0;
 				$(window).on('scroll resize load touchmove', function() {
 					if ($(window).width() < 768) {

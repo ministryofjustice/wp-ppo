@@ -88,6 +88,8 @@ function update_tiles() {
 		if ( $tile_output ) {
 			echo $tile_output;
 		}
+		
+		echo '<script>maxPage = ' . ceil( $ajax_query->found_posts / 50 ) . ';</script>';
 
 		remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 		die();
