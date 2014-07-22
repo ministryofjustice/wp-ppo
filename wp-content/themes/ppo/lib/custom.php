@@ -249,10 +249,14 @@ function ppo_breadcrumbs() {
 		// Output breadcrumb
 		$output = "<div id='breadcrumbs'>";
 		$output .= "<a href='$level1_url'>$level1_label</a>";
+		if ($level2_label!="Home") {
 		$output .= " $seperator ";
 		$output .= $level2_label;
+		}
+		if ($level3_label!="Home") {
 		$output .= " $seperator ";
 		$output .= $level3_label;
+		}
 		$output .= " <span class='current'>$seperator</span> ";
 		$output .= $level4_label;
 		$output .= "</div>";
