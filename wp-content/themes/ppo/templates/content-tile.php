@@ -3,7 +3,7 @@
 $doc_type_array = get_the_terms( get_the_ID(), 'document_type' );
 $doc_types = array();
 foreach ( $doc_type_array as $doc_type ) {
-	$doc_types[] = str_replace( " ", "-", strtolower( $doc_type->name ) );
+	$doc_types[] = str_replace( " ", "-", strtolower( $doc_type->slug ) );
 }
 $doc_classes = join( " ", $doc_types );
 
