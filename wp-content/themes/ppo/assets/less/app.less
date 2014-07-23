@@ -647,7 +647,7 @@ section.filelist {
 }
 .sort-control {
     background-color: #eee;
-    padding: 15px 30px 15px 15px;
+    padding: 24px 35px 24px 20px;
     float: left;
     cursor: pointer;
     &.asc:after {
@@ -672,13 +672,12 @@ section.filelist {
 
 .filter-control {
     background-color: #eee;
-    padding: 10px 15px;
     display: block;
     float: left;
     .filter-header {        
         font-weight: bold;
         float: left;
-        padding: 5px;
+        padding: 15px;
         display: inline-block;
         cursor: pointer;
         .filter-current {
@@ -694,7 +693,6 @@ section.filelist {
         border: 1px solid #eee;
         display: none;
         position: absolute;
-        left: 35px;
         top: 95px;
         .filter-option {
             display: inline-block;
@@ -709,6 +707,18 @@ section.filelist {
                 border: 0;
                 padding: 0;
                 margin: 0;
+            }
+        }
+        .ui-autocomplete-input {
+            line-height: 24px;
+        }
+        .ac-reset {
+            display: inline-block;
+            padding: 5px 5px 5px 20px;
+            color: #bbb ;
+            cursor: pointer;
+            &:hover {
+                color: #000;
             }
         }
     }

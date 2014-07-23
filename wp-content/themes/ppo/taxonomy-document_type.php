@@ -16,9 +16,10 @@
 			'filters' => array(
 				'establishment-type' => 'all', // Provides all taxonomy values for the filter
 				//'fii-death-date' => 'range',
-				'fii-death-type' => 'all'
+				'fii-death-type' => 'all',
+				'establishment' => 'autocomplete'
 			),
-			'sort' => array( 'date', 'size' ),
+			'sort' => array( 'date' ),
 			'default' => 'date'
 		)
 	);
@@ -51,7 +52,9 @@
 			</div>
 			<?php
 			echo "<div class='filter-options'>";
-			echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
+			if ( $values != "autocomplete" ) {
+				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
+			}
 			$extras = null;
 			$orig_values = $values;
 			$values = array();
@@ -77,26 +80,75 @@
 						$values = array( "start", "end" );
 						// NOTE: http://amsul.ca/pickadate.js/date.htm
 						break;
+					case "autocomplete":
+						$values = $wpdb->get_col(
+								"SELECT post_title "
+								. "FROM $wpdb->posts "
+								. "WHERE post_type = '$filter' "
+								. "AND post_status IN ('publish') "
+								. "ORDER BY post_title ASC"
+						);
+						break;
 					default:
 						break;
 				}
 			}
-			foreach ( $values as $option ) {
-				switch ( $orig_values ) {
-					case "decades":
-						$contents = $option . " - " . ($option + 9);
-						break;
-					case "years":
-						$contents = $option;
-						break;
-					case "range":
-						$contents = "<input type='text' id='$filter-$option'>";
-						break;
-					default:
-						$contents = $option['label'];
-						$option = $option['option'];
+			if ( $orig_values != 'autocomplete' ) {
+				foreach ( $values as $option ) {
+					switch ( $orig_values ) {
+						case "decades":
+							$contents = $option . " - " . ($option + 9);
+							break;
+						case "years":
+							$contents = $option;
+							break;
+						case "range":
+							$contents = "<input type = 'text' id = '$filter-$option'>";
+							break;
+						case "autocomplete":
+							break;
+						default:
+							$contents = $option['label'];
+							$option = $option['option'];
+					}
+					echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option'$extras>$contents</div>";
 				}
-				echo "<div class='filter-option' data-filter-type='$filter' data-filter-field='$option'$extras>$contents</div>";
+			} else {
+				?>
+				<input id="<?php echo $filter; ?>-ac">
+				<div id="<?php echo $filter; ?>-ac-reset" class="ac-reset">Reset</div>
+				<script>
+					$(function() {
+						var availableValues =
+		<?php
+		echo json_encode( $values );
+		?>
+						;
+						$("#<?php echo $filter; ?>-ac").autocomplete({
+							source: availableValues,
+							minLength: 2,
+							select: function(event, ui) {
+								$(this).parent().parent().find('.filter-current').html(ui.item.label);
+								var queryParameters = JSON.parse(PPOAjax.queryParams);
+								queryParameters.establishment = ui.item.label;
+								PPOAjax.queryParams = JSON.stringify(queryParameters);
+								update_tiles(PPOAjax.queryParams, true);
+								$(this).parent().hide().parent().css("border-bottom","none");
+							}
+						});
+						$("#<?php echo $filter; ?>-ac-reset").on('click', function() {
+							$("#<?php echo $filter; ?>-ac").val("");
+							$("#<?php echo $filter; ?>-ac").autocomplete("search", "");
+							$(this).parent().parent().find('.filter-current').html("All");
+							var queryParameters = JSON.parse(PPOAjax.queryParams);
+							delete queryParameters.establishment;
+							PPOAjax.queryParams = JSON.stringify(queryParameters);
+							update_tiles(PPOAjax.queryParams, true);
+							$(".ui-autocomplete-input",$(this).parent()).focus();
+						});
+					});
+				</script>
+				<?php
 			}
 			echo "</div>";
 			?>
@@ -110,7 +162,7 @@
 <div class="tile-container">
 
 	<?php
-	// Modify query to retrive all docs
+// Modify query to retrive all docs
 	global $wp_query;
 	$post_per_page = 50;
 	$paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
@@ -121,7 +173,9 @@
 				'orderby' => 'meta_value',
 				'meta_key' => 'document-date'
 			) ) );
-	echo "<script type='text/javascript'>curPage = $paged;maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";PPOAjax.queryParams='" . json_encode( $args ) . "'</script>";
+	echo "<script type = 'text/javascript'>curPage = $paged;
+							maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";
+							PPOAjax.queryParams = '" . json_encode( $args ) . "'</script>";
 	?>
 
 	<div class="live-results"></div>
@@ -212,6 +266,7 @@
 
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
+					$(this).parent().hide().parent().css("border-bottom","none");
 				});
 
 				// Fix scroll position of sort-filter
@@ -241,6 +296,7 @@
 					if (menu.css('display') == 'none') {
 						$('.filters .filter-options').hide();
 						menu.show();
+						$(".ui-autocomplete-input",menu).focus();
 						$(this).parent().parent().find(".filter-control").css("border-bottom", "none");
 						$(this).parent().css("border-bottom", "8px solid #ccc");
 					} else {

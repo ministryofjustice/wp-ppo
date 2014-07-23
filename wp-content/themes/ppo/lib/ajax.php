@@ -73,11 +73,21 @@ function update_tiles() {
 		}
 	}
 
+	if ( isset( $args['establishment'] ) ) { 
+		$establishment_object = get_page_by_title( $args['establishment'],OBJECT,'establishment' );
+		$establishment_id = $establishment_object->ID;
+		$args['meta_query'][] = array(
+			'key' => 'fii-establishment',
+			'value' => $establishment_id,
+			'include_children' => false
+		);
+	}
+
 	$ajax_query = new WP_Query( $args );
 //	print_r($ajax_query);
 	if ( $ajax_query->have_posts() && !$stop_query ) {
 		ob_start();
-		?>
+?>
 		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); ?>
 			<?php get_template_part( 'templates/content-tile', get_post_format() ); ?>
 		<?php endwhile; ?>
@@ -88,13 +98,14 @@ function update_tiles() {
 		if ( $tile_output ) {
 			echo $tile_output;
 		}
-		
+
 		echo '<script>maxPage = ' . ceil( $ajax_query->found_posts / 50 ) . ';</script>';
 
 		remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 		die();
 	} else {
-		if ($args['paged']==1) echo "<br><h2>No results found</h2>";
+		if ( $args['paged'] == 1 )
+			echo "<br><h2>No results found</h2>";
 		die();
 	}
 }
