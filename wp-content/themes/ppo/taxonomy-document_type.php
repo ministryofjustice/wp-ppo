@@ -19,8 +19,8 @@
 				'fii-death-type' => 'all',
 				'establishment' => 'autocomplete'
 			),
-			'sort' => array( 'date' ),
-			'default' => 'date'
+			'sort' => array( 'publish-date','date-of-death' ),
+			'default' => 'publish-date'
 		)
 	);
 
@@ -133,7 +133,7 @@
 								queryParameters.establishment = ui.item.label;
 								PPOAjax.queryParams = JSON.stringify(queryParameters);
 								update_tiles(PPOAjax.queryParams, true);
-								$(this).parent().hide().parent().css("border-bottom","none");
+								$(this).parent().hide().parent().css("border-bottom", "none");
 							}
 						});
 						$("#<?php echo $filter; ?>-ac-reset").on('click', function() {
@@ -144,7 +144,7 @@
 							delete queryParameters.establishment;
 							PPOAjax.queryParams = JSON.stringify(queryParameters);
 							update_tiles(PPOAjax.queryParams, true);
-							$(".ui-autocomplete-input",$(this).parent()).focus();
+							$(".ui-autocomplete-input", $(this).parent()).focus();
 						});
 					});
 				</script>
@@ -228,7 +228,18 @@
 
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
 
-					sortByValue = sortByValue == "date" ? "document-date" : "";
+					switch (sortByValue) {
+						case "date":
+						case "publish-date":
+							sortByValue = "document-date";
+							break;
+						case "date-of-death":
+							sortByValue = "fii-death-date";
+							break;
+						default:
+							sortByValue = "";
+
+					}
 
 					queryParameters.order = (sortAsc ? "ASC" : "DESC");
 					queryParameters.orderby = 'meta_value';
@@ -266,7 +277,7 @@
 
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
-					$(this).parent().hide().parent().css("border-bottom","none");
+					$(this).parent().hide().parent().css("border-bottom", "none");
 				});
 
 				// Fix scroll position of sort-filter
@@ -296,7 +307,7 @@
 					if (menu.css('display') == 'none') {
 						$('.filters .filter-options').hide();
 						menu.show();
-						$(".ui-autocomplete-input",menu).focus();
+						$(".ui-autocomplete-input", menu).focus();
 						$(this).parent().parent().find(".filter-control").css("border-bottom", "none");
 						$(this).parent().css("border-bottom", "8px solid #ccc");
 					} else {
