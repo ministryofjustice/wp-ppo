@@ -4,7 +4,7 @@
 	<?php
 // Set up filter/sort controls array
 	$doc_filters = array(
-		'annual-report' => array(
+		'fallback' => array(
 			'filters' => array(
 				// Decade starting from year below (x) up to x + 9 of publish date
 				'date' => 'decades' // TODO: Make this automatic based on data
@@ -30,8 +30,13 @@
 	$doc_type = $doc_type_object->slug;
 
 // Setup filter and sort arrays
-	$current_filters = $doc_filters[$doc_type]['filters'];
-	$current_sorts = $doc_filters[$doc_type]['sort'];
+	if(isset( $doc_filters[$doc_type])) {
+		$filter_object =  $doc_filters[$doc_type];
+	} else {
+		$filter_object =  $doc_filters['fallback'];
+	}
+	$current_filters = $filter_object['filters'];
+	$current_sorts = $filter_object['sort'];
 
 // Output sort controls
 	echo "<div class='sorts'>";
