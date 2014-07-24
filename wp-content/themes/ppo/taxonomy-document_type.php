@@ -9,7 +9,7 @@
 				// Decade starting from year below (x) up to x + 9 of publish date
 				'date' => 'decades' // TODO: Make this automatic based on data
 			),
-			'sort' => array( 'date', 'size' ),
+			'sort' => array( 'date' ),
 			'default' => 'date'
 		),
 		'fii-report' => array(
@@ -42,7 +42,7 @@
 	echo "<div class='sorts'>";
 	foreach ( $current_sorts as $sort ) {
 		$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
-		echo "<div class='sort-control " . ($sort == $doc_filters[$doc_type]['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
+		echo "<div class='sort-control " . ($sort == $filter_object['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
 	}
 	echo "</div>";
 
