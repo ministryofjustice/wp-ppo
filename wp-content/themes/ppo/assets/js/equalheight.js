@@ -51,12 +51,10 @@ $(window).load(function() {
     columnConform('nav>ul>li>a');
     columnConform('#home-cta-container .cta-inner');
     columnConform('#home-cta-container .cta-inner h2');
-
-    $(window).resize(function() {
-//        console.log("resize");
-        columnConform('nav>ul>li>a');
-        columnConform('#home-cta-container .cta-inner');
-        columnConform('#home-cta-container .cta-inner h2');
-    });
-
 });
+
+window.onresize = function() {
+    columnConform('nav>ul>li>a');
+    columnConform('#home-cta-container .cta-inner');
+    columnConform('#home-cta-container .cta-inner h2');
+};

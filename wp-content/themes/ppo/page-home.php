@@ -17,7 +17,7 @@
 	<div id="home-cta-container" class="container">
 		<div class="row">
 			<?php for ( $i = 1; $i <= 4; $i++ ) { ?>
-				<div class="col-md-3 home-cta">
+				<div class="col-xs-6 col-md-3 home-cta">
 					<a href="<?php echo ot_get_option( "homepage_nav_url$i" ); ?>">
 						<div class="cta-inner">
 							<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
@@ -130,50 +130,6 @@
 					?>
 				</ul>
 			</div>
-			<?php
-			/*
-			  <div id='ppo-info' class='col-sm-6'>
-			  <h2>PPO Information</h2>
-			  <ul>
-			  <?php
-			  // Get meta value containing array of entries
-			  $new_entries_array = get_post_meta( $home_id, 'ppo-info-content' );
-			  $new_entries = $new_entries_array[0];
-			  // Iterate over entries and display
-			  foreach ( $new_entries as $entry ) {
-			  ?>
-			  <li>
-			  <h5><a href="<?php echo get_permalink( $entry['link'] ); ?>"><?php echo $entry['title']; ?></a></h5>
-			  <?php echo $entry['content']; ?>
-			  </li>
-			  <?php
-			  }
-			  ?>
-			  </ul>
-			  </div>
-
-			  <div id='quick-links' class='col-sm-6'>
-			  <h2>Quick Links</h2>
-			  <ul>
-			  <?php
-			  // Get meta value containing array of entries
-			  $new_entries_array = get_post_meta( $home_id, 'quick-links-content' );
-			  $new_entries = $new_entries_array[0];
-			  // Iterate over entries and display
-			  foreach ( $new_entries as $entry ) {
-			  ?>
-			  <li>
-			  <h5><a href="<?php echo get_permalink( $entry['link'] ); ?>"><?php echo $entry['title']; ?></a></h5>
-			  <?php echo $entry['content']; ?>
-			  </li>
-			  <?php
-			  }
-			  ?>
-			  </ul>
-			  </div>
-			 * 
-			 */
-			?>
 		</div>
 	</div>
 </div>
