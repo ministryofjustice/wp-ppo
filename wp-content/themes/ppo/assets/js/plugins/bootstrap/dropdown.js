@@ -56,7 +56,7 @@
       $this.focus()
       
       var menuItems = $(this).parent().find('>.menu-container>ul>li');
-      columnConform(menuItems);
+      equalheight(menuItems);
     }   
 
     return false
