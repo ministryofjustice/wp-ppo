@@ -17,7 +17,7 @@
 	<div id="home-cta-container" class="container">
 		<div class="row">
 			<?php for ( $i = 1; $i <= 4; $i++ ) { ?>
-				<div class="col-xs-6 col-md-3 home-cta">
+				<div class="col-xs-12 col-sm-6 col-md-3 home-cta">
 					<a href="<?php echo ot_get_option( "homepage_nav_url$i" ); ?>">
 						<div class="cta-inner">
 							<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
