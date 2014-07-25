@@ -55,10 +55,10 @@
 					<li><i class="fa fa-file-o fa-lg"></i>
 						<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>">
 							<?php
-							$document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
-							$document_datetime = date( "Y", strtotime( str_replace( "/", "-", $document_date ) ) );
-							echo $document_datetime;
-							?>,
+//							$document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
+//							$document_datetime = date( "Y", strtotime( str_replace( "/", "-", $document_date ) ) );
+//							echo $document_datetime;
+							?>
 							<?php echo get_the_title( get_metadata( 'post', get_the_ID(), 'fii-establishment', true ) ); ?>
 							<?php
 							$death_type_array = get_term( get_metadata( 'post', get_the_ID(), 'fii-death-type', true ), 'fii-death-type', 'ARRAY_N' );
