@@ -7,7 +7,7 @@
 		'fallback' => array(
 			'filters' => array(
 				// Decade starting from year below (x) up to x + 9 of publish date
-				'date' => 'decades' // TODO: Make this automatic based on data
+				'document-date' => 'decades' // TODO: Make this automatic based on data
 			),
 			'sort' => array( 'date' ),
 			'default' => 'date'
@@ -19,7 +19,7 @@
 				'fii-death-type' => 'all',
 				'establishment' => 'autocomplete'
 			),
-			'sort' => array( 'publish-date','date-of-death' ),
+			'sort' => array( 'publish-date', 'date-of-death' ),
 			'default' => 'publish-date'
 		)
 	);
@@ -30,10 +30,10 @@
 	$doc_type = $doc_type_object->slug;
 
 // Setup filter and sort arrays
-	if(isset( $doc_filters[$doc_type])) {
-		$filter_object =  $doc_filters[$doc_type];
+	if ( isset( $doc_filters[$doc_type] ) ) {
+		$filter_object = $doc_filters[$doc_type];
 	} else {
-		$filter_object =  $doc_filters['fallback'];
+		$filter_object = $doc_filters['fallback'];
 	}
 	$current_filters = $filter_object['filters'];
 	$current_sorts = $filter_object['sort'];
@@ -66,7 +66,7 @@
 			if ( !is_array( $orig_values ) ) {
 				switch ( $orig_values ) {
 					case "all":
-						$terms = get_terms( $filter, array( 'hide_empty' => 0 ) );
+						$terms = get_terms( $filter, array( 'hide_empty' => 0, 'orderby' => 'thets_order' ) );
 						foreach ( $terms as $term ) {
 							$values[] = array( "label" => $term->name, "option" => $term->term_id );
 						}
@@ -151,8 +151,7 @@
 							update_tiles(PPOAjax.queryParams, true);
 							$(".ui-autocomplete-input", $(this).parent()).focus();
 						});
-					});
-				</script>
+					});</script>
 				<?php
 			}
 			echo "</div>";
@@ -211,8 +210,7 @@
 						}
 					}
 				});
-
-				// Setup sort controls
+				// Events for sort controls
 				$('#sort-filter').on('click', '.sort-control', function() {
 					var sortByValue = $(this).attr('data-sort-field');
 					var sortAsc;
@@ -232,7 +230,6 @@
 					}
 
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
-
 					switch (sortByValue) {
 						case "date":
 						case "publish-date":
@@ -243,32 +240,43 @@
 							break;
 						default:
 							sortByValue = "";
-
 					}
 
 					queryParameters.order = (sortAsc ? "ASC" : "DESC");
 					queryParameters.orderby = 'meta_value';
 					queryParameters.meta_key = sortByValue;
 					queryParameters.paged = 1;
-
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 //					console.log(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 				});
-
-				// Setup filter controls
+				// Events for filter controls
 				$('#sort-filter').on('click', '.filter-option', function() {
 					var filterType = $(this).attr('data-filter-type');
 					$(this).addClass('on');
 					$(this).parent().children('.filter-option').not(this).removeClass('on');
 					$(this).parent().parent().find('.filter-current').html($(this).html());
-
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
-
 					queryParameters.paged = 1;
 					if ($(this).attr('data-filter-field') > -1) {
 						if (filterType == 'establishment-type') {
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
+						} else if (filterType == 'document-date') {
+							queryParameters.meta_query = [
+								{
+									key: filterType,
+									value: $(this).attr('data-filter-field').toString() + "-01-01",
+									compare: '<=',
+									type: 'number'
+								},
+								'AND'
+//								{
+//									key: filterType,
+//									value: [$(this).attr('data-filter-field').toString() + "-01-01", (parseInt($(this).attr('data-filter-field')) + 9) + "-12-31".toString()],
+//									type: 'number'
+//								},
+//								'AND'
+							];
 						} else {
 							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
 						}
@@ -284,7 +292,6 @@
 					update_tiles(PPOAjax.queryParams, true);
 					$(this).parent().hide().parent().css("border-bottom", "none");
 				});
-
 				// Fix scroll position of sort-filter
 				navBottom = 0;
 				$(window).on('scroll resize load touchmove', function() {
@@ -305,7 +312,6 @@
 						$(".sorts,.filters").css("margin", "20px");
 					}
 				});
-
 				// Navigation for filters
 				$('.filter-header').on('click', function(f) {
 					menu = $(this).parent().find(".filter-options");
