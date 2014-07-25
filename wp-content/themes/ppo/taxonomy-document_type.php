@@ -39,7 +39,7 @@
 	$current_sorts = $filter_object['sort'];
 
 // Output sort controls
-	echo "<div class='sorts'>";
+	echo "<div class='sorts'><div class='group-label'>Sort</div>";
 	foreach ( $current_sorts as $sort ) {
 		$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
 		echo "<div class='sort-control " . ($sort == $filter_object['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
@@ -47,7 +47,7 @@
 	echo "</div>";
 
 // Output filter controls
-	echo "<div class='filters'>";
+	echo "<div class='filters'><div class='group-label'>Filter</div>";
 	foreach ( $current_filters as $filter => $values ) {
 		?>
 		<div class="filter-control">

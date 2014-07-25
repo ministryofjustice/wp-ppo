@@ -647,10 +647,24 @@ section.filelist {
     z-index: 100;
     top: -80px;
     height: 110px;
+    .group-label {
+        transform: rotate(-90deg);
+        transform-origin: left bottom 0;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        width: 70px;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: #831200;
+        color: white;
+    }
 }
 .sorts, .filters {
     display: inline-block;
     margin: 20px;
+    position: relative;
 }
 .sort-control {
     background-color: #eee;
@@ -700,7 +714,7 @@ section.filelist {
         border: 1px solid #eee;
         display: none;
         position: absolute;
-        top: 95px;
+        top: 75px;
         .filter-option {
             display: inline-block;
             margin: 0 5px;

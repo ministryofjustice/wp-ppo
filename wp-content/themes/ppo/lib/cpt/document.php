@@ -223,6 +223,19 @@ function add_document_thumbnail_column( $cols ) {
 
 add_filter( 'manage_document_posts_columns', 'add_document_thumbnail_column', 5 );
 
+// Add doc date column
+function add_document_date_column( $cols ) {
+	$colsstart = array_slice( $cols, 0, 2, true );
+	$colsend = array_slice( $cols, 2, null, true );
+
+	$cols = array_merge(
+			$colsstart, array( 'doc_date' => __( 'Document Date' ) ), $colsend
+	);
+	return $cols;
+}
+
+add_filter( 'manage_document_posts_columns', 'add_document_date_column', 5 );
+
 // Grab featured-thumbnail size post thumbnail and display it.
 function display_document_thumbnail_column( $col, $id ) {
 	switch ( $col ) {
@@ -233,10 +246,57 @@ function display_document_thumbnail_column( $col, $id ) {
 				echo 'Not supported in theme';
 			}
 			break;
+		case 'doc_date':
+			echo get_post_meta( get_the_ID(), 'document-date', true );
+			break;
 	}
 }
 
 add_action( 'manage_document_posts_custom_column', 'display_document_thumbnail_column', 5, 2 );
+
+function doc_date_column_register_sortable( $columns ) {
+	$columns['doc_date'] = 'doc_date';
+	return $columns;
+}
+
+add_filter( 'manage_edit-document_sortable_columns', 'doc_date_column_register_sortable' );
+
+function manage_wp_posts_be_qe_posts_clauses( $pieces, $query ) {
+	global $wpdb;
+
+	/**
+	 * We only want our code to run in the main WP query
+	 * AND if an orderby query variable is designated.
+	 */
+	if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+
+		// Get the order query variable - ASC or DESC
+		$order = strtoupper( $query->get( 'order' ) );
+
+		// Make sure the order setting qualifies. If not, set default as ASC
+		if ( !in_array( $order, array( 'ASC', 'DESC' ) ) )
+			$order = 'ASC';
+
+		switch ( $orderby ) {
+
+			// If we're ordering by release_date
+			case 'doc_date':
+
+				/**
+				 * We have to join the postmeta table to
+				 * include our release date in the query.
+				 */
+				$pieces['join'] .= " LEFT JOIN $wpdb->postmeta wp_rd ON wp_rd.post_id = {$wpdb->posts}.ID AND wp_rd.meta_key = 'document_date'";
+
+				// Then tell the query to order by our custom field.
+				$pieces['orderby'] = "STR_TO_DATE( wp_rd.meta_value,'%d/%m/%Y' ) $order, " . $pieces['orderby'];
+				break;
+		}
+	}
+	return $pieces;
+}
+
+add_filter( 'posts_clauses', 'manage_wp_posts_be_qe_posts_clauses', 1, 2 );
 
 // Change document_type permalink
 function filter_post_type_link( $link, $post ) {
