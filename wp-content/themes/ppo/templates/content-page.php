@@ -13,7 +13,7 @@
 	$menu = wp_get_nav_menu_object( $locations['primary_navigation'] );
 	$cur_menu_item = wp_get_nav_menu_items( $menu->term_id, array( 'p' => $GLOBALS['current_menu_id'] ) );
 	$menu_items = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
-	if ( !empty( $menu_items ) ) {
+	if ( !empty( $menu_items ) && !is_page('contact-us') ) {
 		echo "<div class='child-pages'>";
 		echo '<ul class="section-submenu">';
 		foreach ( $menu_items as $menu_item ) {
