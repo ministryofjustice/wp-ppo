@@ -247,7 +247,6 @@
 					queryParameters.meta_key = sortByValue;
 					queryParameters.paged = 1;
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
-//					console.log(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 				});
 				// Events for filter controls
@@ -263,19 +262,12 @@
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
 						} else if (filterType == 'document-date') {
 							queryParameters.meta_query = [
+								{relation: 'AND'},
 								{
 									key: filterType,
-									value: $(this).attr('data-filter-field').toString() + "-01-01",
-									compare: '<=',
-									type: 'number'
-								},
-								'AND'
-//								{
-//									key: filterType,
-//									value: [$(this).attr('data-filter-field').toString() + "-01-01", (parseInt($(this).attr('data-filter-field')) + 9) + "-12-31".toString()],
-//									type: 'number'
-//								},
-//								'AND'
+									value: "/" + $(this).attr('data-filter-field').toString().substr(0,3)
+,									compare: 'LIKE'
+								}
 							];
 						} else {
 							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
