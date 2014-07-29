@@ -660,7 +660,7 @@ if ( ! function_exists( 'ot_type_date_picker' ) ) {
       echo '<div class="format-setting-inner">';
       
         /* build date picker */
-        echo '<input type="text" name="' . esc_attr( $field_name ) . '" id="' . esc_attr( $field_id ) . '" value="' . esc_attr( $field_value ) . '" class="widefat option-tree-ui-input ' . esc_attr( $field_class ) . '" readonly="readonly" />';
+        echo '<input type="text" name="' . esc_attr( $field_name ) . '" id="' . esc_attr( $field_id ) . '" value="' . esc_attr( $field_value ) . '" class="widefat option-tree-ui-input ' . esc_attr( $field_class ) . '" />';
         
       echo '</div>';
     

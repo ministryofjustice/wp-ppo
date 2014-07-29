@@ -180,7 +180,7 @@ function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
-			wp_set_object_terms( $object_id, intval( $meta_value ), str_replace( "-", "_",$current_meta_key) );
+			wp_set_object_terms( $object_id, intval( $meta_value ), str_replace( "-", "_", $current_meta_key ) );
 		}
 	}
 }
@@ -191,12 +191,32 @@ function add_document_type( $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
-			wp_set_object_terms( $object_id, intval( $meta_value ), str_replace( "-", "_",$current_meta_key) );
+			wp_set_object_terms( $object_id, intval( $meta_value ), str_replace( "-", "_", $current_meta_key ) );
 		}
 	}
 }
 
 add_action( 'add_post_meta', 'add_document_type', 10, 3 );
+
+function fix_datepicker_format( $post_id ) {
+	// Standardise date format to dd/mm/yyyy
+	foreach ( array( 'document-date', 'fii-death-date' ) as $index ) {
+		if ( isset( $_REQUEST[$index] ) ) {
+			$date_parts = explode( "/", $_REQUEST[$index] );
+			$day = sprintf( "%02d", $date_parts[0] );
+			$month = sprintf( "%02d", $date_parts[1] );
+			if ( strlen( $date_parts[2] ) == 2 ) {
+				$year = $date_parts[2] > 50 ? "19" . $date_parts[2] : "20" . $date_parts[2];
+			} else {
+				$year = $date_parts[2];
+			}
+			$new_date = $day . "/" . $month . "/" . $year;
+			update_post_meta( $post_id, $index, $new_date );
+		}
+	}
+}
+
+add_action( 'save_post', 'fix_datepicker_format' );
 
 // add editor the privilege to edit theme
 $roleObject = get_role( 'editor' );
@@ -249,13 +269,13 @@ function ppo_breadcrumbs() {
 		// Output breadcrumb
 		$output = "<div id='breadcrumbs'>";
 		$output .= "<a href='$level1_url'>$level1_label</a>";
-		if ($level2_label!="Home") {
-		$output .= " $seperator ";
-		$output .= $level2_label;
+		if ( $level2_label != "Home" ) {
+			$output .= " $seperator ";
+			$output .= $level2_label;
 		}
-		if ($level3_label!="Home") {
-		$output .= " $seperator ";
-		$output .= $level3_label;
+		if ( $level3_label != "Home" ) {
+			$output .= " $seperator ";
+			$output .= $level3_label;
 		}
 		$output .= " <span class='current'>$seperator</span> ";
 		$output .= $level4_label;
