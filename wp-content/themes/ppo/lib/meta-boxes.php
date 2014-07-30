@@ -248,6 +248,7 @@ function custom_meta_boxes() {
 					'label' => 'Age group',
 					'type' => 'select',
 					'choices' => array(
+						array( 'value' => 'Under 18', 'label' => 'Under 18' ),
 						array( 'value' => '18-21', 'label' => '18-21' ),
 						array( 'value' => '22-30', 'label' => '22-30' ),
 						array( 'value' => '31-40', 'label' => '31-40' ),
