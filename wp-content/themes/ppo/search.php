@@ -1,8 +1,8 @@
 <?php get_template_part( 'templates/page', 'header' ); ?>
 
 <div class="row">
-
-
+	
+	<?php get_search_form(); ?>
 
 	<div class="col-lg-8 col-sm-12 tile-container">
 		<h2>Documents</h2>
@@ -17,9 +17,8 @@
 		?>
 		<?php if ( !$matching_docs->have_posts() ) : ?>
 			<div class="alert alert-warning">
-				<?php _e( 'Sorry, no results were found.', 'roots' ); ?>
+				<?php _e( 'Sorry, no matching documents were found.', 'roots' ); ?>
 			</div>
-			<?php get_search_form(); ?>
 		<?php endif; ?>
 		<?php
 		while ( $matching_docs->have_posts() ) : $matching_docs->the_post();
@@ -34,9 +33,15 @@
 		<?php
 		// Modify search query to search for documents and pages
 		$args = array(
-			'post_type' => 'post'
+			'post_type' => 'post',
+			's' => get_search_query()
 		);
 		query_posts( $args );
+		if ( !have_posts() ) : ?>
+			<div class="alert alert-warning">
+				<?php _e( 'Sorry, no matching pages were found.', 'roots' ); ?>
+			</div>
+		<?php endif;
 		while ( have_posts() ) : the_post();
 			?>
 			<?php get_template_part( 'templates/content', get_post_format() ); ?>

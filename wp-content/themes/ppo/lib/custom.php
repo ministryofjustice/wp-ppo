@@ -287,3 +287,12 @@ function ppo_breadcrumbs() {
 
 // OptionTree filter to allow for textarea in list-item
 add_filter( 'ot_override_forced_textarea_simple', '__return_true' );
+
+// Force is_search to be set
+add_action( 'parse_query', 'search_even_empty' );
+
+function search_even_empty( $query ) {
+	if ( isset( $_GET['s'] ) ):
+		$query->is_search = true;
+	endif;
+}
