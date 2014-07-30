@@ -1,7 +1,7 @@
 <?php get_template_part( 'templates/page', 'header' ); ?>
 
 <div class="row">
-	
+
 	<?php get_search_form(); ?>
 
 	<div class="col-lg-8 col-sm-12 tile-container">
@@ -36,18 +36,20 @@
 			'post_type' => 'post',
 			's' => get_search_query()
 		);
-		query_posts( $args );
-		if ( !have_posts() ) : ?>
+		$matching_pages = new WP_Query( $args );
+		if ( !$matching_pages->have_posts() ) :
+			?>
 			<div class="alert alert-warning">
 				<?php _e( 'Sorry, no matching pages were found.', 'roots' ); ?>
 			</div>
-		<?php endif;
-		while ( have_posts() ) : the_post();
+			<?php
+		endif;
+		while ( $matching_pages->have_posts() ) : $matching_pages->the_post();
 			?>
 			<?php get_template_part( 'templates/content', get_post_format() ); ?>
 		<?php endwhile; ?>
 
-		<?php if ( $wp_query->max_num_pages > 1 ) : ?>
+		<?php if ( $matching_pages->max_num_pages > 1 ) : ?>
 			<nav class="post-nav">
 				<ul class="pager">
 					<li class="previous"><?php next_posts_link( __( '&larr; Older posts', 'roots' ) ); ?></li>
