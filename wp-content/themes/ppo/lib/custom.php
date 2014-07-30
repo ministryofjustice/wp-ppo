@@ -296,3 +296,6 @@ function search_even_empty( $query ) {
 		$query->is_search = true;
 	endif;
 }
+
+// Removes post types added by Custom Search plugin
+remove_filter( 'pre_get_posts', 'cstmsrch_searchfilter' );
