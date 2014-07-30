@@ -57,7 +57,7 @@ $tile_data = " data-date='" . $document_datetime . "'"
 			<div class="tile-details">
 				<table>
 					<tr>
-						<td><strong>
+						<td colspan="2"><strong>
 							<?php
 							if ( $document_establishment_type ) {
 								echo get_term_field( "name", $document_establishment_type, 'establishment-type' );
