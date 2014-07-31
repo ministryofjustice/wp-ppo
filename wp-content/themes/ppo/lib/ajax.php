@@ -78,6 +78,10 @@ function update_tiles() {
 		);
 	}
 
+	$args['post_status'] = array(
+		'publish'
+	);
+	
 	$ajax_query = new WP_Query( $args );
 	if ( $ajax_query->have_posts() && !$stop_query ) {
 		ob_start();
