@@ -129,6 +129,7 @@
 							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'home-news-thumb' ); ?></a>
 							<div class="news-details">
 								<a href="<?php the_permalink(); ?>"><h4><?php the_title(); ?></h4></a>
+								<time class="published" datetime="<?php echo get_the_time('c'); ?>"><?php echo get_the_date(); ?></time>
 								<?php the_excerpt(); ?>
 							</div>
 						</li>
