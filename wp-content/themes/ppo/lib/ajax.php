@@ -4,11 +4,6 @@
  * Setup for front-end AJAX
  */
 
-function wdw_query_orderby_postmeta_date( $orderby ) {
-	$new_orderby = str_replace( "wp_postmeta.meta_value", "STR_TO_DATE(wp_postmeta.meta_value, '%d/%m/%Y')", $orderby );
-	return $new_orderby;
-}
-
 function ajax_scripts() {
 	wp_enqueue_script( 'ppo-ajax', get_template_directory_uri( __FILE__ ) . '/assets/js/ajax.js', array( 'jquery' ) );
 	wp_localize_script( 'ppo-ajax', 'PPOAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );

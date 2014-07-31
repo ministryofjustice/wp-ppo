@@ -41,7 +41,7 @@ $tile_data = " data-date='" . $document_datetime . "'"
 ?>
 
 <article id="<?php echo 'doc-' . get_the_ID(); ?>" class="<?php echo $doc_classes; ?>"<?php echo $tile_data; ?>>
-	<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>" target="_blank">
+	<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>#view=FitH" target="_blank">
 		<?php if ( !$is_fii ) { ?>
 			<div class="tile-image">
 				<?php the_post_thumbnail(); ?>

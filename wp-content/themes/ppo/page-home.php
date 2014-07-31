@@ -35,18 +35,23 @@
 			<h3>Latest Publications</h3>
 			<ul>
 				<?php
+				// Converts dates to datetime for correct ordering
+				add_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
+
 				// Get meta value containing array of entries
 				$latest_publications_args = array(
 					'post_type' => 'document',
 					'posts_per_page' => 5,
-					'tax_query' => array (
-						array (
+					'tax_query' => array(
+						array(
 							'taxonomy' => 'document_type',
 							'field' => 'slug',
-							'terms' => array ('fii-report'),
+							'terms' => array( 'fii-report' ),
 							'operator' => 'NOT IN'
 						)
-					)
+					),
+					'orderby' => 'meta_value',
+					'meta_key' => 'document-date'
 				);
 				$latest_publications_query = new WP_Query( $latest_publications_args );
 				// Iterate over entries and display
@@ -70,27 +75,29 @@
 					</li>
 					<?php
 				endwhile;
+				
+				remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 				?>
 			</ul>
 			<?php
-				$anon_reports = new WP_Query(array(
-					'post_type' => 'document',
-					'posts_per_page' => -1,
-					'tax_query' => array(
-						array (
-							'taxonomy' => 'document_type',
-							'field' => 'slug',
-							'terms' => 'fii-report'
-						)
-					),
-					'date_query' => array(
-						array(
-							'after' => '1 week ago'
-						)
+			$anon_reports = new WP_Query( array(
+				'post_type' => 'document',
+				'posts_per_page' => -1,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'document_type',
+						'field' => 'slug',
+						'terms' => 'fii-report'
 					)
-				));				
+				),
+				'date_query' => array(
+					array(
+						'after' => '1 week ago'
+					)
+				)
+			) );
 			?>
-			<a href='<?php echo site_url('last-seven-days'); ?>'>
+			<a href='<?php echo site_url( 'last-seven-days' ); ?>'>
 				<div id="anon-count-container">
 					<div id='anon-count-text'>
 						Anonymised reports added in the last 7 days<br>(click to view)
