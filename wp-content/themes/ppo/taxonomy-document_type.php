@@ -2,6 +2,7 @@
 
 <nav id="sort-filter">
 	<?php
+	global $ppo_meta_boxes;
 // Set up filter/sort controls array
 	$doc_filters = array(
 		'fallback' => array(
@@ -17,6 +18,8 @@
 				'establishment-type' => 'all', // Provides all taxonomy values for the filter
 				//'fii-death-date' => 'range',
 				'fii-death-type' => 'all',
+				'fii-gender' => 'all',
+				'fii-age' => 'all',
 				'establishment' => 'autocomplete'
 			),
 			'sort' => array( 'publish-date', 'date-of-death' ),
@@ -67,8 +70,25 @@
 				switch ( $orig_values ) {
 					case "all":
 						$terms = get_terms( $filter, array( 'hide_empty' => 0, 'orderby' => 'thets_order' ) );
-						foreach ( $terms as $term ) {
-							$values[] = array( "label" => $term->name, "option" => $term->term_id );
+						if ( !is_wp_error( $terms ) ) {
+							foreach ( $terms as $term ) {
+								$values[] = array( "label" => $term->name, "option" => $term->term_id );
+							}
+							$filter_source = 'taxonomy';
+						} else {
+							global $ppo_meta_boxes;
+							$arrIt = new RecursiveIteratorIterator( new RecursiveArrayIterator( $ppo_meta_boxes ) );
+							foreach ( $arrIt as $sub ) {
+								$subArray = $arrIt->getSubIterator();
+								if ( isset( $subArray['id'] ) && $subArray['id'] === $filter ) {
+									$outputArray = iterator_to_array( $subArray );
+								}
+							}
+							$choices = $outputArray['choices'];
+							foreach ( $choices as $choice ) {
+								$values[] = array( "label" => $choice['label'], "option" => $choice['value'] );
+							}
+							$filter_source = 'meta';
 						}
 						break;
 					case "decades":
@@ -116,7 +136,7 @@
 							$contents = $option['label'];
 							$option = $option['option'];
 					}
-					echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option'$extras>$contents</div>";
+					echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>$contents</div>";
 				}
 			} else {
 				?>
@@ -252,12 +272,13 @@
 				// Events for filter controls
 				$('#sort-filter').on('click', '.filter-option', function() {
 					var filterType = $(this).attr('data-filter-type');
+					var filterSource = $(this).attr('data-filter-source');
 					$(this).addClass('on');
 					$(this).parent().children('.filter-option').not(this).removeClass('on');
 					$(this).parent().parent().find('.filter-current').html($(this).html());
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
 					queryParameters.paged = 1;
-					if ($(this).attr('data-filter-field') > -1) {
+					if ($(this).attr('data-filter-field') != -1) {
 						if (filterType == 'establishment-type') {
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
 						} else if (filterType == 'document-date') {
@@ -265,8 +286,8 @@
 								{relation: 'AND'},
 								{
 									key: filterType,
-									value: "/" + $(this).attr('data-filter-field').toString().substr(0,3)
-,									compare: 'LIKE'
+									value: "/" + $(this).attr('data-filter-field').toString().substr(0, 3)
+									, compare: 'LIKE'
 								}
 							];
 						} else {
