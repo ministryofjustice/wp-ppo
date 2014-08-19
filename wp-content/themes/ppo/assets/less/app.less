@@ -35,11 +35,13 @@ body { }
    ========================================================================== */
 
 .banner { 
-    background-color: @ppo-red;float: left;width: 100%;
+    background-color: @ppo-red;
+    float: left;
+    width: 100%;
+    position: fixed;
+    top: 0;
     .nav-container {
         background-color: @ppo-dark;
-        position: fixed;
-        top: 0;
         min-height: 70px;
     }
     .container {
@@ -236,6 +238,10 @@ nav>ul>li>.menu-container>ul>li {
 /* ==========================================================================
    Content
    ========================================================================== */
+
+div.wrap {
+    margin-top: 80px;
+}
 
 .single .navigation {
     padding: 30px 0;
