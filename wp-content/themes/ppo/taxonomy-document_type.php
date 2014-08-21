@@ -184,8 +184,14 @@
 </nav>
 
 <div class="tile-container">
+	<?php if ( term_description() ) { ?>
+
+		<div class="document-type-text">
+			<?php echo term_description(); ?>
+		</div>
 
 	<?php
+	}
 // Modify query to retrive all docs
 	global $wp_query;
 	$post_per_page = 50;

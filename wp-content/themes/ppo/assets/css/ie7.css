@@ -6,6 +6,10 @@ img {
     display: none;
 }
 
+div.wrap {
+    margin-top: 30px;
+}
+
 .navbar-nav>li {
     width: 19.9%;
 }
