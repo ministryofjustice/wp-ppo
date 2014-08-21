@@ -305,3 +305,12 @@ function wdw_query_orderby_postmeta_date( $orderby ) {
 	$new_orderby = str_replace( "wp_postmeta.meta_value", "STR_TO_DATE(wp_postmeta.meta_value, '%d/%m/%Y')", $orderby );
 	return $new_orderby;
 }
+
+// Add pages to search
+function wpshock_search_filter( $query ) {
+    if ( $query->is_search ) {
+        $query->set( 'post_type', array('post','page') );
+    }
+    return $query;
+}
+add_filter('pre_get_posts','wpshock_search_filter');
