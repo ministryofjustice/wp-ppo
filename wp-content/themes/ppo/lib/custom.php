@@ -308,7 +308,7 @@ function wdw_query_orderby_postmeta_date( $orderby ) {
 
 // Add pages to search
 function wpshock_search_filter( $query ) {
-    if ( $query->is_search ) {
+    if ( $query->is_search && !is_admin() ) {
         $query->set( 'post_type', array('post','page') );
     }
     return $query;
