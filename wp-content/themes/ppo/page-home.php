@@ -46,8 +46,8 @@
 						array(
 							'taxonomy' => 'document_type',
 							'field' => 'slug',
-							'terms' => array( 'fii-report' ),
-							'operator' => 'NOT IN'
+							'terms' => array( 'annual-reports','learning-lessons-reports','stakeholder-feedback' ),
+							'operator' => 'IN'
 						)
 					),
 					'orderby' => 'meta_value',
