@@ -11,7 +11,6 @@ if ( $_GET['debug'] == 1 ) {
 			$pt = wp_get_post_terms( get_the_ID(), 'document_type' );
 			if ( count( $pt ) == 1 && get_post_meta( get_the_ID(), "document-type", true ) != $pt[0]->term_id ) {
 				update_post_meta(get_the_ID(), "document-type", $pt[0]->term_id);
-				print_r(get_post_meta(get_the_ID()));
 				echo "<p>Document " . get_the_ID() . " has document type set to " . $pt[0]->term_id . "</p>";
 			}
 		}
