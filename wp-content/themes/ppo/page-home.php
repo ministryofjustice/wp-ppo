@@ -1,6 +1,6 @@
 <?php
 // For debugging only - performance slowdown when turned on
-if ( $_GET['debug'] == 1 ) {
+if ( $_GET['debugdocs'] == 1 ) {
 	$documents_array = new WP_Query( array(
 		'post_type' => 'document',
 		'posts_per_page' => -1,
@@ -10,7 +10,7 @@ if ( $_GET['debug'] == 1 ) {
 			$documents_array->the_post();
 			$pt = wp_get_post_terms( get_the_ID(), 'document_type' );
 			if ( count( $pt ) == 1 && get_post_meta( get_the_ID(), "document-type", true ) != $pt[0]->term_id ) {
-				update_post_meta(get_the_ID(), "document-type", $pt[0]->term_id);
+				update_post_meta( get_the_ID(), "document-type", $pt[0]->term_id );
 				echo "<p>Document " . get_the_ID() . " has document type set to " . $pt[0]->term_id . "</p>";
 			}
 		}
@@ -22,6 +22,31 @@ if ( $_GET['debug'] == 1 ) {
 				echo "<p>Document " . get_the_ID() . " has " . count( $pt ) . " document types</p>";
 			} elseif ( get_post_meta( get_the_ID(), "document-type", true ) != $pt[0]->term_id ) {
 				echo "<p>Document " . get_the_ID() . " has mismatched document types (" . get_post_meta( get_the_ID(), "document-type", true ) . " & " . $pt[0]->term_id . ")</p>";
+			}
+		}
+	}
+} elseif ( $_GET['debugest'] == 1 ) {
+	$est_array = new WP_Query( array(
+		'post_type' => 'establishment',
+		'posts_per_page' => -1,
+			) );
+	if ( $_GET['fix'] == 1 ) {
+		while ( $est_array->have_posts() ) {
+			$est_array->the_post();
+			$pt = wp_get_post_terms( get_the_ID(), 'establishment_type' );
+			if ( count( $pt ) == 1 && get_post_meta( get_the_ID(), "establishment-type", true ) != $pt[0]->term_id ) {
+				update_post_meta( get_the_ID(), "establishment-type", $pt[0]->term_id );
+				echo "<p>Establishment " . get_the_ID() . " has establishment type set to " . $pt[0]->term_id . "</p>";
+			}
+		}
+	} else {
+		while ( $est_array->have_posts() ) {
+			$est_array->the_post();
+			$pt = wp_get_post_terms( get_the_ID(), 'establishment_type' );
+			if ( count( $pt ) != 1 ) {
+				echo "<p>Establishment " . get_the_ID() . " has " . count( $pt ) . " establishment types</p>";
+			} elseif ( get_post_meta( get_the_ID(), "establishment-type", true ) != $pt[0]->term_id ) {
+				echo "<p>Establishment " . get_the_ID() . " has mismatched establishment types (" . get_post_meta( get_the_ID(), "establishment-type", true ) . " & " . $pt[0]->term_id . ")</p>";
 			}
 		}
 	}
