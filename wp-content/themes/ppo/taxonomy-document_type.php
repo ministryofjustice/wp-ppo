@@ -187,10 +187,20 @@
 	<?php if ( term_description() ) { ?>
 
 		<div class="document-type-text">
-			<?php echo term_description(); ?>
+			<?php
+				$term_desc = str_replace(array("<p>","</p>"),"",term_description());
+				$term_desc_array = explode("\n",$term_desc);
+				$col_count = count($term_desc_array);
+				$col_width = (100/($col_count-1));
+				foreach($term_desc_array as $td_para) {
+					if(strlen($td_para)!=0) {
+						echo str_replace("\n","","<p style='width:$col_width%;padding: 0 1%;display:inline-block;vertical-align:top;'>$td_para</p>");
+					}
+				}
+			?>
 		</div>
 
-	<?php
+		<?php
 	}
 // Modify query to retrive all docs
 	global $wp_query;
@@ -297,7 +307,18 @@
 								}
 							];
 						} else {
-							queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
+							checkFilter = $.inArray(filterType, queryParameters.meta_query);
+							console.log(checkFilter);
+							if (checkFilter) {
+								if (queryParameters.meta_query.window['filterType']) {
+									queryParameters.meta_query.filterType = $(this).attr('data-filter-field');
+								} else {
+									queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field')}, 'AND');
+								}
+							} else {
+								queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
+							}
+							console.log(queryParameters.meta_query);
 						}
 					} else {
 						if (filterType == 'establishment-type') {
@@ -306,7 +327,7 @@
 							delete queryParameters.meta_query;
 						}
 					}
-
+//console.log(queryParameters);
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 					$(this).parent().hide().parent().css("border-bottom", "none");
