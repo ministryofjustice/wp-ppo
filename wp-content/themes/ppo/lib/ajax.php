@@ -26,7 +26,7 @@ function update_tiles() {
 
 	if ( isset( $args['tax_query'] ) ) {
 		foreach ( $args['tax_query'] as $i => $tax_query ) {
-			if ( $tax_query['taxonomy'] = "establishment-type" ) {
+			if ( $tax_query['taxonomy'] = "establishment-type" ) {	
 
 				// Remove taxonomy query
 				unset( $args['tax_query'][$i] );

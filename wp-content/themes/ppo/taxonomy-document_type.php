@@ -188,15 +188,15 @@
 
 		<div class="document-type-text">
 			<?php
-				$term_desc = str_replace(array("<p>","</p>"),"",term_description());
-				$term_desc_array = explode("\n",$term_desc);
-				$col_count = count($term_desc_array);
-				$col_width = (100/($col_count-1));
-				foreach($term_desc_array as $td_para) {
-					if(strlen($td_para)!=0) {
-						echo str_replace("\n","","<p style='width:$col_width%;padding: 0 1%;display:inline-block;vertical-align:top;'>$td_para</p>");
-					}
+			$term_desc = str_replace( array( "<p>", "</p>" ), "", term_description() );
+			$term_desc_array = explode( "\n", $term_desc );
+			$col_count = count( $term_desc_array );
+			$col_width = (100 / ($col_count - 1));
+			foreach ( $term_desc_array as $td_para ) {
+				if ( strlen( $td_para ) != 0 ) {
+					echo str_replace( "\n", "", "<p style='width:$col_width%;padding: 0 1%;display:inline-block;vertical-align:top;'>$td_para</p>" );
 				}
+			}
 			?>
 		</div>
 
@@ -294,7 +294,17 @@
 					$(this).parent().parent().find('.filter-current').html($(this).html());
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
 					queryParameters.paged = 1;
-					if ($(this).attr('data-filter-field') != -1) {
+					// Check to see if filter already exists
+					checkFilter = false;
+					if (queryParameters.meta_query) {
+						$.each(queryParameters.meta_query, function(index, value) {
+							if (value.key == filterType) {
+								checkFilter = true;
+								filterIndex = index;
+							}
+						});
+					}
+					if ($(this).attr('data-filter-field') != -1) { // Check to see if the option is a reset (-1)
 						if (filterType == 'establishment-type') {
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
 						} else if (filterType == 'document-date') {
@@ -307,18 +317,18 @@
 								}
 							];
 						} else {
-							checkFilter = $.inArray(filterType, queryParameters.meta_query);
-							console.log(checkFilter);
-							if (checkFilter) {
-								if (queryParameters.meta_query.window['filterType']) {
-									queryParameters.meta_query.filterType = $(this).attr('data-filter-field');
+							if (checkFilter) { // Filter already set
+								queryParameters.meta_query[filterIndex].value = $(this).attr('data-filter-field');
+							} else { // Filter not set - add to query
+								if (queryParameters.meta_query) {
+									if ($.inArray("AND", queryParameters.meta_query) == -1) {
+										queryParameters.meta_query.push('AND');
+									}
+									queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field')});
 								} else {
-									queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field')}, 'AND');
+									queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}];
 								}
-							} else {
-								queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}, 'AND'];
 							}
-							console.log(queryParameters.meta_query);
 						}
 					} else {
 						if (filterType == 'establishment-type') {
@@ -327,7 +337,7 @@
 							delete queryParameters.meta_query;
 						}
 					}
-//console.log(queryParameters);
+					console.log(queryParameters);
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 					$(this).parent().hide().parent().css("border-bottom", "none");
