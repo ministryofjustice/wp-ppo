@@ -141,3 +141,18 @@
 		</div>
 	</div>
 </div>
+
+<!--
+<?php 
+
+$documents_array = new WP_Query(array(
+	'post_type' => 'document'
+));
+while($documents_array->have_posts()) {
+	$documents_array->the_post();
+	$pt = wp_get_post_terms(get_the_ID(), 'document_type');
+	if (count($pt)!=1) echo "<p>" . get_the_ID() . ":" . count($pt) . "</p>";
+}
+
+?>
+-->
