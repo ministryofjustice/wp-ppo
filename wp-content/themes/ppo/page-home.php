@@ -46,7 +46,7 @@
 						array(
 							'taxonomy' => 'document_type',
 							'field' => 'slug',
-							'terms' => array( 'annual-reports','learning-lessons-reports','stakeholder-feedback' ),
+							'terms' => array( 'annual-reports', 'learning-lessons-reports', 'stakeholder-feedback' ),
 							'operator' => 'IN'
 						)
 					),
@@ -75,7 +75,7 @@
 					</li>
 					<?php
 				endwhile;
-				
+
 				remove_filter( 'posts_orderby', 'wdw_query_orderby_postmeta_date', 10, 1 );
 				?>
 			</ul>
@@ -95,7 +95,7 @@
 						'after' => '1 week ago'
 					)
 				)
-			) );
+					) );
 			?>
 			<a href='<?php echo site_url( 'last-seven-days' ); ?>'>
 				<div id="anon-count-container">
@@ -129,8 +129,8 @@
 							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'home-news-thumb' ); ?></a>
 							<div class="news-details">
 								<a href="<?php the_permalink(); ?>"><h4><?php the_title(); ?></h4></a>
-								<time class="published" datetime="<?php echo get_the_time('c'); ?>"><?php echo get_the_date(); ?></time>
-								<?php the_excerpt(); ?>
+								<time class="published" datetime="<?php echo get_the_time( 'c' ); ?>"><?php echo get_the_date(); ?></time>
+									<?php the_excerpt(); ?>
 							</div>
 						</li>
 						<?php
@@ -142,17 +142,22 @@
 	</div>
 </div>
 
-<!--
-<?php 
 
-$documents_array = new WP_Query(array(
-	'post_type' => 'document'
-));
-while($documents_array->have_posts()) {
-	$documents_array->the_post();
-	$pt = wp_get_post_terms(get_the_ID(), 'document_type');
-	if (count($pt)!=1) echo "<p>" . get_the_ID() . ":" . count($pt) . "</p>";
+<?php
+// For debugging only - performance slowdown when turned on
+if ( $_GET['debug']==1 ) {
+	$documents_array = new WP_Query( array(
+		'post_type' => 'document',
+		'posts_per_page' => -1,
+			) );
+	while ( $documents_array->have_posts() ) {
+		$documents_array->the_post();
+		$pt = wp_get_post_terms( get_the_ID(), 'document_type' );
+		if ( count( $pt ) != 1 ) {
+			echo "<p>Document " . get_the_ID() . " has " . count( $pt ) . " document types</p>";
+		} elseif ( get_post_meta( get_the_ID(), "document-type", true ) != $pt[0]->term_id ) {
+			echo "<p>Document " . get_the_ID() . " has mismatched document types (" . get_post_meta( get_the_ID(), "document-type", true ) . " & " . $pt[0]->term_id . ")</p>";
+		}
+	}
 }
-
 ?>
--->
