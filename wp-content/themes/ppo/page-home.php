@@ -33,7 +33,7 @@ if ( $_GET['debugdocs'] == 1 ) {
 	if ( $_GET['fix'] == 1 ) {
 		while ( $est_array->have_posts() ) {
 			$est_array->the_post();
-			$pt = wp_get_post_terms( get_the_ID(), 'establishment_type' );
+			$pt = wp_get_post_terms( get_the_ID(), 'establishment-type' );
 			if ( count( $pt ) == 1 && get_post_meta( get_the_ID(), "establishment-type", true ) != $pt[0]->term_id ) {
 				update_post_meta( get_the_ID(), "establishment-type", $pt[0]->term_id );
 				echo "<p>Establishment " . get_the_ID() . " has establishment type set to " . $pt[0]->term_id . "</p>";
@@ -42,7 +42,7 @@ if ( $_GET['debugdocs'] == 1 ) {
 	} else {
 		while ( $est_array->have_posts() ) {
 			$est_array->the_post();
-			$pt = wp_get_post_terms( get_the_ID(), 'establishment_type' );
+			$pt = wp_get_post_terms( get_the_ID(), 'establishment-type' );
 			if ( count( $pt ) != 1 ) {
 				echo "<p>Establishment " . get_the_ID() . " has " . count( $pt ) . " establishment types</p>";
 			} elseif ( get_post_meta( get_the_ID(), "establishment-type", true ) != $pt[0]->term_id ) {
