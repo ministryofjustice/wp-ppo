@@ -153,7 +153,7 @@ var cssSandpaper = new function(){
         
             var rule = backgroundRules[i];
             
-            
+        try {    
                 var nodes = document.querySelectorAll(rule.selector);
                 
                 var values = CSS3Helpers.getGradient(rule.value);
@@ -193,7 +193,9 @@ var cssSandpaper = new function(){
                     }
                 }
             
-            
+            } catch(e) {
+                // do nothing
+            }
             
         }
     }
