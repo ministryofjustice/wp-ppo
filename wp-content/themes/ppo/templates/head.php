@@ -19,11 +19,15 @@
 		<![endif]-->
 
 		<!--[if IE 8]>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/EventHelpers.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssQuery-p.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/sylvester.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssSandpaper.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/IE9.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/EventHelpers.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssQuery-p.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/sylvester.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssSandpaper.js"></script>
+			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/IE9.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 9]>
+			<script src="<?php echo get_template_directory_uri(); ?>/assets/js/html5shiv.min.js"></script>
 		<![endif]-->
 	</head>
