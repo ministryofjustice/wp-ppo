@@ -245,29 +245,31 @@ var cssSandpaper = new function(){
         for (var i = 0; i < styleSheets.length; i++) {
             var sheet = styleSheets[i];
             
-            rules = sheet.match(ruleSetRe);
-            
-            for (var j = 0; j < rules.length; j++) {
-                var parsedRule = rules[j].split(ruleSplitRe);
-                var selector = parsedRule[0].trim();
-                var propertiesStr = parsedRule[1];
-                var properties = propertiesStr.split(';');
-                for (var k = 0; k < properties.length; k++) {
-                    if (properties[k].trim() != '') {
-                        var splitProperty = properties[k].split(':')
-                        var name = splitProperty[0].trim().toLowerCase();
-                        var value = splitProperty[1];
-                        if (!ruleLists[name]) {
-                            ruleLists[name] = new RuleList(name);
-                        }
-                        
-                        if (value) {
-                            ruleLists[name].add(selector, value.trim());
+            if(sheet.match(ruleSetRe)) {
+                rules = sheet.match(ruleSetRe);
+
+                for (var j = 0; j < rules.length; j++) {
+                    var parsedRule = rules[j].split(ruleSplitRe);
+                    var selector = parsedRule[0].trim();
+                    var propertiesStr = parsedRule[1];
+                    var properties = propertiesStr.split(';');
+                    for (var k = 0; k < properties.length; k++) {
+                        if (properties[k].trim() != '') {
+                            var splitProperty = properties[k].split(':')
+                            var name = splitProperty[0].trim().toLowerCase();
+                            var value = splitProperty[1];
+                            if (!ruleLists[name]) {
+                                ruleLists[name] = new RuleList(name);
+                            }
+
+                            if (value) {
+                                ruleLists[name].add(selector, value.trim());
+                            }
                         }
                     }
                 }
             }
-        }
+        }   
 		
     }
     
