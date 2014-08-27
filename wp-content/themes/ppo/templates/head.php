@@ -15,11 +15,11 @@
 		<link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo( 'name' ); ?> Feed" href="<?php echo esc_url( get_feed_link() ); ?>">
 
 		<![if lt IE 9]>
-		<script src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>
+		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/EventHelpers.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssQuery-p.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/sylvester.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/cssSandpaper.js"></script>
-		<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/IE9.js"></script>
 		<![endif]-->
 	</head>
