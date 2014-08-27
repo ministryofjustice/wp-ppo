@@ -15,7 +15,7 @@ function roots_scripts() {
 	global $wp_styles;
 	
 	wp_enqueue_style( 'roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '6fdb1bb53650e8bc58715fec12c7e865' );
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', false);
+	wp_enqueue_style( 'font-awesome', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', false);
 
 	// jQueryUI theme
 	wp_enqueue_style( "jquery-ui-css", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/blitzer/jquery-ui.min.css" );
@@ -28,7 +28,7 @@ function roots_scripts() {
 	// It's kept in the header instead of footer to avoid conflicts with plugins.
 	if ( !is_admin() && current_theme_supports( 'jquery-cdn' ) ) {
 		wp_deregister_script( 'jquery' );
-		wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', array(), null, false );
+		wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', array(), null, false );
 		add_filter( 'script_loader_src', 'roots_jquery_local_fallback', 10, 2 );
 	}
 
