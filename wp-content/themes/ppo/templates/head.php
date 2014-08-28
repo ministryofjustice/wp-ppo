@@ -18,7 +18,7 @@
 			<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome-ie7.min.css">
 		<![endif]-->
 		
-		<!--[if IE 8]>
+		<!--[if lt IE 9]>
 			<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome.min3.2.1.css">
 		<![endif]-->
 
