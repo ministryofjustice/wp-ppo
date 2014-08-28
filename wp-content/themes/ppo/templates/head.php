@@ -17,10 +17,6 @@
 		<!--[if IE 7]>
 			<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome-ie7.min.css">
 		<![endif]-->
-		
-		<!--[if lt IE 9]>
-			<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome.min3.2.1.css">
-		<![endif]-->
 
 		<!--[if IE 8]>
 			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>

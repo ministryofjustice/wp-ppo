@@ -15,9 +15,11 @@ function roots_scripts() {
 	global $wp_styles;
 	
 	wp_enqueue_style( 'roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '6fdb1bb53650e8bc58715fec12c7e865' );
-	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css', false);
-	$wp_styles->add_data( 'font-awesome', 'conditional', 'gt ie8' );
+//	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css', false);
+//	$wp_styles->add_data( 'font-awesome', 'conditional', 'gt ie8' );
 
+	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min3.2.1.css', false);
+	
 	// jQueryUI theme
 	wp_enqueue_style( "jquery-ui-css", get_template_directory_uri() . "/assets/css/jquery-ui.min.css" );
 	
