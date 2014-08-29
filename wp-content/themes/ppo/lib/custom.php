@@ -180,7 +180,7 @@ function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
-			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key!='fii-death-type'?str_replace( "-", "_", $current_meta_key ):$current_meta_key );
+			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key != 'fii-death-type' ? str_replace( "-", "_", $current_meta_key ) : $current_meta_key  );
 		}
 	}
 }
@@ -191,7 +191,7 @@ function add_document_type( $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
-			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key!='fii-death-type'?str_replace( "-", "_", $current_meta_key ):$current_meta_key );
+			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key != 'fii-death-type' ? str_replace( "-", "_", $current_meta_key ) : $current_meta_key  );
 		}
 	}
 }
@@ -308,9 +308,11 @@ function wdw_query_orderby_postmeta_date( $orderby ) {
 
 // Add pages to search
 function wpshock_search_filter( $query ) {
-    if ( $query->is_search && !is_admin() ) {
-        $query->set( 'post_type', array('post','page') );
-    }
-    return $query;
+	$docs_only = (isset( $query->query['docs_only'] ) && $query->query['docs_only']) ? true : false;
+	if ( $query->is_search && !is_admin() && !$docs_only ) {
+		$query->set( 'post_type', array( 'post', 'page' ) );
+	}
+	return $query;
 }
-add_filter('pre_get_posts','wpshock_search_filter');
+
+add_filter( 'pre_get_posts', 'wpshock_search_filter' );

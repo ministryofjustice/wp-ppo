@@ -11,7 +11,9 @@
 		$args = array(
 			'post_type' => 'document',
 			'posts_per_page' => -1,
-			's' => get_search_query()
+			'post_status' => 'publish',
+			's' => get_search_query(),
+			'docs_only' => true
 		);
 		$matching_docs = new WP_Query( $args );
 		?>
@@ -34,6 +36,7 @@
 		// Modify search query to search for documents and pages
 		$args = array(
 			'post_type' => 'post',
+			'post_status' => 'publish',
 			's' => get_search_query()
 		);
 		$matching_pages = new WP_Query( $args );
