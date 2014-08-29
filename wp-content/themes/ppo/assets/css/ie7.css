@@ -23,3 +23,7 @@ div.wrap {
 .banner a.brand img {
     max-height: 50px;
 }
+
+.document-type-text p {
+    width: 100%;
+}
