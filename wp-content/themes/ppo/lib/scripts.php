@@ -24,7 +24,7 @@ function roots_scripts() {
 	wp_enqueue_style( "jquery-ui-css", get_template_directory_uri() . "/assets/css/jquery-ui.min.css" );
 	
 	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
-	$wp_styles->add_data( 'ie7', 'conditional', 'lte ie8' );
+	$wp_styles->add_data( 'ie7', 'conditional', 'lte IE 8' );
 
 	// jQuery is loaded using the same method from HTML5 Boilerplate:
 	// Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
