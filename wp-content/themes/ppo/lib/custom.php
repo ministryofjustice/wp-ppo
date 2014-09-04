@@ -59,9 +59,7 @@ add_filter( 'ot_theme_mode', '__return_true' );
 add_filter( 'ot_show_pages', '__return_false' );
 add_filter( 'ot_show_new_layout', '__return_false' );
 add_filter( 'ot_use_theme_options', '__return_true' );
-
 add_filter( 'ot_header_version_text', '__return_null' );
-
 //load_template( trailingslashit( get_template_directory() ) . 'inc/theme-options.php' );
 require_once (trailingslashit( get_template_directory() ) . 'option-tree/ot-loader.php');
 
