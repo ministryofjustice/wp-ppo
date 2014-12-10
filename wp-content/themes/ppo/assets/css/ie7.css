@@ -7,7 +7,7 @@ img {
 }
 
 div.wrap {
-    margin-top: 30px;
+    margin-top: 30px!important;
 }
 
 .navbar-nav>li {
@@ -20,6 +20,8 @@ div.wrap {
     padding: 15px 0;
 }
 
+nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
+
 .banner a.brand img {
     max-height: 50px;
 }
@@ -27,3 +29,18 @@ div.wrap {
 .document-type-text p {
     width: 100% !important;
 }
+
+.banner a.brand {
+ 	line-height: 70px; margin: 0; width: 15%!important; position: absolute; left: 0; top: 0; 
+    }
+
+
+.banner a.brand  img {
+ 	max-width: 100%; padding: 10px; max-height: 70px; width: 100%;
+ 	}
+
+.dropdown-menu li {  width: 33% }
+
+.col-md-6 {  width: 46%!important; }
+
+.col-md-3 {width: 22%!important;}
