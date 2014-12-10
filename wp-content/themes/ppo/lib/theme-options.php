@@ -65,6 +65,14 @@ function custom_theme_options() {
 			'type' => 'upload',
 			'section' => 'homepage_large_nav' . $i
 		);
+		// Image alt text
+		$homepage_button_settings[] = array(
+			'id' => 'homepage_nav_image_alt' . $i,
+			'label' => __( 'Alt', 'ppo' ),
+			'desc' => __( 'The alt text for the image', 'ppo' ),
+			'type' => 'text',
+			'section' => 'homepage_large_nav' . $i
+		);
 	}
 
 	$custom_settings = array(

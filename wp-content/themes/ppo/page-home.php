@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-md-6">
 			<?php get_search_form( true ); ?>
-			<iframe width="1280" height="720" src="//www.youtube.com/embed/Da7tH1LLRVE?modestbranding=1&showinfo=0&autohide=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+			<iframe width="1280" height="720" title="Youtube video" src="//www.youtube.com/embed/Da7tH1LLRVE?modestbranding=1&showinfo=0&autohide=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 
@@ -24,7 +24,7 @@
 						<div class="cta-inner">
 							<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
 							<div><?php echo ot_get_option( "homepage_nav_text$i" ); ?></div>
-							<img src="<?php echo ot_get_option( "homepage_nav_image$i" ); ?>">
+							<img src="<?php echo ot_get_option( "homepage_nav_image$i" ); ?>" alt="<?php echo ot_get_option( "homepage_nav_image_alt$i" ); ?>">
 						</div>
 					</a>
 				</div>
