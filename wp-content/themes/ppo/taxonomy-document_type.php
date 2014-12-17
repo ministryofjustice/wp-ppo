@@ -1,3 +1,5 @@
+
+
 <div id="loading-spinner"><img src="<?php echo get_template_directory_uri( __FILE__ ) . '/assets/img/ajax-loader.gif'; ?>"></div>
 
 <nav id="sort-filter">
@@ -184,6 +186,13 @@
 </nav>
 
 <div class="tile-container">
+
+<div class="page-header">
+
+<h1><?php echo get_queried_object()->name; ?></h1>
+
+</div>
+
 	<?php if ( term_description() ) { ?>
 
 		<div class="document-type-text">
