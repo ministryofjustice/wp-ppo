@@ -275,9 +275,9 @@ function ppo_breadcrumbs() {
 			$output .= " $seperator ";
 			$output .= $level3_label;
 		}
-		$output .= " <span class='current'>$seperator</span> ";
+		$output .= " <span class='current'>$seperator ";
 		$output .= $level4_label;
-		$output .= "</div>";
+		$output .= "</span></div>";
 
 		echo $output;
 	}
