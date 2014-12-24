@@ -26,6 +26,9 @@ function roots_scripts() {
 	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
 	$wp_styles->add_data( 'ie7', 'conditional', 'lte IE 8' );
 
+	wp_enqueue_style( 'old-ie', get_stylesheet_directory_uri() . "/assets/css/old-ie.css", array( 'roots_main' ) );
+    $wp_styles->add_data( 'old-ie', 'conditional', 'lt IE 10' );
+
 	// jQuery is loaded using the same method from HTML5 Boilerplate:
 	// Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
 	// It's kept in the header instead of footer to avoid conflicts with plugins.
