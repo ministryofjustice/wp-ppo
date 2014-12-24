@@ -362,13 +362,13 @@
 						sortReset = 0;
 						scrollStart = 0;
 					}
-					if ($(window).scrollTop() - scrollStart > navBottom) {
-						$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding", "0");
-						$(".sorts,.filters").css("margin", "20px 35px");
-					} else {
-						$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px").css("padding", "0 15px");
-						$(".sorts,.filters").css("margin", "20px");
-					}
+					// if ($(window).scrollTop() - scrollStart > navBottom) {
+					// 	$("#sort-filter").css("top", sortTop).css("position", "fixed").css("margin", "-20px 0").css("padding", "0");
+					// 	$(".sorts,.filters").css("margin", "20px 35px");
+					// } else {
+					// 	$("#sort-filter").css("top", sortReset).css("position", "absolute").css("margin", "-20px -15px").css("padding", "0 15px");
+					// 	$(".sorts,.filters").css("margin", "20px");
+					// }
 				});
 				// Navigation for filters
 				$('.filter-header').on('click', function(f) {

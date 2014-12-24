@@ -38,8 +38,7 @@ body { }
     background-color: @ppo-red;
     float: left;
     width: 100%;
-    position: fixed;
-    top: 0;
+    position: relative;
     .nav-container {
         background-color: @ppo-dark;
         min-height: 70px;
@@ -60,7 +59,7 @@ body { }
 
 .navbar {
     min-height: 70px;
-    margin: 0 0 20px;
+    margin: 0;
 }
 .navbar-toggle {
     margin-top: 18px;
@@ -240,21 +239,9 @@ nav>ul>li>.menu-container>ul>li {
     margin-top: 120px;
 }
 
-.page-header {
-    padding-top: 10px;
-}
-
 /* ==========================================================================
    Content
    ========================================================================== */
-
-div.wrap {
-    margin-top: 155px;
-}
-
-.archive div.wrap {
-    margin-top: 130px;
-}
 
 .single .navigation {
     padding: 30px 0;
@@ -359,6 +346,8 @@ div.wrap {
 
 #breadcrumbs {
     font-size: 0.9em;
+    margin: 1.5em 0 0 0;
+
     .current {
         font-weight: bold;
     }
@@ -558,7 +547,6 @@ section.filelist {
 
 .tile-container {
     clear: both;
-    margin-top: 110px;
     .document-type-text {
         padding: 10px;
         margin: 10px;
@@ -711,18 +699,21 @@ footer {
    Sort/Filter controls
    ========================================================================== */
 #sort-filter {
-    position: absolute;
-    left: 0;
+    position: relative;
     width: 100%;
-    margin: -20px -15px;
+    margin: 0 -15px 0 -30px;
     box-sizing: content-box;
     background: #ddd;
     z-index: 100;
-    top: -80px;
-    height: 110px;
+    height: auto;
+    left: 0;
+    right: 0;
+    padding: 0 30px 15px 30px;
     .group-label {
+        -webkit-transform: rotate(-90deg);
         transform: rotate(-90deg);
         -sand-transform: translate(-31px,-31px);
+        -webkit-transform-origin: left bottom 0;
         transform-origin: left bottom 0;
         position: absolute;
         bottom: 0;
@@ -761,9 +752,13 @@ footer {
     float: right;
 }
 
-.filters {
-    height: 70px;
-}
+
+
+    .filters {
+        height: 70px;
+    }
+
+
 
 .filter-control {
     background-color: #eee;
@@ -834,6 +829,7 @@ footer {
     display: none;
 }
 
+
 /* ==========================================================================
    WordPress Generated Classes
    See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes
@@ -877,7 +873,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
         }
     }
     .nav-container {
-        position: fixed; top: 0; width: 100%;
+        position: relative; width: 100%;
     }
     /*.banner a.brand {
         width: 15%;
@@ -893,9 +889,6 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
         margin-top: 20px;
     }
 
-    #sort-filter {
-        top: 0;
-    }
 
  .banner a.brand {
         line-height: 70px; margin: 0; width: auto; position: absolute; left: 0; top: 0; text-align: center;
@@ -904,18 +897,22 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
         }
     }
 
-    div.wrap {
-    margin-top: 94px;
-}
-
-   .archive div.wrap {
-    margin-top: 90px;
-}
 
 .page-header {
     padding-top: 0;
 }
     
+}
+
+@media (max-width: @screen-xs) {
+
+.tile-container .document-type-text p {
+    width: 100%!important;
+    margin-bottom: 1em;
+}
+
+
+
 }
 
 @media (min-width: @screen-md-min) {
