@@ -44,3 +44,17 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 .col-md-6 {  width: 46%!important; }
 
 .col-md-3 {width: 22%!important;}
+
+.alert-warning {
+    margin: 10px 0;
+}
+
+.input-group .form-control {
+    *+width: 71.5%!important;
+}
+
+button.search-submit {
+    *+height: 48px;
+    *+margin-left: -7px;
+    *+margin-top: -2px;
+}
