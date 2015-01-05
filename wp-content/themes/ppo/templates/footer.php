@@ -1,5 +1,8 @@
 <footer class="content-info container" role="contentinfo">
 	<div class="row">
+
+		<div class="footer-search"><?php get_search_form( true ); ?></div>
+	
 		<div>
 			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
 			<?php
@@ -8,6 +11,9 @@
 			endif;
 			?>
 		</div>
+
+
+		 
 	</div>
 </footer>
 

@@ -693,11 +693,27 @@ footer {
 
 #menu-footer-navigation {
     text-align: center;
+    margin: 10px 0 0 -10px;
     >li {
-        float: none;
+        float: left;
         display: inline-block;
     }
 }
+
+footer .footer-search {
+    width: 100%;
+    //margin-left: 20px;
+    display: block;
+}
+
+footer .row {
+    padding: 20px 20px 10px 20px;
+
+    .search-form {
+        margin: 0;
+    }
+}
+
 
 /* ==========================================================================
    Sort/Filter controls
@@ -936,6 +952,22 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 .page-header {
     padding-top: 0;
 }
+
+footer .footer-search {
+    width: 400px;
+    margin: 0;
+    padding: 0;
+    float: right;
+    display: inline-block;
+}
+
+footer .row {
+    padding: 20px 20px 20px 0;
+    }
+
+#menu-footer-navigation {
+    margin: 0;
+    }
     
 }
 
