@@ -15,7 +15,6 @@ wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 wp-content/cache/*
 wp-content/cache/supercache/*
-wp-admin/*
 
 # wpengine specific
 .smushit-status
@@ -68,5 +67,3 @@ wp-content/mysql.sql
 *.mo
 
 *.po
-
-readme.html
