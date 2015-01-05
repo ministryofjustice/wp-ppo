@@ -139,6 +139,8 @@
 					endwhile;
 					?>
 				</ul>
+
+				<a class="news-archive-link" href="news-archive/">View news archive</a>
 			</div>
 		</div>
 	</div>
