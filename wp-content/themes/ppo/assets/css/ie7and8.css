@@ -61,4 +61,10 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
     padding-right: 8px;
 } 
 
+.group-label {
+    top: 0;
+    height: 16px!important;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
 

@@ -31,4 +31,10 @@ footer .input-group .form-control {
 
 }
 
+.group-label {
+    left: 0;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+
 

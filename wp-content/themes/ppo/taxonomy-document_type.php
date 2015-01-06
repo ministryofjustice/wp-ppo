@@ -25,7 +25,7 @@
 				'establishment' => 'autocomplete'
 			),
 			'sort' => array( 'publish-date', 'date-of-death' ),
-			'default' => 'publish-date'
+			'default' => 'date-of-death'
 		)
 	);
 
@@ -220,7 +220,7 @@
 				'paged' => $paged,
 				'order' => "DESC",
 				'orderby' => 'meta_value',
-				'meta_key' => 'document-date'
+				'meta_key' => 'fii-death-date'
 			) ) );
 	echo "<script type = 'text/javascript'>curPage = $paged;
 							maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";
