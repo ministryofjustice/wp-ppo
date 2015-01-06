@@ -57,6 +57,10 @@ $tile_data = " data-date='" . $document_datetime . "'"
 			<div class="tile-details">
 				<table>
 					<tr>
+						<td>Date of death:</td>
+						<td><?php echo $death_date; ?></td>
+					</tr>
+					<tr>
 						<td colspan="2"><strong>
 							<?php
 							if ( $document_establishment_type ) {
@@ -66,24 +70,25 @@ $tile_data = " data-date='" . $document_datetime . "'"
 							</strong></td>
 					</tr>
 					<tr>
-						<td>Published:</td> 
-						<td><?php echo $document_date; ?></td>
-					</tr>
-					<tr>
-						<td>Date of death:</td>
-						<td><?php echo $death_date; ?></td>
-					</tr>
-					<tr>
 						<td>Type of death:</td>
 						<td><?php echo $document_death_type ? get_term_field( "name", $document_death_type, 'fii-death-type' ) : ""; ?></td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td><?php echo (get_metadata( 'post', get_the_ID(), 'fii-gender', true ) == "m" ? "Male" : "Female"); ?></td>
 						<td><?php echo get_metadata( 'post', get_the_ID(), 'fii-age', true ); ?></td>
 					</tr>
+					<tr>
+						
+							<td><span class="reduce">On website:</span></td> 
+							<td><span class="reduce"><?php echo $document_date; ?></span></td>
+						</span>
+					</tr>
+
+
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+
 				</table>
 			</div>
 		<?php } ?>
