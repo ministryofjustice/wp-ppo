@@ -22,9 +22,12 @@ function roots_scripts() {
 	
 	// jQueryUI theme
 	wp_enqueue_style( "jquery-ui-css", get_template_directory_uri() . "/assets/css/jquery-ui.min.css" );
+
+	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main' ) );
+	$wp_styles->add_data( 'ie7', 'conditional', 'lt IE 8' );
 	
-	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
-	$wp_styles->add_data( 'ie7', 'conditional', 'lte IE 8' );
+	wp_enqueue_style( 'ie7and8', get_template_directory_uri() . '/assets/css/ie7and8.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
+	$wp_styles->add_data( 'ie7and8', 'conditional', 'lt IE 9' );
 
 	wp_enqueue_style( 'old-ie', get_stylesheet_directory_uri() . "/assets/css/old-ie.css", array( 'roots_main' ) );
     $wp_styles->add_data( 'old-ie', 'conditional', 'lt IE 10' );
