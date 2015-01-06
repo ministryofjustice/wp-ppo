@@ -63,3 +63,11 @@ button.search-submit {
     *+width: 50%!important;
 }
 
+.tile-container article.fii-report {
+    margin: 20px!important;
+}
+
+.tile-container article.fii-report h3 {
+    padding-right: 8px;
+} 
+

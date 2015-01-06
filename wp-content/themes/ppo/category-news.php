@@ -22,6 +22,7 @@ Template Name: Category news archive
 		  <time class="published"><?php echo get_the_date(); ?></time>
 		    <?php the_excerpt() ?>
 		  </li>
+		  <hr/>
 	    <?php endwhile; endif; ?>
 	</ul>
 
