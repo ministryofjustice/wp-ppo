@@ -25,7 +25,7 @@
 				'establishment' => 'autocomplete'
 			),
 			'sort' => array( 'publish-date', 'date-of-death' ),
-			'default' => 'publish-date'
+			'default' => 'date-of-death'
 		)
 	);
 
@@ -211,7 +211,15 @@
 
 		<?php
 	}
-// Modify query to retrive all docs
+	//Specific ordering for FII reports
+	if( has_term( 'fii-report', 'document_type' ) ) {
+			$metakey = 'fii-death-date';
+		}
+	else
+		{
+			$metakey = 'document-date';
+		}
+	// Modify query to retrive all docs
 	global $wp_query;
 	$post_per_page = 50;
 	$paged = (get_query_var( 'paged' )) ? get_query_var( 'paged' ) : 1;
@@ -220,7 +228,7 @@
 				'paged' => $paged,
 				'order' => "DESC",
 				'orderby' => 'meta_value',
-				'meta_key' => 'document-date'
+				'meta_key' => $metakey
 			) ) );
 	echo "<script type = 'text/javascript'>curPage = $paged;
 							maxPage = " . ceil( $wp_query->found_posts / $post_per_page ) . ";
