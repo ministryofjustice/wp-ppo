@@ -57,7 +57,7 @@
 		?>
 		<div class="filter-control">
 			<div class='filter-header'>
-				<?php echo ucfirst(str_replace( array( "-", "fii ","establishment type" ), array( " ", "","location" ),  $filter  )); ?>
+				<?php echo ucfirst(str_replace( array( "-", "fii ","establishment type", "death type" ), array( " ", "","location", "cause"),  $filter  )); ?>
 				<div class='filter-current'>All</div>
 			</div>
 			<?php

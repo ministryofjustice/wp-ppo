@@ -70,7 +70,7 @@ $tile_data = " data-date='" . $document_datetime . "'"
 							</strong></td>
 					</tr>
 					<tr>
-						<td>Type of death:</td>
+						<td>Cause:</td>
 						<td><?php echo $document_death_type ? get_term_field( "name", $document_death_type, 'fii-death-type' ) : ""; ?></td>
 					</tr>
 					<tr>
