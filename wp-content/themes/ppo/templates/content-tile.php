@@ -57,10 +57,6 @@ $tile_data = " data-date='" . $document_datetime . "'"
 			<div class="tile-details">
 				<table>
 					<tr>
-						<td>Date of death:</td>
-						<td><?php echo $death_date; ?></td>
-					</tr>
-					<tr>
 						<td colspan="2"><strong>
 							<?php
 							if ( $document_establishment_type ) {
@@ -68,6 +64,10 @@ $tile_data = " data-date='" . $document_datetime . "'"
 							}
 							?>
 							</strong></td>
+					</tr>
+					<tr>
+						<td>Date of death:</td>
+						<td><?php echo $death_date; ?></td>
 					</tr>
 					<tr>
 						<td>Cause:</td>
@@ -79,8 +79,8 @@ $tile_data = " data-date='" . $document_datetime . "'"
 					</tr>
 					<tr>
 						
-							<td><span class="reduce">On website:</span></td> 
-							<td><span class="reduce"><?php echo $document_date; ?></span></td>
+							<td>On website:</td> 
+							<td><?php echo $document_date; ?></td>
 						</span>
 					</tr>
 
