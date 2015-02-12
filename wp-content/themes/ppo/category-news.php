@@ -18,7 +18,9 @@ Template Name: Category news archive
 			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 			query_posts('cat=news&posts_per_page=10&paged=' . $paged); ?>
 		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-		  <li><h4><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h4>
+		  <li>
+		  <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'home-news-thumb' ); ?></a>
+		  <h4><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h4>
 		  <time class="published"><?php echo get_the_date(); ?></time>
 		    <?php the_excerpt() ?>
 		  </li>
