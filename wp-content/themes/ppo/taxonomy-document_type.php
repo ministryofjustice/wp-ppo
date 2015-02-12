@@ -24,7 +24,7 @@
 				'fii-age' => 'all',
 				'establishment' => 'autocomplete'
 			),
-			'sort' => array( 'publish-date', 'date-of-death' ),
+			'sort' => array( 'website-date', 'date-of-death' ),
 			'default' => 'date-of-death'
 		)
 	);
@@ -285,7 +285,7 @@
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
 					switch (sortByValue) {
 						case "date":
-						case "publish-date":
+						case "website-date":
 							sortByValue = "document-date";
 							break;
 						case "date-of-death":
