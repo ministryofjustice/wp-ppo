@@ -67,3 +67,26 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
+.sorts, .filters {
+    margin: 20px;
+}
+
+.filters {
+    margin: 20px;
+}
+
+.sort-control {
+    padding: 24px 24px 24px 14px;
+    font-size: 1em;
+}
+
+.sorts {
+    float: right;
+    margin-right: 10px;
+}
+
+.filter-header {        
+    padding: 16px 13px;
+    font-size: 1em;
+}
+
