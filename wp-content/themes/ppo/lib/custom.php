@@ -15,7 +15,7 @@ foreach ( $cpt_declarations as $cpt_declaration ) {
 
 // Add image sizes
 add_image_size( 'admin-list-thumb', 100, 100, false );
-add_image_size( 'home-news-thumb', 180, 90, true );
+add_image_size( 'home-news-thumb', 158, 224, false );
 
 // Add JS
 function custom_scripts() {
