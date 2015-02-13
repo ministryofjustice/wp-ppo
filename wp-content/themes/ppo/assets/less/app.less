@@ -756,14 +756,30 @@ footer .row {
 }
 .sorts, .filters {
     display: inline-block;
-    margin: 20px;
+    margin: 20px 15px 10px 15px;
     position: relative;
+    float: none;
+        @media (min-width: @screen-sm) {
+            margin: 20px;
+     }
+}
+
+.filters {
+    margin: 20px 0px 10px 15px;
+        @media (min-width: @screen-sm) {
+            margin: 20px;
+     }
 }
 .sort-control {
     background-color: #eee;
-    padding: 24px 35px 24px 20px;
+    padding: 24px 24px 24px 10px;
+    font-size: .95em;
     float: left;
     cursor: pointer;
+        @media (min-width: @screen-xs) {
+            padding: 24px 24px 24px 14px;
+            font-size: 1em;
+        }
     &.asc:after {
         content: "\25B2";
         margin-left: 5px;
@@ -777,7 +793,13 @@ footer .row {
 }
 
 .sorts {
-    float: right;
+    float: none;
+    margin-right:20px;
+        @media (min-width: @screen-sm) {
+        float: right;
+        margin-right: 10px;
+        
+    }
 }
 
 
@@ -795,9 +817,15 @@ footer .row {
     .filter-header {        
         font-weight: bold;
         float: left;
-        padding: 15px;
+        padding: 16px 5px 4px 5px;
+        font-size: .95em;
         display: inline-block;
         cursor: pointer;
+            @media (min-width: @screen-xs) {
+                padding: 16px 13px;
+                font-size: 1em;
+            }
+
         .filter-current {
             font-size: 12px;
             text-align: center;
