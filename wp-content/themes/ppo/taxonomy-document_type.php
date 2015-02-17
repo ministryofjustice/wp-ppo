@@ -10,7 +10,7 @@
 		'fallback' => array(
 			'filters' => array(
 				// Decade starting from year below (x) up to x + 9 of publish date
-				'document-date' => 'decades' // TODO: Make this automatic based on data
+				'document-date' => 'years' // TODO: Make this automatic based on data
 			),
 			'sort' => array( 'date' ),
 			'default' => 'date'
@@ -99,7 +99,7 @@
 						break;
 					case "years":
 						$extras .= " data-filter-command='years'";
-						for ( $y = 1990; $y <= date( "Y" ); $y++ ) {
+						for ( $y = 2000; $y <= date( "Y" ); $y++ ) {
 							$values[] = "$y";
 						}
 						break;
@@ -329,7 +329,7 @@
 								{relation: 'AND'},
 								{
 									key: filterType,
-									value: "/" + $(this).attr('data-filter-field').toString().substr(0, 3)
+									value: "/" + $(this).attr('data-filter-field').toString().substr(0, 4)
 									, compare: 'LIKE'
 								}
 							];

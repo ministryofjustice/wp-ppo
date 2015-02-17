@@ -17,7 +17,7 @@
 */
 
 @ppo-red: #CA1C00;
-@ppo-dark: #831200; 
+@ppo-dark: #831200;
 
 /* ==========================================================================
    Base
@@ -34,7 +34,7 @@ body { }
    Header
    ========================================================================== */
 
-.banner { 
+.banner {
     background-color: @ppo-red;
     float: left;
     width: 100%;
@@ -49,7 +49,7 @@ body { }
     a.brand {
         line-height: 70px; margin: 0; width: auto; position: relative; text-align: center;
         img {
-            max-width: 100%; padding: 10px; max-height: 70px; margin: 0 auto; display: block; 
+            max-width: 100%; padding: 10px; max-height: 70px; margin: 0 auto; display: block;
         }
     }
     /*.navbar-collapse { clear: both; }*/
@@ -166,7 +166,7 @@ nav>ul>li>.menu-container>ul>li {
 .icon-question:after { background-image: url('../icons/question.svg'); }
 .icon-disc:after     { background-image: url('../icons/disc.svg'); }
 
-// Sets dynamic width of megamenu items 
+// Sets dynamic width of megamenu items
 /*@max-menuitems: 8;
 .for-loop (@index) when (@index > 0) {
     .dropdown-menu>li:first-child:nth-last-child(@{index}),
@@ -260,7 +260,7 @@ nav>ul>li>.menu-container>ul>li {
     }
 }
 
-.content { 
+.content {
     /*max-width: @container-desktop;*/
     margin: 0 auto;
     .row { margin: 0; }
@@ -397,7 +397,7 @@ nav>ul>li>.menu-container>ul>li {
     }
     #latest-news {
         overflow: hidden;
-        ul { 
+        ul {
             li {
                 margin: 5px 0;
                 padding-bottom: 10px;
@@ -462,7 +462,7 @@ nav>ul>li>.menu-container>ul>li {
     }
 
     #ppo-info, #quick-links {
-        ul { 
+        ul {
             margin-bottom: 0; list-style: none; padding: 0;
             li { margin: 5px 0; }
         }
@@ -545,7 +545,7 @@ section.filelist {
    ========================================================================== */
 
 .hentry header { }
-.hentry time { 
+.hentry time {
     display: block;
     margin-bottom: 20px;
 }
@@ -685,7 +685,7 @@ footer {
    Footer
    ========================================================================== */
 
-.content-info { 
+.content-info {
     padding: 0; background-color: @ppo-dark; font-size: @font-size-small; margin-top: 25px;
     a {
         color: white;
@@ -798,7 +798,7 @@ footer .row {
         @media (min-width: @screen-sm) {
         float: right;
         margin-right: 10px;
-        
+
     }
 }
 
@@ -814,7 +814,7 @@ footer .row {
     background-color: #eee;
     display: block;
     float: left;
-    .filter-header {        
+    .filter-header {
         font-weight: bold;
         float: left;
         padding: 16px 5px 4px 5px;
@@ -842,6 +842,7 @@ footer .row {
         top: 75px;
         .filter-option {
             display: inline-block;
+            width:100%;
             margin: 0 5px;
             padding: 5px;
             cursor: pointer;
@@ -889,7 +890,7 @@ footer .row {
    News archive page
    ========================================================================== */
 
-.news-archive-links 
+.news-archive-links
 
 ul {
     padding-left: 3%;
@@ -899,9 +900,9 @@ ul {
 
         h4 {
             margin: 1.4em 0 .1em 0;
-            
-                a { 
-                    font-weight: 500; 
+
+                a {
+                    font-weight: 500;
                 }
 
         }
@@ -941,7 +942,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
    Media Queries
    ========================================================================== */
 
-@media (min-width: @screen-sm-min) { 
+@media (min-width: @screen-sm-min) {
     /*.banner {position: relative; top: auto; }*/
     .wsp-pages-list {
         column-count: 2;
@@ -985,7 +986,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
  .banner a.brand {
         line-height: 70px; margin: 0; width: auto; position: absolute; left: 0; top: 0; text-align: center;
         img {
-            max-width: 100%; padding: 10px; max-height: 70px; 
+            max-width: 100%; padding: 10px; max-height: 70px;
         }
     }
 
@@ -1009,7 +1010,7 @@ footer .row {
 #menu-footer-navigation {
     margin: 0;
     }
-    
+
 }
 
 @media (max-width: @screen-xs) {
@@ -1030,5 +1031,5 @@ footer .row {
 
 }
 
-@media (min-width: @screen-lg-min) { 
+@media (min-width: @screen-lg-min) {
 }
