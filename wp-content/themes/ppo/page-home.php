@@ -110,6 +110,32 @@
 				</div>
 			</a>
 		</div>
+		<div id="latest-publications" class="boxout">
+			<h3>Subscribe to our Newsletter</h3>
+			<p>If you would like to receive email updates about new publications please sign up for our mailing list.</p>
+			<form method="post" action="//gsi.us8.list-manage.com/subscribe/post?u=af164ebad7153bb6568f0f296&amp;id=65fcc6544b">
+			  <div class="form-group">
+			    <label for="MERGE0">Email</label>
+			    <input class="form-control" type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" size="25" value="" placeholder="Enter Email">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="MERGE1">First Name</label>
+			    <input class="form-control" type="text" name="MERGE1" id="MERGE1" value="" placeholder="Enter First Name">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="MERGE2">Last Name</label>
+			    <input class="form-control" type="text" name="MERGE2" id="MERGE2" value="" placeholder="Enter Last Name">
+			  </div>
+
+			  <div class="form-group">
+			    <label for="MERGE3">Organisation</label>
+			    <input class="form-control" type="text" name="MERGE3" id="MERGE3" value="" placeholder="Enter Organisation">
+			  </div>
+			  <button type="submit" class="btn btn-default">Submit</button>
+			</form>
+		</div>
 	</div>
 	<div class="col-md-6">
 
