@@ -1,5 +1,36 @@
 <?php
 
+function shorturl_add_meta_box() {
+	add_meta_box(
+		'shorturl',
+		'Short URL to Document',
+		'shorturl_callback',
+		'document',
+		'side'
+	);
+}
+add_action( 'add_meta_boxes', 'shorturl_add_meta_box' );
+
+function shorturl_callback( $post ) {
+	$value = get_post_meta( $post->ID, 'document-upload', true );
+	if($value) {
+		$postid = get_attachment_id_from_src( $value );
+		echo wp_get_shortlink($postid);
+	} else {
+		echo "Please upload a document and save the page to see the Short URL.";
+	}
+}
+
+function my_page_template_redirect()
+{
+    if( is_attachment() )
+    {
+        wp_redirect( wp_get_attachment_url() );
+        exit();
+    }
+}
+add_action( 'template_redirect', 'my_page_template_redirect' );
+
 /**
  * [remove_document_meta description]
  * Removes document meta boxes for document type
