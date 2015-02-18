@@ -185,9 +185,9 @@ $ppo_meta_boxes = array(
 		'id' => 'document-fii-meta-box',
 		'title' => 'FII Details',
 		'pages' => 'document',
-		'control' => array(
+		/*'control' => array(
 			array( 'taxonomy' => 'document_type', 'value' => 'fii-report' )
-		),
+		),*/
 		'context' => 'normal',
 		'priority' => 'default',
 		'fields' => array(

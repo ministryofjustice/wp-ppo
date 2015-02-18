@@ -1,6 +1,44 @@
 <?php
 
 /**
+ * [remove_document_meta description]
+ * Removes document meta boxes for document type
+ * @return void
+ */
+function remove_document_meta() {
+	remove_meta_box( 'fii-death-typediv','document', 'side' );
+	remove_meta_box( 'document_typediv','document', 'side' );
+	remove_meta_box( 'fii-statusdiv','document', 'side' );
+
+}
+add_action( 'admin_menu' , 'remove_document_meta' );
+
+function my_acf_admin_head()
+{
+	?>
+	<script type="text/javascript">
+	(function($){
+		if($('#document-type').val() != 34) {
+		  $('#document-fii-meta-box').hide();
+		 }
+		$( "#document-type" ).change(function() {
+		  if($('#document-type').val() == 34) {
+		  	$('#document-fii-meta-box').show();
+		  } else {
+		  	$('#document-fii-meta-box').hide();
+		  }
+		});
+	})(jQuery);
+	</script>
+	<style type="text/css">
+		#setting_document-type .select-wrapper { width:99%; }
+	</style>
+
+	<?php
+}
+add_action('admin_footer', 'my_acf_admin_head');
+
+/**
  * Custom functions
  */
 require_once locate_template( '/lib/extend-menus.php' );
