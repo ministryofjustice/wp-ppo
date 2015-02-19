@@ -11,7 +11,7 @@ function create_news_post( $post_id, $post, $update ) {
 	} else {
 		$contentValue = $content[0];
 	}
-
+	$contentValue .= '<p>Click here to read <a href="/' . $post->post_name . '">' . $post->post_title . '</p>';
 	if($post->post_type == "document" && isset( $_POST['create-news-item'])) {
 		$newsitem = get_post_meta($post_id, 'news_item' );
 		if(empty($newsitem) || is_string( get_post_status( $newsitem ) ) || get_post_status( $newsitem ) != "trash") {
@@ -19,9 +19,10 @@ function create_news_post( $post_id, $post, $update ) {
 				'post_content' => $contentValue,
 				'post_name' => $post->post_name,
 				'post_title' => $post->post_title,
-				'post_status' => $post->post_status,
+				'post_status' => 'draft',
 				'post_type' => 'post',
-				'post_date' => $post->post_date
+				'post_date' => $post->post_date,
+				'post_category' => array(35),
 			);
 			$value = wp_insert_post($post);
 			if($value != "0") {
@@ -46,9 +47,9 @@ add_action( 'add_meta_boxes', 'newsitem_add_meta_box' );
 function newsitem_callback( $post ) {
 	$value = get_post_meta( $post->ID, 'news_item', true );
 	if($value && is_string( get_post_status( $value ) ) && get_post_status( $value ) != "trash") {
-		echo '<a href="/wp-admin/post.php?post=' . $value . '&action=edit">Edit news items</a>';
+		echo '<a href="' . admin_url() . 'post.php?post=' . $value . '&action=edit">Edit news items</a>';
 	} else {
-		echo "Do you want a related news item? It will replicate a news item with the same title, content, status and date.";
+		echo "Do you want a related news item? It will replicate a news item with the same title and content.";
 		echo '<br /><br /><input type="checkbox" name="create-news-item" value="create-news-item">';
 	}
 }
