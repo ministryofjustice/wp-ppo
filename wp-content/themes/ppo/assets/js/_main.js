@@ -45,3 +45,14 @@ var UTIL = {
 };
 
 $(document).ready(UTIL.loadEvents);
+
+/* Toggle show/hide button text on FII reports page*/
+
+$('button.showHide').click(function() {
+    if ($(this).text() === 'Show report description') {
+         $(this).text('Hide report description');
+    }
+    else {
+        $(this).text('Show report description');
+    }
+});

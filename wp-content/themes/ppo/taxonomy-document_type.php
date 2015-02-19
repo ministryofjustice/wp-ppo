@@ -195,7 +195,8 @@
 
 	<?php if ( term_description() ) { ?>
 
-		<div class="document-type-text">
+	<div class="description-wrapper">
+		<div class="document-type-text collapse in" id="hideaway">
 			<?php
 			$term_desc = str_replace( array( "<p>", "</p>" ), "", term_description() );
 			$term_desc_array = explode( "\n", $term_desc );
@@ -207,6 +208,16 @@
 				}
 			}
 			?>
+
+		
+		</div>
+
+<!-- 		<a class="btn btn-primary" data-toggle="collapse" href="#hideaway" aria-expanded="false" aria-controls="hideaway">
+			Show/hide intro text
+		</a> -->
+		<button class="btn btn-primary showHide" type="button" data-toggle="collapse" data-target="#hideaway" aria-expanded="false" aria-controls="hideaway">
+		  Hide report description
+		</button>
 		</div>
 
 		<?php
