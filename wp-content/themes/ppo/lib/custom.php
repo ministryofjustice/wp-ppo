@@ -95,6 +95,7 @@ function remove_document_meta() {
 	remove_meta_box( 'fii-death-typediv','document', 'side' );
 	remove_meta_box( 'document_typediv','document', 'side' );
 	remove_meta_box( 'fii-statusdiv','document', 'side' );
+	remove_meta_box( 'case-typediv','document', 'side' );
 
 }
 add_action( 'admin_menu' , 'remove_document_meta' );
@@ -106,12 +107,20 @@ function my_acf_admin_head()
 	(function($){
 		if($('#document-type').val() != 34) {
 		  $('#document-fii-meta-box').hide();
+		}
+		if($('#document-type').val() != 8) {
+		  $('#document-llr-meta-box').hide();
 		 }
 		$( "#document-type" ).change(function() {
 		  if($('#document-type').val() == 34) {
 		  	$('#document-fii-meta-box').show();
+		  	$('#document-llr-meta-box').hide();
+		  } else if($('#document-type').val() == 8) {
+		  	$('#document-llr-meta-box').show();
+		  	$('#document-fii-meta-box').hide();
 		  } else {
 		  	$('#document-fii-meta-box').hide();
+		  	$('#document-llr-meta-box').hide();
 		  }
 		});
 	})(jQuery);

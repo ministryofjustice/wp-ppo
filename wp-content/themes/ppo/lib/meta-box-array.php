@@ -249,6 +249,27 @@ $ppo_meta_boxes = array(
 			),
 		)
 	),
+
+	array(
+		'id' => 'document-llr-meta-box',
+		'title' => 'LLR Details',
+		'pages' => 'document',
+		/*'control' => array(
+			array( 'taxonomy' => 'document_type', 'value' => 'fii-report' )
+		),*/
+		'context' => 'normal',
+		'priority' => 'default',
+		'fields' => array(
+			array(
+				'id' => 'case-type',
+				'label' => 'Case Type',
+				'type' => 'taxonomy_select',
+				'taxonomy' => 'case-type'
+			),
+		)
+	),
+
+
 	array(
 		'id' => 'establishment-meta-box',
 		'title' => 'Establishment Details',
