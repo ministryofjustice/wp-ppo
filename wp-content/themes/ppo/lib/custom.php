@@ -1,5 +1,60 @@
 <?php
 
+
+function create_news_post( $post_id, $post, $update ) {
+	if(  wp_is_post_revision( $post_id) && wp_is_post_autosave( $post_id ) )
+		return;
+
+	$content = get_post_meta($post_id, 'document-description');
+	if($content[0] != $_POST['document-description']) {
+		$contentValue = $_POST['document-description'];
+	} else {
+		$contentValue = $content[0];
+	}
+
+	if($post->post_type == "document" && isset( $_POST['create-news-item'])) {
+		$newsitem = get_post_meta($post_id, 'news_item' );
+		if(empty($newsitem) || is_string( get_post_status( $newsitem ) ) || get_post_status( $newsitem ) != "trash") {
+			$post = array(
+				'post_content' => $contentValue,
+				'post_name' => $post->post_name,
+				'post_title' => $post->post_title,
+				'post_status' => $post->post_status,
+				'post_type' => 'post',
+				'post_date' => $post->post_date
+			);
+			$value = wp_insert_post($post);
+			if($value != "0") {
+				update_post_meta( $post_id, 'news_item', $value );
+			}
+		}
+	}
+}
+add_action( 'post_updated', 'create_news_post', 10, 3 );
+
+function newsitem_add_meta_box() {
+	add_meta_box(
+		'newsitem',
+		'Related News Item',
+		'newsitem_callback',
+		'document',
+		'side'
+	);
+}
+add_action( 'add_meta_boxes', 'newsitem_add_meta_box' );
+
+function newsitem_callback( $post ) {
+	$value = get_post_meta( $post->ID, 'news_item', true );
+	if($value && is_string( get_post_status( $value ) ) && get_post_status( $value ) != "trash") {
+		echo '<a href="/wp-admin/post.php?post=' . $value . '&action=edit">Edit news items</a>';
+	} else {
+		echo "Do you want a related news item? It will replicate a news item with the same title, content, status and date.";
+		echo '<br /><br /><input type="checkbox" name="create-news-item" value="create-news-item">';
+	}
+}
+
+
+
 function shorturl_add_meta_box() {
 	add_meta_box(
 		'shorturl',
