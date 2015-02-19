@@ -11,7 +11,18 @@ function create_news_post( $post_id, $post, $update ) {
 	} else {
 		$contentValue = $content[0];
 	}
-	$contentValue .= '<p>Click here to read <a href="/' . $post->post_name . '">' . $post->post_title . '</p>';
+
+	$file = get_post_meta( $post_id, 'document-upload' );
+	if($file[0] != $_POST['document-upload']) {
+		$fileValue = $_POST['document-upload'];
+	} else {
+		$fileValue = $file[0];
+	}
+
+	if($fileValue) {
+		$contentValue .= '<p>Click here to read <a href="' . $fileValue . '">' . $post->post_title . '</p>';
+	}
+
 	if($post->post_type == "document" && isset( $_POST['create-news-item'])) {
 		$newsitem = get_post_meta($post_id, 'news_item' );
 		if(empty($newsitem) || is_string( get_post_status( $newsitem ) ) || get_post_status( $newsitem ) != "trash") {
