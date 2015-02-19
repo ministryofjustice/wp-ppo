@@ -121,6 +121,30 @@ function create_document_taxonomies() {
 		'rewrite' => array( 'slug' => 'document', 'with_front' => false ),
 	);
 	register_taxonomy( 'fii-status', array( 'document' ), $fii_status_args );
+
+	// FII status
+	$llr_case_type_labels = array(
+		'name' => _x( 'LLR Case Types', 'taxonomy general name' ),
+		'singular_name' => _x( 'Case Types', 'taxonomy singular name' ),
+		'search_items' => __( 'Search LLR Case Types' ),
+		'all_items' => __( 'All LLR Case Types' ),
+		'parent_item' => __( 'Parent LLR Case Type' ),
+		'parent_item_colon' => __( 'Parent LLR Case Type:' ),
+		'edit_item' => __( 'Edit LLR Case Type' ),
+		'update_item' => __( 'Update LLR Case Type' ),
+		'add_new_item' => __( 'Add New LLR Case Type' ),
+		'new_item_name' => __( 'New LLR Case Type Name' ),
+		'menu_name' => __( 'Case Type' ),
+	);
+	$llr_case_type_args = array(
+		'hierarchical' => true,
+		'labels' => $llr_case_type_labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'document', 'with_front' => false ),
+	);
+	register_taxonomy( 'case-type', array( 'document' ), $llr_case_type_args );
 }
 
 add_action( 'init', 'create_document_taxonomies', 0 );

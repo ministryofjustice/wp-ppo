@@ -15,6 +15,15 @@
 			'sort' => array( 'date' ),
 			'default' => 'date'
 		),
+		'learning-lessons-reports' => array(
+			'filters' => array(
+				// Decade starting from year below (x) up to x + 9 of publish date
+				'document-date' => 'years', // TODO: Make this automatic based on data
+				'case-type' => 'all',
+			),
+			'sort' => array( 'date' ),
+			'default' => 'date'
+		),
 		'fii-report' => array(
 			'filters' => array(
 				'establishment-type' => 'all', // Provides all taxonomy values for the filter
@@ -336,14 +345,29 @@
 						if (filterType == 'establishment-type') {
 							queryParameters.tax_query = [{taxonomy: filterType, field: 'term_id', terms: $(this).attr('data-filter-field')}];
 						} else if (filterType == 'document-date') {
-							queryParameters.meta_query = [
-								{relation: 'AND'},
-								{
-									key: filterType,
-									value: "/" + $(this).attr('data-filter-field').toString().substr(0, 4)
-									, compare: 'LIKE'
+							if(checkFilter) {
+								queryParameters.meta_query[filterIndex].value = "/" + $(this).attr('data-filter-field').toString().substr(0, 4);
+							} else {
+								if (queryParameters.meta_query) {
+									queryParameters.meta_query.push(
+									  {relation: 'AND'},
+									  {
+									    key: filterType,
+									    value: "/" + $(this).attr('data-filter-field').toString().substr(0, 4)
+									    , compare: 'LIKE'
+									  }
+									);
+								} else {
+									queryParameters.meta_query = [
+									  {relation: 'AND'},
+									  {
+									    key: filterType,
+									    value: "/" + $(this).attr('data-filter-field').toString().substr(0, 4)
+									    , compare: 'LIKE'
+									  }
+									];
 								}
-							];
+							}
 						} else {
 							if (checkFilter) { // Filter already set
 								queryParameters.meta_query[filterIndex].value = $(this).attr('data-filter-field');
@@ -365,6 +389,7 @@
 							delete queryParameters.meta_query;
 						}
 					}
+					console.log(queryParameters);
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 					$(this).parent().hide().parent().css("border-bottom", "none");
