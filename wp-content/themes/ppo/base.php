@@ -1,5 +1,6 @@
 <?php get_template_part( 'templates/head' ); ?>
 <body <?php body_class(); ?>>
+	<a class="skip-main" href="#content">Skip to main content</a>
 	<div id="shade-overlay" class=""></div>
 
 	<!--[if lt IE 9]>
@@ -21,7 +22,7 @@
 	<div class="wrap" role="document">
 		<div class="content row">
 			<?php if ( !is_archive() ) { ?>
-				<main class="main <?php echo roots_main_class(); ?>" role="main">
+				<main id="content" class="main <?php echo roots_main_class(); ?>" role="main" tabindex="-1">
 					<?php include roots_template_path(); ?>
 				</main><!-- /.main -->
 				<?php if ( roots_display_sidebar() ) : ?>
