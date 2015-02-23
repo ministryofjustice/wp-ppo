@@ -218,7 +218,7 @@
 			}
 			?>
 
-		
+
 		</div>
 
 <!-- 		<a class="btn btn-primary" data-toggle="collapse" href="#hideaway" aria-expanded="false" aria-controls="hideaway">
@@ -389,7 +389,6 @@
 							delete queryParameters.meta_query;
 						}
 					}
-					console.log(queryParameters);
 					PPOAjax.queryParams = JSON.stringify(queryParameters);
 					update_tiles(PPOAjax.queryParams, true);
 					$(this).parent().hide().parent().css("border-bottom", "none");
