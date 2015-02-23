@@ -29,4 +29,26 @@
 		endif;
 		?>
 	</nav>
+		
 </div>
+
+	<div class="sharing">
+
+	<a class="twitter" href="http://twitter.com/share?url=<?php echo get_permalink(); ?>" target="_blank">
+		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-twitter.png" title="Twitter" class="share" alt="Tweet about this on Twitter">
+	</a>
+
+	<a class="facebook" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>" target="_blank">
+		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-facebook.png" title="Facebook" class="share" alt="Share on Facebook">
+	</a>
+
+	<a class="google" href="https://plus.google.com/share?url=<?php echo get_permalink(); ?>" target="_blank">
+		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-googleplus.png" title="Google+" class="share" alt="Share on Google+">
+	</a>
+
+	</div>
+
+
+
+
+
