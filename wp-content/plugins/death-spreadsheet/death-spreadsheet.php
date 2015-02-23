@@ -32,13 +32,14 @@ function death_spreadsheet_install() {
     `case` text NOT NULL,
     death text NOT NULL,
     deceased_surname text NOT NULL,
+    type text NOT NULL,
     establishment text NOT NULL,
     location text NOT NULL,
     sex text NOT NULL,
     age_group text NOT NULL,
     ethnic_origin text NOT NULL,
     stage text NOT NULL,
-    webid text NOT NULL,
+    webid text,
     UNIQUE KEY id (id)
   ) $charset_collate";
 
@@ -56,7 +57,7 @@ function import_csv($file) {
   $sql = "LOAD DATA LOCAL INFILE '$file'
   INTO TABLE $table_name
   FIELDS TERMINATED BY ',' ENCLOSED BY '\"' ESCAPED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
-  (`case`, death, deceased_surname, establishment, location, sex, age_group, ethnic_origin, stage, webid)";
+  (`case`, death, deceased_surname, type, establishment, location, sex, age_group, ethnic_origin, stage, webid)";
 
   $wpdb->query("TRUNCATE TABLE $table_name");
   $result = $wpdb->query($sql);
@@ -66,7 +67,7 @@ function import_csv($file) {
 function death_spreadsheet_display_settings() { ?>
   <h2>Death Spreadsheet</h2>
   <p>Please upload a exported comma seperated CSV file. Any other file formats will be rejected.</p>
-  <p><strong>Required Columns:</strong> Case, Death, Deceased, Surname, Type, Establishment, Location, Sex, Age, Group, Ethnic, Origin, Stage, WebID</p>
+  <p><strong>Required Columns:</strong> Case, Death, Deceased Surname, Type, Establishment, Location, Sex, Age, Group, Ethnic Origin, Stage, WebID</p>
   <form method="post" enctype="multipart/form-data">
     <?php wp_nonce_field( plugin_basename( __FILE__ ), 'security' ); ?>
     <table class="form-table">
