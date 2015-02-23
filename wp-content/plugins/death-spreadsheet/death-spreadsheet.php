@@ -21,6 +21,12 @@ function death_spreadsheet_plugin_settings() {
 add_action('admin_menu', 'death_spreadsheet_plugin_settings');
 
 
+function add_query_vars_filter($vars){
+  $vars[] = "sex";
+  return $vars;
+}
+add_filter('query_vars', 'add_query_vars_filter');
+
 
 function death_spreadsheet_install() {
   global $wpdb;
@@ -47,7 +53,6 @@ function death_spreadsheet_install() {
   dbDelta( $sql );
 }
 register_activation_hook(__FILE__,'death_spreadsheet_install');
-
 
 
 function import_csv($file) {
