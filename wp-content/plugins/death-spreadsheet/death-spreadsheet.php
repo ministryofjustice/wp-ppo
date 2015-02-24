@@ -9,23 +9,10 @@
  * Author URI: http://tobyschrapel.com
  */
 
-function load_scripts() {
-  wp_enqueue_script( 'script-name', plugins_url() . '/death-spreadsheet/assets/js/main.js', array(), '1.0.0', true );
-}
-add_action( 'admin_enqueue_scripts', 'load_scripts' );
-
-
 function death_spreadsheet_plugin_settings() {
     add_menu_page('Death Spreadsheet', 'Death Spreadsheet', 'administrator', 'death_spreadsheet_settings', 'death_spreadsheet_display_settings');
 }
 add_action('admin_menu', 'death_spreadsheet_plugin_settings');
-
-
-function add_query_vars_filter($vars){
-  $vars[] = "sex";
-  return $vars;
-}
-add_filter('query_vars', 'add_query_vars_filter');
 
 
 function death_spreadsheet_install() {
