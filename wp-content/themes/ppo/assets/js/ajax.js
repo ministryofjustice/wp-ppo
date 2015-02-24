@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -31,6 +31,28 @@ function update_tiles(queryParams, clearData) {
         },
         error: function(error) {
             console.log(error);
+            $("#loading-spinner").hide();
+        }
+    });
+}
+
+function update_spreadsheet(queryParams, paged) {
+    $.ajax({
+        type: 'POST',
+        url: PPOAjax.ajaxurl,
+        async: true,
+        cache: false,
+        data: {
+            action: 'update_spreadsheet',
+            queryParams: queryParams,
+            paged: paged
+        },
+        success: function(results) {
+            $contentLoadTriggered = false;
+            $("#loading-spinner").hide();
+            jQuery(".spreadsheet").html(results);
+        },
+        error: function(error) {
             $("#loading-spinner").hide();
         }
     });
