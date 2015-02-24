@@ -11,6 +11,49 @@ function ajax_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'ajax_scripts', 101 );
 
+
+
+function update_spreadsheet() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'death_spreadsheet';
+	$paged = esc_sql($_POST['paged']);
+	if($paged > 1) {
+		$page = ($paged-1) * 50;
+		$limit = "LIMIT " . $page;
+	} else {
+		$limit = "LIMIT 50";
+	}
+	$sql = "";
+
+	if(isset($_POST['queryParams'])) {
+		$params_json = $_POST['queryParams'];
+		$params = json_decode( stripslashes( $params_json ), true );
+
+		foreach($params as $param) {
+			if($param['value'] != -1) {
+				if(empty($sql)) {
+					$sql .= "WHERE ";
+				}
+				$sql .= esc_sql($param['key']) . " = '" . esc_sql($param['value']) . "'";
+				if(end($params) != $param) {
+					$sql .= " AND ";
+				}
+			}
+		}
+	}
+	$results = $wpdb->get_results("SELECT `case`, death, type, establishment, location, sex, age_group, ethnic_origin, stage FROM $table_name $sql $limit");
+	if(count($results) > 0) {
+		 include(locate_template('templates/content-table.php'));
+	} else {
+		echo "<h2>No results found</h2>";
+	}
+	die();
+}
+add_action( 'wp_ajax_nopriv_update_spreadsheet', 'update_spreadsheet' );
+add_action( 'wp_ajax_update_spreadsheet', 'update_spreadsheet' );
+
+
+
 function update_tiles() {
 
 	// Converts dates to datetime for correct ordering
@@ -26,7 +69,7 @@ function update_tiles() {
 
 	if ( isset( $args['tax_query'] ) ) {
 		foreach ( $args['tax_query'] as $i => $tax_query ) {
-			if ( $tax_query['taxonomy'] = "establishment-type" ) {	
+			if ( $tax_query['taxonomy'] = "establishment-type" ) {
 
 				// Remove taxonomy query
 				unset( $args['tax_query'][$i] );
@@ -68,7 +111,7 @@ function update_tiles() {
 		}
 	}
 
-	if ( isset( $args['establishment'] ) ) { 
+	if ( isset( $args['establishment'] ) ) {
 		$establishment_object = get_page_by_title( $args['establishment'],OBJECT,'establishment' );
 		$establishment_id = $establishment_object->ID;
 		$args['meta_query'][] = array(
@@ -81,7 +124,7 @@ function update_tiles() {
 	$args['post_status'] = array(
 		'publish'
 	);
-	
+
 	$ajax_query = new WP_Query( $args );
 	if ( $ajax_query->have_posts() && !$stop_query ) {
 		ob_start();
