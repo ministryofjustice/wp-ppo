@@ -25,6 +25,10 @@
 
 body { }
 
+.death-spreadsheet .main {
+    max-width:100% !important;
+}
+
 .highlight {
     background-color: yellow;
     font-weight: bold;
@@ -81,6 +85,68 @@ a.skip-main:focus, a.skip-main:active {
 }
 /*ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }*/
 /*.nav .dropdown-toggle .caret { display:none; }*/
+
+// .toolbar {
+//     width: 100%;
+//     display: block;
+//     background: #383838;
+//     color: #fff;
+//     height: 48px;
+// }
+
+// .controls {
+//     padding: 12px;
+//     a {
+//         color: #fff;
+//         padding: 0 4px 0 0;
+//     }
+//     a.sml     {  font-size:12px !important;}
+//     a.med    {  font-size:18px !important;}
+//     a.lrg     {  font-size:24px  !important;}
+
+// }
+
+.fontsize, .fontsize h1 {
+font-size: 40px !important;
+line-height: 1.4;
+}
+
+.fontsize, .fontsize h2 {
+font-size: 36px !important;
+line-height: 1.4;
+}
+
+.fontsize, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6 {
+font-size: 150% !important;
+line-height: 1.4;
+}
+
+.fontsize, .fontsize p, .fontsize li, .fontsize label, .fontsize input, .fontsize select, .fontsize textarea, .fontsize legend, .fontsize code, .fontsize pre, .fontsize dd, .fontsize dt, .fontsize blockquote, .fontsize td, .fontsize #breadcrumbs {
+font-size: 130% !important;
+line-height: 1.4;
+}
+
+.a11y-toolbar ul li:last-child a, .a11y-toolbar ul li:first-child a {
+border-bottom-right-radius: 0;
+border-top-right-radius: 0;
+}
+
+.sharing {
+    display: inline-block;
+    // width: 50px;
+    // position: absolute;
+    // top: 104px;
+    // right: 0px;
+    float: right;
+    z-index: 9999;
+    clear: both;
+        img {
+            width: 30px;
+            margin: 8px 8px 8px 0;
+        }
+}
+
+
 
 .navbar {
     min-height: 70px;
@@ -981,7 +1047,6 @@ time {
     margin-bottom: 54px;
     display: block;
 }
-
 
 /* ==========================================================================
    WordPress Generated Classes
