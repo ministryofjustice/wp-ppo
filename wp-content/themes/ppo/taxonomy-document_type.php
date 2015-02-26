@@ -225,7 +225,7 @@
 			Show/hide intro text
 		</a> -->
 		<button class="btn btn-primary showHide" type="button" data-toggle="collapse" data-target="#hideaway" aria-expanded="false" aria-controls="hideaway">
-		  Hide report description
+		  Hide details
 		</button>
 		</div>
 

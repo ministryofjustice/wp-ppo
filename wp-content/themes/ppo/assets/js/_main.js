@@ -49,11 +49,11 @@ $(document).ready(UTIL.loadEvents);
 /* Toggle show/hide button text on FII reports page*/
 
 $('button.showHide').click(function() {
-    if ($(this).text() === 'Show report description') {
-         $(this).text('Hide report description');
+    if ($(this).text() === 'Show details') {
+         $(this).text('Hide details');
     }
     else {
-        $(this).text('Show report description');
+        $(this).text('Show details');
     }
 });
 
