@@ -67,11 +67,15 @@
 		<div class="filter-control">
 			<div class='filter-header'>
 				<?php echo ucfirst(str_replace( array( "-", "fii ","establishment type", "death type" ), array( " ", "","location", "cause"),  $filter  )); ?>
-				<div class='filter-current'>All</div>
+				<?php if($filter != "case-type"): ?>
+					<div class='filter-current'>All</div>
+				<?php else: ?>
+					<div style="width:auto;height:18px;display:block;background:transparent;border-top: 1px solid #ccc;"></div>
+				<?php endif; ?>
 			</div>
 			<?php
 			echo "<div class='filter-options'>";
-			if ( $values != "autocomplete" ) {
+			if ( $values != "autocomplete" && $filter != "case-type" ) {
 				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
 			}
 			$extras = null;
@@ -147,7 +151,12 @@
 							$contents = $option['label'];
 							$option = $option['option'];
 					}
-					echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>$contents</div>";
+					if($filter != "case-type") {
+						echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>$contents</div>";
+					} else {
+						echo "<input type='checkbox' name='n-$option' id='n-$option' class='filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>
+						<label for='n-$option'>$contents</label>";
+					}
 				}
 			} else {
 				?>
@@ -333,6 +342,7 @@
 					queryParameters.paged = 1;
 					// Check to see if filter already exists
 					checkFilter = false;
+					filterValue = $(this).attr('data-filter-field');
 					if (queryParameters.meta_query) {
 						$.each(queryParameters.meta_query, function(index, value) {
 							if (value.key == filterType) {
@@ -369,16 +379,37 @@
 								}
 							}
 						} else {
-							if (checkFilter) { // Filter already set
-								queryParameters.meta_query[filterIndex].value = $(this).attr('data-filter-field');
-							} else { // Filter not set - add to query
-								if (queryParameters.meta_query) {
-									if ($.inArray("AND", queryParameters.meta_query) == -1) {
-										queryParameters.meta_query.push('AND');
+							if(filterType != "case-type") {
+								if (checkFilter) { // Filter already set
+									queryParameters.meta_query[filterIndex].value = $(this).attr('data-filter-field');
+								} else { // Filter not set - add to query
+									if (queryParameters.meta_query) {
+										if ($.inArray("AND", queryParameters.meta_query) == -1) {
+											queryParameters.meta_query.push('AND');
+										}
+										queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field')});
+									} else {
+										queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}];
 									}
-									queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field')});
+								}
+							} else {
+								if($(this).prop('checked') == true){
+									if (queryParameters.meta_query) {
+										queryParameters.meta_query.push({key: filterType, value: $(this).attr('data-filter-field'), compare: "LIKE"});
+									} else {
+										queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field'), compare: "LIKE"}];
+									}
 								} else {
-									queryParameters.meta_query = [{key: filterType, value: $(this).attr('data-filter-field')}];
+									if(queryParameters.meta_query.length == 1) {
+										delete queryParameters.meta_query;
+									} else {
+										$.each(queryParameters.meta_query, function(index, value) {
+											if (value.value === filterValue && value.key == filterType) {
+												queryParameters.meta_query = queryParameters.meta_query.splice(index-1, 1);
+												return false;
+											}
+										});
+									}
 								}
 							}
 						}

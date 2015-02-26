@@ -263,7 +263,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'case-type',
 				'label' => 'Case Type',
-				'type' => 'taxonomy_select',
+				'type' => 'taxonomy_checkbox',
 				'taxonomy' => 'case-type'
 			),
 		)
