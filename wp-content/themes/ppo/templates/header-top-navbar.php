@@ -6,7 +6,7 @@
 	<a href="#" class="med">A</a>
 	<a href="#" class="lrg">A</a>
 	</div>
-	
+
 </div> -->
 	<div class="nav-container">
 		<a class="brand" href="<?php echo home_url(); ?>/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo_white.png" alt="<?php bloginfo( 'name' ); ?>"></a>
@@ -42,20 +42,20 @@
 </div>
 
 	<div class="sharing">
-
-	<a class="twitter" href="http://twitter.com/share?url=<?php echo get_permalink(); ?>" target="_blank">
+	<?php $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
+	<a class="twitter" href="http://twitter.com/share?url=<?= $current_url ?>" target="_blank">
 		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-twitter.png" title="Twitter" class="share" alt="Tweet about this on Twitter">
 	</a>
 
-	<a class="facebook" href="http://www.facebook.com/sharer.php?u=<?php echo get_permalink(); ?>" target="_blank">
+	<a class="facebook" href="http://www.facebook.com/sharer.php?u=<?= $current_url ?>" target="_blank">
 		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-facebook.png" title="Facebook" class="share" alt="Share on Facebook">
 	</a>
 
-	<a class="google" href="https://plus.google.com/share?url=<?php echo get_permalink(); ?>" target="_blank">
+	<a class="google" href="https://plus.google.com/share?url=<?= $current_url ?>" target="_blank">
 		<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/social/64-googleplus.png" title="Google+" class="share" alt="Share on Google+">
 	</a>
 
-	</div>	
+	</div>
 
 
 
