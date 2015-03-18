@@ -70,7 +70,7 @@
 				<?php if($filter != "case-type"): ?>
 					<div class='filter-current'>All</div>
 				<?php else: ?>
-					<div style="width:auto;height:18px;display:block;background:transparent;border-top: 1px solid #ccc;"></div>
+					<div class="filter-select" style="width:auto;height:18px;display:block;background:transparent;border-top: 1px solid #ccc;">Select</div>
 				<?php endif; ?>
 			</div>
 			<?php
