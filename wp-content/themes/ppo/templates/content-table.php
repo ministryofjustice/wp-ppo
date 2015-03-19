@@ -15,7 +15,7 @@
     <?php foreach($results as $result): ?>
       <tr>
         <?php foreach($result as $r): ?>
-          <td><?= $r ?></td>
+          <td><?= htmlspecialchars(stripslashes(trim($r))); ?></td>
         <?php endforeach; ?>
       </tr>
     <?php endforeach; ?>
