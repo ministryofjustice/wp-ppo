@@ -623,6 +623,20 @@ a.news-thumb img {
     margin-left: 20px;
 }
 
+/* Contact us page */
+
+.contact-us .main table {
+    tr:first-child {
+        td:first-child {
+            vertical-align: top;
+                h4 {
+                    margin-top: 0;
+                }
+        }
+}
+
+}
+
 /* ==========================================================================
    Sidebar
    ========================================================================== */
@@ -941,7 +955,7 @@ footer .row {
                 font-size: 1em;
             }
 
-        .filter-current {
+        .filter-current, .filter-select {
             font-size: 12px;
             text-align: center;
             color: @ppo-dark;
@@ -955,6 +969,18 @@ footer .row {
         display: none;
         position: absolute;
         top: 75px;
+        label {
+            font-weight: normal;
+            white-space: nowrap;
+            display: block;
+            margin-right: 20px;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            float: left;
+            position: relative;
+            top: 3px;
+        }
         .filter-option {
             display: inline-block;
             width:100%;
@@ -962,6 +988,8 @@ footer .row {
             padding: 5px;
             cursor: pointer;
             color: #bbb;
+            position: relative;
+            bottom: 2px;
             &.on {
                 color: black;
             }
