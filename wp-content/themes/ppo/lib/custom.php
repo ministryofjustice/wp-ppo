@@ -1,5 +1,48 @@
 <?php
 
+function case_types_save( $post_id, $post, $update ) {
+	global $post;
+	global $pagenow;
+	$document_type = get_post_meta($post_id, 'document-type', true);
+
+	if($document_type == 8) {
+		if($pagenow == 'admin-ajax.php') {
+
+			$casetypes = get_the_terms($post_id,'case-type');
+			$cases = array();
+			if(!empty($casetypes)) {
+				foreach($casetypes as $casetype) {
+					$cases[$casetype->term_id] = "$casetype->term_id";
+				}
+			}
+			update_post_meta( $post_id, 'case-type', $cases);
+		}
+
+		if($pagenow == 'post.php') {
+			$casetypes = get_post_meta( $post_id, 'case-type');
+			$cases = array();
+			foreach ($casetypes[0] as $key => $value) {
+				$cases[] = (int) $value;
+			}
+			wp_set_post_terms( $post_id, $cases, 'case-type');
+		}
+	}
+}
+add_action( 'post_updated', 'case_types_save', 10, 3 );
+
+function notic() {
+	global $post;
+	global $pagenow;
+	echo $pagenow;
+	$casetypes = get_post_meta( $post->ID, 'case-type');
+	$cases = array();
+	foreach ($casetypes[0] as $key => $value) {
+		$cases[] = (int) $value;
+	}
+	wp_set_post_terms( $post->ID, $cases, 'case-type');
+}
+add_action( 'admin_notices', 'notic' );
+
 
 function create_news_post( $post_id, $post, $update ) {
 	if(  wp_is_post_revision( $post_id) && wp_is_post_autosave( $post_id ) )
