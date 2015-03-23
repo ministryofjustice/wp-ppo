@@ -213,12 +213,12 @@ $ppo_meta_boxes = array(
 				'type' => 'custom_post_type_select',
 				'post_type' => 'establishment'
 			),
-			array(
-				'id' => 'fii-status',
-				'label' => 'Status',
-				'type' => 'taxonomy_select',
-				'taxonomy' => 'fii-status'
-			),
+			// array(
+			// 	'id' => 'fii-status',
+			// 	'label' => 'Status',
+			// 	'type' => 'taxonomy_select',
+			// 	'taxonomy' => 'fii-status'
+			// ),
 			array(
 				'id' => 'fii-gender',
 				'label' => 'Gender',
