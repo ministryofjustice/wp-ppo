@@ -1,7 +1,6 @@
 <?php
 
 function case_types_save( $post_id, $post, $update ) {
-	global $post;
 	global $pagenow;
 	$document_type = get_post_meta($post_id, 'document-type', true);
 
@@ -21,27 +20,16 @@ function case_types_save( $post_id, $post, $update ) {
 		if($pagenow == 'post.php') {
 			$casetypes = get_post_meta( $post_id, 'case-type');
 			$cases = array();
-			foreach ($casetypes[0] as $key => $value) {
-				$cases[] = (int) $value;
+			if(!empty($casetypes[0])) {
+				foreach ($casetypes[0] as $key => $value) {
+					$cases[] = (int) $value;
+				}
 			}
 			wp_set_post_terms( $post_id, $cases, 'case-type');
 		}
 	}
 }
-add_action( 'post_updated', 'case_types_save', 10, 3 );
-
-function notic() {
-	global $post;
-	global $pagenow;
-	echo $pagenow;
-	$casetypes = get_post_meta( $post->ID, 'case-type');
-	$cases = array();
-	foreach ($casetypes[0] as $key => $value) {
-		$cases[] = (int) $value;
-	}
-	wp_set_post_terms( $post->ID, $cases, 'case-type');
-}
-add_action( 'admin_notices', 'notic' );
+add_action( 'save_post', 'case_types_save', 10, 3 );
 
 
 function create_news_post( $post_id, $post, $update ) {
