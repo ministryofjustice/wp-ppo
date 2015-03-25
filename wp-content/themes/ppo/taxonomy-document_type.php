@@ -70,7 +70,7 @@
 				<?php if($filter != "case-type"): ?>
 					<div class='filter-current'>All</div>
 				<?php else: ?>
-					<div class="filter-select" style="width:auto;height:18px;display:block;background:transparent;border-top: 1px solid #ccc;">Select</div>
+					<div class="filter-current">All</div>
 				<?php endif; ?>
 			</div>
 			<?php
@@ -337,7 +337,22 @@
 					var filterSource = $(this).attr('data-filter-source');
 					$(this).addClass('on');
 					$(this).parent().children('.filter-option').not(this).removeClass('on');
-					$(this).parent().parent().find('.filter-current').html($(this).html());
+					if(filterType === 'case-type') {
+						var sList = "";
+						$("input[data-filter-type='case-type']").each(function () {
+						    var sThisVal = $(this).next('label').text();
+						    if(this.checked == 1) {
+						    	sList += (sList=="" ? sThisVal : ", " + sThisVal);
+						    }
+						});
+						if(sList == "") {
+							$(this).parent().parent().find('.filter-current').html("All");
+						} else {
+							$(this).parent().parent().find('.filter-current').html(sList);
+						}
+					} else {
+						$(this).parent().parent().find('.filter-current').html($(this).html());
+					}
 					var queryParameters = JSON.parse(PPOAjax.queryParams);
 					queryParameters.paged = 1;
 					// Check to see if filter already exists
