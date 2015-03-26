@@ -490,3 +490,13 @@ function wpshock_search_filter( $query ) {
 }
 
 add_filter( 'pre_get_posts', 'wpshock_search_filter' );
+
+add_action('admin_head', 'my_custom_css');
+
+function my_custom_css() {
+  echo '<style>
+    #newsitem {
+      display: none!important;
+    } 
+  </style>';
+}
