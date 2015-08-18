@@ -99,3 +99,15 @@ function roots_nav_menu_args( $args = '' ) {
 }
 
 add_filter( 'wp_nav_menu_args', 'roots_nav_menu_args' );
+
+/**
+ * Wrap menu item text in <span>
+ *
+ * @param $item_html
+ * @return mixed
+ */
+function ppo_wp_nav_menu_item($item_html) {
+	$item_html = preg_replace('/<a (.*?)>(.*)<\/a>/i', '<a $1><span>$2</span></a>', $item_html);
+	return $item_html;
+}
+add_filter('roots_wp_nav_menu_item', 'ppo_wp_nav_menu_item');

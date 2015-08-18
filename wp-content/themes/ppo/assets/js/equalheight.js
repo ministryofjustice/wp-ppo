@@ -33,13 +33,13 @@ $(window).load(function() {
 //    columnConform('nav>ul>li>a');
 //    columnConform('#home-cta-container .cta-inner h2');
 //    columnConform('#home-cta-container .cta-inner');    
-    equalheight('nav>ul>li>a');
+//    equalheight('nav>ul>li>a');
     equalheight('#home-cta-container .cta-inner h2');
     equalheight('#home-cta-container .cta-inner'); 
 });
 
 $(window).resize(function() {
-    equalheight('nav>ul>li>a');
+    //equalheight('nav>ul>li>a');
     equalheight('#home-cta-container .cta-inner h2');
     equalheight('#home-cta-container .cta-inner'); 
 });
