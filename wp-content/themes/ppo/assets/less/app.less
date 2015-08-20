@@ -89,6 +89,9 @@ a.skip-main:focus, a.skip-main:active {
     line-height: 1.4;
 }
 
+.a11y-toolbar {
+    z-index: 50;
+}
 .a11y-toolbar ul li:last-child a, .a11y-toolbar ul li:first-child a {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
@@ -124,17 +127,24 @@ a.skip-main:focus, a.skip-main:active {
     .nav-container {
         // background-color: @ppo-dark;
         //min-height: 170px;
-
+        float: left;
 
         @media (min-width: @screen-sm-min) {
             position: relative;
             max-width: 976px;
             margin: 0 auto;
             height: 150px;
+            float: none;
         }
     }
 
     .container {
+        width: auto;
+        float: right;
+
+        @media (min-width: @screen-sm-min) {
+            float: none;
+        }
     }
 
     a.brand {
@@ -170,8 +180,11 @@ a.skip-main:focus, a.skip-main:active {
     margin: 0;
 }
 .navbar-toggle {
-    margin-top: 18px;
+    margin-top: 68px;
     margin-bottom: 18px;
+    border: 1px solid @vibrant-orange;
+    border-radius: 3px;
+    color: @vibrant-orange;
 }
 
 .menu-container {
@@ -206,11 +219,12 @@ a.skip-main:focus, a.skip-main:active {
     }
 
     > li.open > a,
+    > li.open > a:hover,
     > li.open > a:focus,
     > li.active > a,
     > li > a:hover,
     > li > a:focus {
-        background: none;
+        background-color: transparent;
         color: @vibrant-orange;
         border-bottom-color: @vibrant-orange;
     }
@@ -247,7 +261,9 @@ a.skip-main:focus, a.skip-main:active {
     }
 }
 
-.mp-pusher .navbar-nav {
+/*.navbar-mobile {
+    padding: 0 30px;
+
     > li {
         width: auto;
         position: initial;
@@ -256,7 +272,18 @@ a.skip-main:focus, a.skip-main:active {
             position: initial;
         }
     }
-}
+
+    > li > a,
+    > li.active > a {
+        color: @deep-grey;
+        font-family: @font-family-proximanova;
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}*/
 
 nav.collapse.navbar-collapse {
     margin: 0 0 0 188px;
@@ -1262,3 +1289,7 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 //
 //@media (min-width: @screen-lg-min) {
 //}
+
+
+
+@import "mlpushmenu";

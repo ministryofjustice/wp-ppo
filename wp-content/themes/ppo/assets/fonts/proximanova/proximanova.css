@@ -28,9 +28,9 @@
     font-family: 'ProximaNova';
     font-weight: bold;
     font-style: normal;
-    src: url('webfonts/2EEDD6_0_0.eot');
-    src: url('webfonts/2EEDD6_0_0.eot?#iefix') format('embedded-opentype'),
-         url('webfonts/2EEDD6_0_0.woff2') format('woff2'),
-         url('webfonts/2EEDD6_0_0.woff') format('woff'),
-         url('webfonts/2EEDD6_0_0.ttf') format('truetype');
+    src: url('2EEDD6_0_0.eot');
+    src: url('2EEDD6_0_0.eot?#iefix') format('embedded-opentype'),
+         url('2EEDD6_0_0.woff2') format('woff2'),
+         url('2EEDD6_0_0.woff') format('woff'),
+         url('2EEDD6_0_0.ttf') format('truetype');
 }
