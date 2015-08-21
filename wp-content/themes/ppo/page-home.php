@@ -59,7 +59,7 @@
 				// Iterate over entries and display
 				while ( $latest_publications_query->have_posts() ) : $latest_publications_query->the_post();
 					?>
-					<li><i class="fa fa-file-o fa-lg"></i>
+					<li>
 						<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>">
 							<?php
 //							$document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
@@ -113,7 +113,7 @@
 		<div id="latest-publications" class="boxout">
 			<h3>Subscribe to our Newsletter</h3>
 			<p>If you would like to receive email updates about new publications please sign up for our mailing list.</p>
-			<a href="http://gsi.us8.list-manage.com/subscribe?u=af164ebad7153bb6568f0f296&id=65fcc6544b" target="_blank" class="btn btn-primary btn-lg btn-block">Subscribe!</a>
+			<a href="http://gsi.us8.list-manage.com/subscribe?u=af164ebad7153bb6568f0f296&id=65fcc6544b" target="_blank" class="btn btn-primary btn-lg btn-block">Subscribe</a>
 		</div>
 	</div>
 	<div class="col-md-6">
