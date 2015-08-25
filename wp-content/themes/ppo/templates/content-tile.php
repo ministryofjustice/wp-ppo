@@ -87,21 +87,4 @@ $tile_data = " data-date='" . $document_datetime . "'"
 				</table>
 			</div>
 		<?php } ?>
-		<!--		<div class="tile-size">
-		<?php //echo $document_size; ?>
-				</div>-->
-		<!--		<div class="tile-social">
-					<a href="//twitter.com/intent/tweet?url=<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>&text=<?php echo get_the_title(); ?>&via=sparkdevelop" target="_blank">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/twitter.png" alt="Share on Twitter" title="Share on Twitter">
-					</a>
-				</div>
-		</div>-->
-	</a>
-<!-- 	<div class="share-link">
-	<?php
-		$value = get_post_meta( $post->ID, 'document-upload', true );
-		$postid = get_attachment_id_from_src( $value );
-	?>
-		<p><a href="<?php echo wp_get_shortlink($postid); ?>" target="_blank">Short link: <?php echo wp_get_shortlink($postid); ?></a></p>
-	</div> -->
 </article>

@@ -840,24 +840,22 @@ a.news-thumb img {
     article {
         float: left;
         margin: 10px;
-        /*border: 10px solid #eee;*/
-        /*border-right: 5px solid #eee;*/
-        width: 255px;
-        font-family: tahoma;
+        width: 298px;
+
         .tile-image {
             float: left;
             width: 145px;
+
             img {
                 max-width: 100%;
                 height: auto;
             }
         }
+
         h3 {
             margin: 0;
-            font-size: 13px;
             line-height: 18px;
-            color: #444;
-            font-family: tahoma;
+            color: @vibrant-orange;
             font-weight: bold;
             word-wrap: break-word;
             -webkit-hyphens: auto;
@@ -865,31 +863,34 @@ a.news-thumb img {
             -ms-hyphens: auto;
             hyphens: auto;
         }
+
         .tile-details {
             width: 110px;
             height: 224px;
             float: left;
-            background-color: #eee;
+            background-color: @soft-grey-lighter;
             padding: 5px;
             /*padding: 4px 4px 4px 9px;*/
             /*letter-spacing: -1px;*/
             position: relative;
             /*text-align: right;*/
+
             h4 {
                 padding: 5px 0;
                 font-size: 11px;
-                color: #888;
-                font-family: tahoma;
+                color: @vibrant-orange;
             }
+
             .tile-size {
-                font-size: 10px;
                 font-weight: bold;
                 color: #aaa;
             }
+
             .tile-social {
                 position: absolute;
                 bottom: 0;
                 right: 14px;
+
                 a {
                     img {
                         height: 48px;
@@ -905,7 +906,6 @@ a.news-thumb img {
                 }
             }
             table {
-                font-size: 12px;
                 font-weight: normal;
                 color: #000;
                 width: 100%;
@@ -915,18 +915,18 @@ a.news-thumb img {
             }
             transition: position 0.1s ease;
         }
+
         &.fii-report {
             h3 {
                 width: 100%;
                 padding: 12px 12px 2px;
-                background-color: #eee;
-                color: #831200;
+                background-color: @soft-grey-lighter;
                 font-size: 22px;
                 min-height: 50px;
             }
             .tile-details {
                 width: 100%;
-                height: 105px;
+                height: 140px;
                 padding: 5px 10px;
             }
         }
@@ -1239,6 +1239,7 @@ footer .row {
 .live-results {
     overflow: hidden;
     min-height: 600px;
+    margin-left: -10px;
 }
 
 #loading-spinner {
