@@ -570,7 +570,7 @@ outline: none;
    Primary Content
    ========================================================================== */
 
-.page .main, .single .main, .search .main, .error404 .main {
+.page .main, .single .main, .search .main, .error404 .main, .tax-document_type .main {
     max-width: 976px;
     margin: 0 auto;
     float: none;
@@ -822,15 +822,21 @@ a.news-thumb img {
     clear: both;
     .document-type-text {
         padding: 10px;
-        margin: 10px;
+        margin: 0;
         color: #fff;
         font-size: 15px;
-        background-color: #ca1c00;
+        background-color: @vibrant-orange;
         p {
             line-height: 22px;
             margin: 5px 0;
+
+            @media (max-width: @screen-xs) {
+                width: 100%!important;
+                margin-bottom: 1em;
+            }
         }
     }
+
     article {
         float: left;
         margin: 10px;
@@ -1064,48 +1070,40 @@ footer .row {
    Sort/Filter controls
    ========================================================================== */
 #sort-filter {
-    position: relative;
-    width: 100%;
-    margin: 0 -15px 0 -30px;
     box-sizing: content-box;
-    background: #ddd;
+    background: @soft-grey-lighter;
     z-index: 100;
-    height: auto;
-    left: 0;
-    right: 0;
-    padding: 0 30px 15px 30px;
+    padding: 0;
+    margin: 20px 0 0 0;
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+
     .group-label {
-        -webkit-transform: rotate(-90deg);
-        transform: rotate(-90deg);
-        -sand-transform: translate(-31px,-31px);
-        -webkit-transform-origin: left bottom 0;
-        transform-origin: left bottom 0;
-        position: absolute;
-        bottom: 0;
-        text-align: center;
-        width: 70px;
-        font-size: 13px;
+        color: @vibrant-orange;
+        font-family: @font-family-proximanova;
+        font-size: 1.6em;
         font-weight: bold;
-        text-transform: uppercase;
-        background-color: #831200;
-        color: white;
     }
 }
 .sorts, .filters {
-    display: inline-block;
+    display: block;
     margin: 20px 15px 10px 15px;
     position: relative;
     float: none;
-        @media (min-width: @screen-sm) {
-            margin: 20px;
-     }
+
+    @media (min-width: @screen-sm) {
+        display: inline-block;
+        margin: 20px;
+    }
 }
 
 .filters {
-    margin: 20px 0px 10px 15px;
-        @media (min-width: @screen-sm) {
-            margin: 20px;
-     }
+    //margin: 20px 0px 10px 15px;
+
+    @media (min-width: @screen-sm) {
+        margin: 8px 12px;
+    }
 }
 .sort-control {
     background-color: #eee;
@@ -1145,35 +1143,47 @@ footer .row {
 
 
 
-    .filters {
-        height: 70px;
-    }
-
-
-
 .filter-control {
-    background-color: #eee;
     display: block;
     float: left;
+    width: 50%;
+
+    @media (min-width: @screen-sm) {
+        width: auto;
+    }
+
     .filter-header {
         font-weight: bold;
         float: left;
-        padding: 16px 5px 4px 5px;
-        font-size: .95em;
+        padding: 0 13px;
         display: inline-block;
         cursor: pointer;
-            @media (min-width: @screen-xs) {
-                padding: 16px 13px;
-                font-size: 1em;
-            }
+        color: @deep-grey;
+
+        @media (min-width: @screen-xs) {
+            //padding: 0 13px;
+        }
 
         .filter-current, .filter-select {
-            font-size: 12px;
-            text-align: center;
-            color: @ppo-dark;
-            border-top: 1px solid #ccc;
+            color: @deep-grey;
+            font-weight: normal;
         }
     }
+
+    &:nth-child(2n - 1) .filter-header {
+        padding-left: 0;
+    }
+
+    @media (min-width: @screen-sm) {
+        &:nth-child(2n - 1) .filter-header {
+            padding: 0 13px;
+        }
+
+        &:first-child .filter-header {
+            padding-left: 0;
+        }
+    }
+
     .filter-options {
         padding: 10px 15px;
         background-color: #fff;
@@ -1277,12 +1287,14 @@ time {
 }
 
 .showHide {
-    position: absolute;
-    bottom: -32px;
-    left: 10px;
-    background: #831200;
-    border: 0;
+    background: @soft-grey-darker;
+    color: @deep-grey;
 
+    &:hover,
+    &:focus {
+        background: darken(@soft-grey-darker, 5%);
+        color: @deep-grey;
+    }
 }
 
 .description-wrapper {
@@ -1334,12 +1346,6 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 }
 
-@media (max-width: @screen-xs) {
-    .tile-container .document-type-text p {
-        width: 100%!important;
-        margin-bottom: 1em;
-    }
-}
 //
 //@media (min-width: @screen-md-min) {
 //
