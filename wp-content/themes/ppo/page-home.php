@@ -110,7 +110,7 @@
 				</div>
 			</a>
 		</div>
-		<div id="latest-publications" class="boxout">
+		<div id="newsletter-subscribe" class="boxout">
 			<h3>Subscribe to our Newsletter</h3>
 			<p>If you would like to receive email updates about new publications please sign up for our mailing list.</p>
 			<a href="http://gsi.us8.list-manage.com/subscribe?u=af164ebad7153bb6568f0f296&id=65fcc6544b" target="_blank" class="btn btn-primary btn-lg btn-block">Subscribe</a>

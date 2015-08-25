@@ -11,6 +11,24 @@
       "css": "menu",
       "code": 59392,
       "src": "fontawesome"
+    },
+    {
+      "uid": "ec3648a34c41b70671dc38dbb72deb04",
+      "css": "twitter",
+      "code": 59396,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "53d4dc777eeba379412efba3ee1cac9e",
+      "css": "facebook",
+      "code": 59397,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "c896fd4e287aebcf79803e0ece001ec1",
+      "css": "gplus",
+      "code": 59395,
+      "src": "mfglabs"
     }
   ]
 }

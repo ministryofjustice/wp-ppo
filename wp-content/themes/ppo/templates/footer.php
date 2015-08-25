@@ -1,7 +1,13 @@
 <footer class="content-info container" role="contentinfo">
 	<div class="row">
 
-		<div class="footer-search"><?php get_search_form( true ); ?></div>
+		<nav class="footer-social-links">
+			<ul>
+				<li><a href="#" class="social-icon"><i class="icon-facebook"></i></a></li>
+				<li><a href="#" class="social-icon"><i class="icon-twitter"></i></a></li>
+				<li><a href="#" class="social-icon"><i class="icon-gplus"></i></a></li>
+			</ul>
+		</nav>
 	
 		<div>
 			<?php dynamic_sidebar( 'sidebar-footer' ); ?>
