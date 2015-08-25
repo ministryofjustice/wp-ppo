@@ -126,7 +126,7 @@
 					// Get meta value containing array of entries
 					$latest_news_args = array(
 						'post_type' => 'post',
-						'posts_per_page' => 4
+						'posts_per_page' => 2
 					);
 					$latest_news_query = new WP_Query( $latest_news_args );
 					// Iterate over entries and display
