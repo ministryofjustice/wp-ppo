@@ -10,16 +10,6 @@ div.wrap {
     margin-top: 30px!important;
 }
 
-.navbar-nav>li {
-    width: 19.9%;
-}
-
-.navbar-nav>li>a {
-    min-height: 40px;
-    width: 100%;
-    padding: 15px 0;
-}
-
 nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 
 
@@ -38,6 +28,10 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
     margin: 10px 0;
 }
 
+.tile-container article .tile-image img {
+    width: inherit;
+}
+
 .tile-container article.fii-report {
     margin: 10px;
 }
@@ -48,9 +42,6 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 
 .tile-container article.fii-report h3 {
     padding-right: 8px;
-} 
-
-.group-label {
 }
 
 .sorts, .filters {

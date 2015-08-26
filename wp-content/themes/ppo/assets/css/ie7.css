@@ -11,6 +11,10 @@ button.search-submit {
     margin-top: -2px;
 }
 
+.tile-container article .tile-details {
+    width: 143px;
+}
+
 .tile-container article.fii-report {
     margin: 5px 15px !important;
 }
@@ -21,11 +25,6 @@ footer .row {
 footer .input-group .form-control {
     width: 310px!important;
 
-}
-
-.group-label {
-    left: 0;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .navbar-nav > li.open > a,
