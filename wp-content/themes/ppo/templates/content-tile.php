@@ -85,4 +85,5 @@ $tile_data = " data-date='" . $document_datetime . "'"
 				</table>
 			</div>
 		<?php } ?>
+	</a>
 </article>

@@ -24,6 +24,9 @@ function roots_scripts() {
 	// jQueryUI theme
 	wp_enqueue_style( "jquery-ui-css", get_template_directory_uri() . "/assets/css/jquery-ui.min.css" );
 
+	wp_enqueue_style( 'fontello-ie7', get_template_directory_uri() . '/assets/fonts/fontello/css/fontello-ie7.css', array('roots_main' ) );
+	$wp_styles->add_data( 'fontello-ie7', 'conditional', 'lt IE 8' );
+
 	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main' ) );
 	$wp_styles->add_data( 'ie7', 'conditional', 'lt IE 8' );
 	

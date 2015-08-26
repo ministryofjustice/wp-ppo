@@ -11,19 +11,11 @@ button.search-submit {
     margin-top: -2px;
 }
 
-footer .row .input-group .form-control {
-    
-}
-
 .tile-container article.fii-report {
-    margin: 10px 20px!important;
+    margin: 5px 15px !important;
 }
 footer .row {
 	overflow: hidden;
-}
-
-footer .footer-search {
-	width: 440px!important;
 }
 
 footer .input-group .form-control {
@@ -36,4 +28,14 @@ footer .input-group .form-control {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
-
+.navbar-nav > li.open > a,
+.navbar-nav > li.open > a:hover,
+.navbar-nav > li.open > a:focus,
+.navbar-nav > li.active > a,
+.navbar-nav > li.active > a:hover,
+.navbar-nav > li.active > a:focus,
+.navbar-nav > li > a,
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+    height: 114px;
+}

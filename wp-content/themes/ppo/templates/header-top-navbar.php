@@ -1,7 +1,10 @@
 <header class="banner navbar navbar-static-top" role="banner">
 	<div class="nav-container">
 		<a class="brand" href="<?php echo home_url(); ?>/">
-			<img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo.svg" alt="<?php bloginfo( 'name' ); ?>">
+			<img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo.svg" alt="<?php bloginfo( 'name' ); ?>" class="ppo-logo-svg">
+			<!--[if lte IE 8]>
+			<img src="<?php echo get_template_directory_uri(); ?>/assets/img/ppo-logo.png" alt="<?php bloginfo( 'name' ); ?>" class="ppo-logo-png">
+			<![endif]-->
 		</a>
 		<nav class="collapse navbar-collapse" role="navigation">
 			<?php
