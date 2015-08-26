@@ -1076,64 +1076,61 @@ footer .row {
 .sorts, .filters {
     display: block;
     margin: 20px 15px 10px 15px;
+    padding-bottom: 15px;
     position: relative;
     float: none;
 
     @media (min-width: @screen-sm) {
         display: inline-block;
-        margin: 20px;
-    }
-}
-
-.filters {
-    //margin: 20px 0px 10px 15px;
-
-    @media (min-width: @screen-sm) {
         margin: 8px 12px;
-    }
-}
-.sort-control {
-    background-color: #eee;
-    padding: 24px 24px 24px 10px;
-    font-size: .95em;
-    float: left;
-    cursor: pointer;
-        @media (min-width: @screen-xs) {
-            padding: 24px 24px 24px 14px;
-            font-size: 1em;
-        }
-    &.asc:after {
-        content: "\25B2";
-        margin-left: 5px;
-        position: absolute;
-    }
-    &.desc:after {
-        content: "\25BC";
-        margin-left: 5px;
-        position: absolute;
     }
 }
 
 .sorts {
     float: none;
     margin-right:20px;
-        @media (min-width: @screen-sm) {
-        float: right;
-        margin-right: 10px;
 
+    @media (min-width: @screen-sm) {
+        float: right;
     }
 }
 
-.sort-control.asc, .sort-control.desc {
-    background:#fefefe;
+.filters {
+    clear: left;
+    float: left;
+
+    @media (min-width: @screen-sm) {
+        border-right: 1px solid @deep-grey;
+        padding-right: 11px;
+    }
 }
 
+.sort-control {
+    float: left;
+    cursor: pointer;
+    font-weight: bold;
+    color: @deep-grey;
+    margin-right: 10px;
 
+    &.off {
+        padding-right: 21px;
+    }
+
+    &.asc:after {
+        content: "\25B2";
+        margin-left: 5px;
+    }
+    &.desc:after {
+        content: "\25BC";
+        margin-left: 5px;
+    }
+}
 
 .filter-control {
     display: block;
     float: left;
     width: 50%;
+    color: @deep-grey;
 
     @media (min-width: @screen-sm) {
         width: auto;
@@ -1145,14 +1142,8 @@ footer .row {
         padding: 0 13px;
         display: inline-block;
         cursor: pointer;
-        color: @deep-grey;
-
-        @media (min-width: @screen-xs) {
-            //padding: 0 13px;
-        }
 
         .filter-current, .filter-select {
-            color: @deep-grey;
             font-weight: normal;
         }
     }

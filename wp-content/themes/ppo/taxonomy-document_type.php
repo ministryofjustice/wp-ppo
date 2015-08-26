@@ -294,17 +294,17 @@
 					var sortByValue = $(this).attr('data-sort-field');
 					var sortAsc;
 					if ($(this).hasClass("asc")) {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-						$(this).addClass("desc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
+						$(this).addClass("desc").removeClass("off");
 						sortAsc = false;
 					} else if ($(this).hasClass("desc")) {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-						$(this).addClass("asc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
+						$(this).addClass("asc").removeClass("off");
 						sortAsc = true;
 					} else {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
 						$(this).removeClass("off");
-						$(this).addClass("asc");
+						$(this).addClass("asc").removeClass("off");
 						sortAsc = true;
 					}
 
