@@ -1,11 +1,12 @@
 <footer class="content-info container" role="contentinfo">
 	<div class="row">
 
+		<?php $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
 		<nav class="footer-social-links">
 			<ul>
-				<li><a href="#" class="social-icon"><i class="icon-facebook"></i></a></li>
-				<li><a href="#" class="social-icon"><i class="icon-twitter"></i></a></li>
-				<li><a href="#" class="social-icon"><i class="icon-gplus"></i></a></li>
+				<li><a href="http://www.facebook.com/sharer.php?u=<?= urlencode($current_url) ?>" target="_blank" class="social-icon" title="Share this page on Facebook"><i class="icon-facebook"></i></a></li>
+				<li><a href="http://twitter.com/share?url=<?= urlencode($current_url) ?>" target="_blank" class="social-icon" title="Share this page on Twitter"><i class="icon-twitter"></i></a></li>
+				<li><a href="https://plus.google.com/share?url=<?= urlencode($current_url) ?>" target="_blank" class="social-icon" title="Share this page on Google+"><i class="icon-gplus"></i></a></li>
 			</ul>
 		</nav>
 	
