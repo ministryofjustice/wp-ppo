@@ -25,7 +25,14 @@
 				<div class="col-xs-12 col-sm-6 col-md-3 home-cta">
 					<a href="<?php echo ot_get_option( "homepage_nav_url$i" ); ?>">
 						<div class="cta-inner">
-							<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
+							<?php
+
+							// Add <br/> between heading words
+							$heading = ot_get_option( "homepage_nav_title$i" );
+							$heading = str_replace(' ', ' <br/>', $heading);
+
+							?>
+							<h2><?php echo $heading; ?></h2>
 							<div><?php echo ot_get_option( "homepage_nav_text$i" ); ?></div>
 							<img src="<?php echo ot_get_option( "homepage_nav_image$i" ); ?>" alt="<?php echo ot_get_option( "homepage_nav_image_alt$i" ); ?>">
 						</div>
