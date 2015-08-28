@@ -2,9 +2,12 @@
 
 <div id="home-content-container" class="container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<h1>Welcome to the PPO</h1>
-
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php the_content(); ?>
 			<?php endwhile; ?>
