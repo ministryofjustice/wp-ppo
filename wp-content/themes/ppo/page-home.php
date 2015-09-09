@@ -2,16 +2,19 @@
 
 <div id="home-content-container" class="container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<h1>Welcome to the PPO</h1>
-
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php the_content(); ?>
 			<?php endwhile; ?>
 		</div>
 		<div class="col-md-6">
 			<?php get_search_form( true ); ?>
-			<iframe width="1280" height="720" title="Youtube video" src="//www.youtube.com/embed/Da7tH1LLRVE?modestbranding=1&showinfo=0&autohide=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+			<iframe width="1280" height="720" title="Youtube video" src="//www.youtube.com/embed/1B6qZtO39ZQ?modestbranding=1&showinfo=0&autohide=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 
@@ -22,7 +25,14 @@
 				<div class="col-xs-12 col-sm-6 col-md-3 home-cta">
 					<a href="<?php echo ot_get_option( "homepage_nav_url$i" ); ?>">
 						<div class="cta-inner">
-							<h2><?php echo ot_get_option( "homepage_nav_title$i" ); ?></h2>
+							<?php
+
+							// Add <br/> between heading words
+							$heading = ot_get_option( "homepage_nav_title$i" );
+							$heading = str_replace(' ', ' <br/>', $heading);
+
+							?>
+							<h2><?php echo $heading; ?></h2>
 							<div><?php echo ot_get_option( "homepage_nav_text$i" ); ?></div>
 							<img src="<?php echo ot_get_option( "homepage_nav_image$i" ); ?>" alt="<?php echo ot_get_option( "homepage_nav_image_alt$i" ); ?>">
 						</div>
@@ -59,7 +69,7 @@
 				// Iterate over entries and display
 				while ( $latest_publications_query->have_posts() ) : $latest_publications_query->the_post();
 					?>
-					<li><i class="fa fa-file-o fa-lg"></i>
+					<li>
 						<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>">
 							<?php
 //							$document_date = get_metadata( 'post', get_the_ID(), 'document-date', true );
@@ -110,10 +120,10 @@
 				</div>
 			</a>
 		</div>
-		<div id="latest-publications" class="boxout">
+		<div id="newsletter-subscribe" class="boxout">
 			<h3>Subscribe to our Newsletter</h3>
 			<p>If you would like to receive email updates about new publications please sign up for our mailing list.</p>
-			<a href="http://gsi.us8.list-manage.com/subscribe?u=af164ebad7153bb6568f0f296&id=65fcc6544b" target="_blank" class="btn btn-primary btn-lg btn-block">Subscribe!</a>
+			<a href="http://gsi.us8.list-manage.com/subscribe?u=af164ebad7153bb6568f0f296&id=65fcc6544b" target="_blank" class="btn btn-primary btn-lg btn-block">Subscribe</a>
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -126,7 +136,7 @@
 					// Get meta value containing array of entries
 					$latest_news_args = array(
 						'post_type' => 'post',
-						'posts_per_page' => 4
+						'posts_per_page' => 2
 					);
 					$latest_news_query = new WP_Query( $latest_news_args );
 					// Iterate over entries and display

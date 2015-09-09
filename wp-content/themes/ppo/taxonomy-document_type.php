@@ -1,245 +1,242 @@
-
-
 <div id="loading-spinner"><img src="<?php echo get_template_directory_uri( __FILE__ ) . '/assets/img/ajax-loader.gif'; ?>"></div>
 
 <nav id="sort-filter">
-	<?php
-	global $ppo_meta_boxes;
-// Set up filter/sort controls array
-	$doc_filters = array(
-		'fallback' => array(
-			'filters' => array(
-				// Decade starting from year below (x) up to x + 9 of publish date
-				'document-date' => 'years' // TODO: Make this automatic based on data
+	<div class="report-container">
+		<?php
+		global $ppo_meta_boxes;
+	// Set up filter/sort controls array
+		$doc_filters = array(
+			'fallback' => array(
+				'filters' => array(
+					// Decade starting from year below (x) up to x + 9 of publish date
+					'document-date' => 'years' // TODO: Make this automatic based on data
+				),
+				'sort' => array( 'date' ),
+				'default' => 'date'
 			),
-			'sort' => array( 'date' ),
-			'default' => 'date'
-		),
-		'learning-lessons-reports' => array(
-			'filters' => array(
-				// Decade starting from year below (x) up to x + 9 of publish date
-				'document-date' => 'years', // TODO: Make this automatic based on data
-				'case-type' => 'all',
+			'learning-lessons-reports' => array(
+				'filters' => array(
+					// Decade starting from year below (x) up to x + 9 of publish date
+					'document-date' => 'years', // TODO: Make this automatic based on data
+					'case-type' => 'all',
+				),
+				'sort' => array( 'date' ),
+				'default' => 'date'
 			),
-			'sort' => array( 'date' ),
-			'default' => 'date'
-		),
-		'fii-report' => array(
-			'filters' => array(
-				'establishment-type' => 'all', // Provides all taxonomy values for the filter
-				//'fii-death-date' => 'range',
-				'fii-death-type' => 'all',
-				'fii-gender' => 'all',
-				'fii-age' => 'all',
-				'establishment' => 'autocomplete'
-			),
-			'sort' => array( 'website-date', 'date-of-death' ),
-			'default' => 'date-of-death'
-		)
-	);
+			'fii-report' => array(
+				'filters' => array(
+					'establishment-type' => 'all', // Provides all taxonomy values for the filter
+					//'fii-death-date' => 'range',
+					'fii-death-type' => 'all',
+					'fii-gender' => 'all',
+					'fii-age' => 'all',
+					'establishment' => 'autocomplete'
+				),
+				'sort' => array( 'website-date', 'date-of-death' ),
+				'default' => 'date-of-death'
+			)
+		);
 
-// Get document type slug
-	$value = get_query_var( $wp_query->query_vars['taxonomy'] );
-	$doc_type_object = get_term_by( 'slug', $value, $wp_query->query_vars['taxonomy'] );
-	$doc_type = $doc_type_object->slug;
+	// Get document type slug
+		$value = get_query_var( $wp_query->query_vars['taxonomy'] );
+		$doc_type_object = get_term_by( 'slug', $value, $wp_query->query_vars['taxonomy'] );
+		$doc_type = $doc_type_object->slug;
 
-// Setup filter and sort arrays
-	if ( isset( $doc_filters[$doc_type] ) ) {
-		$filter_object = $doc_filters[$doc_type];
-	} else {
-		$filter_object = $doc_filters['fallback'];
-	}
-	$current_filters = $filter_object['filters'];
-	$current_sorts = $filter_object['sort'];
+	// Setup filter and sort arrays
+		if ( isset( $doc_filters[$doc_type] ) ) {
+			$filter_object = $doc_filters[$doc_type];
+		} else {
+			$filter_object = $doc_filters['fallback'];
+		}
+		$current_filters = $filter_object['filters'];
+		$current_sorts = $filter_object['sort'];
 
-// Output sort controls
-	echo "<div class='sorts'><div class='group-label'>Sort</div>";
-	foreach ( $current_sorts as $sort ) {
-		$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
-		echo "<div class='sort-control " . ($sort == $filter_object['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
-	}
-	echo "</div>";
+	// Output sort controls
+		echo "<div class='sorts'><div class='group-label'>Sort</div>";
+		foreach ( $current_sorts as $sort ) {
+			$sort_text = str_replace( "-", " ", ucfirst( $sort ) );
+			echo "<div class='sort-control " . ($sort == $filter_object['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
+		}
+		echo "</div>";
 
-// Output filter controls
-	echo "<div class='filters'><div class='group-label'>Filter</div>";
-	foreach ( $current_filters as $filter => $values ) {
-		?>
-		<div class="filter-control">
-			<div class='filter-header'>
-				<?php echo ucfirst(str_replace( array( "-", "fii ","establishment type", "death type" ), array( " ", "","location", "cause"),  $filter  )); ?>
-				<?php if($filter != "case-type"): ?>
-					<div class='filter-current'>All</div>
-				<?php else: ?>
-					<div class="filter-current">All</div>
-				<?php endif; ?>
-			</div>
-			<?php
-			echo "<div class='filter-options'>";
-			if ( $values != "autocomplete" && $filter != "case-type" ) {
-				echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
-			}
-			$extras = null;
-			$orig_values = $values;
-			$values = array();
-			if ( !is_array( $orig_values ) ) {
-				switch ( $orig_values ) {
-					case "all":
-						$terms = get_terms( $filter, array( 'hide_empty' => 0, 'orderby' => 'thets_order' ) );
-						if ( !is_wp_error( $terms ) ) {
-							foreach ( $terms as $term ) {
-								$values[] = array( "label" => $term->name, "option" => $term->term_id );
-							}
-							$filter_source = 'taxonomy';
-						} else {
-							global $ppo_meta_boxes;
-							$arrIt = new RecursiveIteratorIterator( new RecursiveArrayIterator( $ppo_meta_boxes ) );
-							foreach ( $arrIt as $sub ) {
-								$subArray = $arrIt->getSubIterator();
-								if ( isset( $subArray['id'] ) && $subArray['id'] === $filter ) {
-									$outputArray = iterator_to_array( $subArray );
-								}
-							}
-							$choices = $outputArray['choices'];
-							foreach ( $choices as $choice ) {
-								$values[] = array( "label" => $choice['label'], "option" => $choice['value'] );
-							}
-							$filter_source = 'meta';
-						}
-						break;
-					case "decades":
-						$extras .= " data-filter-command='decades'";
-						$values = array( 1990, 2000, 2010 );
-						break;
-					case "years":
-						$extras .= " data-filter-command='years'";
-						for ( $y = 2000; $y <= date( "Y" ); $y++ ) {
-							$values[] = "$y";
-						}
-						break;
-					case "range":
-						$values = array( "start", "end" );
-						// NOTE: http://amsul.ca/pickadate.js/date.htm
-						break;
-					case "autocomplete":
-						$values = $wpdb->get_col(
-								"SELECT post_title "
-								. "FROM $wpdb->posts "
-								. "WHERE post_type = '$filter' "
-								. "AND post_status IN ('publish') "
-								. "ORDER BY post_title ASC"
-						);
-						break;
-					default:
-						break;
+	// Output filter controls
+		echo "<div class='filters'><div class='group-label'>Filter</div>";
+		echo '<div class="filter-controls">';
+		foreach ( $current_filters as $filter => $values ) {
+			?>
+			<div class="filter-control">
+				<div class='filter-header'>
+					<?php echo ucfirst(str_replace( array( "-", "fii ","establishment type", "death type" ), array( " ", "","location", "cause"),  $filter  )); ?>
+					<?php if($filter != "case-type"): ?>
+						<div class='filter-current'>All</div>
+					<?php else: ?>
+						<div class="filter-current">All</div>
+					<?php endif; ?>
+				</div>
+				<?php
+				echo "<div class='filter-options'>";
+				if ( $values != "autocomplete" && $filter != "case-type" ) {
+					echo "<div class='filter-option on' data-filter-type='$filter' data-filter-field='-1'>All</div>";
 				}
-			}
-			if ( $orig_values != 'autocomplete' ) {
-				foreach ( $values as $option ) {
+				$extras = null;
+				$orig_values = $values;
+				$values = array();
+				if ( !is_array( $orig_values ) ) {
 					switch ( $orig_values ) {
+						case "all":
+							$terms = get_terms( $filter, array( 'hide_empty' => 0, 'orderby' => 'thets_order' ) );
+							if ( !is_wp_error( $terms ) ) {
+								foreach ( $terms as $term ) {
+									$values[] = array( "label" => $term->name, "option" => $term->term_id );
+								}
+								$filter_source = 'taxonomy';
+							} else {
+								global $ppo_meta_boxes;
+								$arrIt = new RecursiveIteratorIterator( new RecursiveArrayIterator( $ppo_meta_boxes ) );
+								foreach ( $arrIt as $sub ) {
+									$subArray = $arrIt->getSubIterator();
+									if ( isset( $subArray['id'] ) && $subArray['id'] === $filter ) {
+										$outputArray = iterator_to_array( $subArray );
+									}
+								}
+								$choices = $outputArray['choices'];
+								foreach ( $choices as $choice ) {
+									$values[] = array( "label" => $choice['label'], "option" => $choice['value'] );
+								}
+								$filter_source = 'meta';
+							}
+							break;
 						case "decades":
-							$contents = $option . " - " . ($option + 9);
+							$extras .= " data-filter-command='decades'";
+							$values = array( 1990, 2000, 2010 );
 							break;
 						case "years":
-							$contents = $option;
+							$extras .= " data-filter-command='years'";
+							for ( $y = 2000; $y <= date( "Y" ); $y++ ) {
+								$values[] = "$y";
+							}
 							break;
 						case "range":
-							$contents = "<input type = 'text' id = '$filter-$option'>";
+							$values = array( "start", "end" );
+							// NOTE: http://amsul.ca/pickadate.js/date.htm
 							break;
 						case "autocomplete":
+							$values = $wpdb->get_col(
+									"SELECT post_title "
+									. "FROM $wpdb->posts "
+									. "WHERE post_type = '$filter' "
+									. "AND post_status IN ('publish') "
+									. "ORDER BY post_title ASC"
+							);
 							break;
 						default:
-							$contents = $option['label'];
-							$option = $option['option'];
-					}
-					if($filter != "case-type") {
-						echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>$contents</div>";
-					} else {
-						echo "<input type='checkbox' name='n-$option' id='n-$option' class='filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>
-						<label for='n-$option'>$contents</label>";
+							break;
 					}
 				}
-			} else {
-				?>
-				<input id="<?php echo $filter; ?>-ac">
-				<div id="<?php echo $filter; ?>-ac-reset" class="ac-reset">Reset</div>
-				<script>
-					$(function() {
-						var availableValues =
-		<?php
-		echo json_encode( $values );
-		?>
-						;
-						$("#<?php echo $filter; ?>-ac").autocomplete({
-							source: availableValues,
-							minLength: 2,
-							select: function(event, ui) {
-								$(this).parent().parent().find('.filter-current').html(ui.item.label);
+				if ( $orig_values != 'autocomplete' ) {
+					foreach ( $values as $option ) {
+						switch ( $orig_values ) {
+							case "decades":
+								$contents = $option . " - " . ($option + 9);
+								break;
+							case "years":
+								$contents = $option;
+								break;
+							case "range":
+								$contents = "<input type = 'text' id = '$filter-$option'>";
+								break;
+							case "autocomplete":
+								break;
+							default:
+								$contents = $option['label'];
+								$option = $option['option'];
+						}
+						if($filter != "case-type") {
+							echo "<div class = 'filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>$contents</div>";
+						} else {
+							echo "<input type='checkbox' name='n-$option' id='n-$option' class='filter-option' data-filter-type = '$filter' data-filter-field = '$option' data-filter-source='$filter_source'$extras>
+							<label for='n-$option'>$contents</label>";
+						}
+					}
+				} else {
+					?>
+					<input id="<?php echo $filter; ?>-ac">
+					<div id="<?php echo $filter; ?>-ac-reset" class="ac-reset">Reset</div>
+					<script>
+						$(function() {
+							var availableValues =
+			<?php
+			echo json_encode( $values );
+			?>
+							;
+							$("#<?php echo $filter; ?>-ac").autocomplete({
+								source: availableValues,
+								minLength: 2,
+								select: function(event, ui) {
+									$(this).parent().parent().find('.filter-current').html(ui.item.label);
+									var queryParameters = JSON.parse(PPOAjax.queryParams);
+									queryParameters.establishment = ui.item.label;
+									PPOAjax.queryParams = JSON.stringify(queryParameters);
+									update_tiles(PPOAjax.queryParams, true);
+									$(this).parent().hide().parent().css("border-bottom", "none");
+								}
+							});
+							$("#<?php echo $filter; ?>-ac-reset").on('click', function() {
+								$("#<?php echo $filter; ?>-ac").val("");
+								$("#<?php echo $filter; ?>-ac").autocomplete("search", "");
+								$(this).parent().parent().find('.filter-current').html("All");
 								var queryParameters = JSON.parse(PPOAjax.queryParams);
-								queryParameters.establishment = ui.item.label;
+								delete queryParameters.establishment;
 								PPOAjax.queryParams = JSON.stringify(queryParameters);
 								update_tiles(PPOAjax.queryParams, true);
-								$(this).parent().hide().parent().css("border-bottom", "none");
-							}
-						});
-						$("#<?php echo $filter; ?>-ac-reset").on('click', function() {
-							$("#<?php echo $filter; ?>-ac").val("");
-							$("#<?php echo $filter; ?>-ac").autocomplete("search", "");
-							$(this).parent().parent().find('.filter-current').html("All");
-							var queryParameters = JSON.parse(PPOAjax.queryParams);
-							delete queryParameters.establishment;
-							PPOAjax.queryParams = JSON.stringify(queryParameters);
-							update_tiles(PPOAjax.queryParams, true);
-							$(".ui-autocomplete-input", $(this).parent()).focus();
-						});
-					});</script>
-				<?php
-			}
-			echo "</div>";
-			?>
-		</div>
-		<?php
-	}
-	echo "</div>";
-	?>
+								$(".ui-autocomplete-input", $(this).parent()).focus();
+							});
+						});</script>
+					<?php
+				}
+				echo "</div>";
+				?>
+			</div>
+			<?php
+		}
+		echo '</div>';
+		echo "</div>";
+		?>
+	</div>
 </nav>
 
 <div class="tile-container">
 
-<div class="page-header">
+	<div class="page-header">
+		<h1><?php echo get_queried_object()->name; ?></h1>
+	</div>
 
-<h1><?php echo get_queried_object()->name; ?></h1>
+	<?php if (term_description()): ?>
+		<div class="description-wrapper">
+			<div class="document-type-text collapse in" id="hideaway">
+				<?php
 
-</div>
+				$term_desc = str_replace( array( "<p>", "</p>" ), "", term_description() );
+				$term_desc_array = explode( "\n", $term_desc );
+				$col_count = count( $term_desc_array );
+				$col_width = (100 / ($col_count - 1));
 
-	<?php if ( term_description() ) { ?>
-
-	<div class="description-wrapper">
-		<div class="document-type-text collapse in" id="hideaway">
-			<?php
-			$term_desc = str_replace( array( "<p>", "</p>" ), "", term_description() );
-			$term_desc_array = explode( "\n", $term_desc );
-			$col_count = count( $term_desc_array );
-			$col_width = (100 / ($col_count - 1));
-			foreach ( $term_desc_array as $td_para ) {
-				if ( strlen( $td_para ) != 0 ) {
-					echo str_replace( "\n", "", "<p style='width:$col_width%;padding: 0 1%;display:inline-block;vertical-align:top;'>$td_para</p>" );
+				foreach ( $term_desc_array as $td_para ) {
+					if ( strlen( $td_para ) != 0 ) {
+						echo str_replace( "\n", "", "<p style='width:$col_width%;padding: 0 1%;display:inline-block;vertical-align:top;'>$td_para</p>" );
+					}
 				}
-			}
-			?>
 
-
+				?>
+			</div>
+			<button class="btn btn-primary showHide" type="button" data-toggle="collapse" data-target="#hideaway" aria-expanded="false" aria-controls="hideaway">
+			  Hide details
+			</button>
 		</div>
+	<?php endif; ?>
 
-<!-- 		<a class="btn btn-primary" data-toggle="collapse" href="#hideaway" aria-expanded="false" aria-controls="hideaway">
-			Show/hide intro text
-		</a> -->
-		<button class="btn btn-primary showHide" type="button" data-toggle="collapse" data-target="#hideaway" aria-expanded="false" aria-controls="hideaway">
-		  Hide details
-		</button>
-		</div>
+	<?php
 
-		<?php
-	}
 	//Specific ordering for FII reports
 	if( has_term( 'fii-report', 'document_type' ) ) {
 			$metakey = 'fii-death-date';
@@ -297,17 +294,17 @@
 					var sortByValue = $(this).attr('data-sort-field');
 					var sortAsc;
 					if ($(this).hasClass("asc")) {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-						$(this).addClass("desc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
+						$(this).addClass("desc").removeClass("off");
 						sortAsc = false;
 					} else if ($(this).hasClass("desc")) {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
-						$(this).addClass("asc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
+						$(this).addClass("asc").removeClass("off");
 						sortAsc = true;
 					} else {
-						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc");
+						$("#sort-filter .sort-control").removeClass("asc").removeClass("desc").addClass("off");
 						$(this).removeClass("off");
-						$(this).addClass("asc");
+						$(this).addClass("asc").removeClass("off");
 						sortAsc = true;
 					}
 
