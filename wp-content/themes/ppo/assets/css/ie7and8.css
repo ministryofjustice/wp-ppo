@@ -10,34 +10,13 @@ div.wrap {
     margin-top: 30px!important;
 }
 
-.navbar-nav>li {
-    width: 19.9%;
-}
-
-.navbar-nav>li>a {
-    min-height: 40px;
-    width: 100%;
-    padding: 15px 0;
-}
-
 nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 
-.banner a.brand img {
-    max-height: 50px;
-}
 
 .document-type-text p {
     width: 100% !important;
 }
 
-.banner a.brand {
- 	line-height: 70px; margin: 0; width: 15%!important; position: absolute; left: 0; top: 0; 
-    }
-
-
-.banner a.brand  img {
- 	max-width: 100%; padding: 10px; max-height: 70px; width: 100%;
- 	}
 
 .dropdown-menu li {  width: 33% }
 
@@ -47,6 +26,10 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 
 .alert-warning {
     margin: 10px 0;
+}
+
+.tile-container article .tile-image img {
+    width: inherit;
 }
 
 .tile-container article.fii-report {
@@ -59,12 +42,6 @@ nav.collapse.navbar-collapse {margin: 0 0 0 210px!important;}
 
 .tile-container article.fii-report h3 {
     padding-right: 8px;
-} 
-
-.group-label {
-    top: 0;
-    height: 16px!important;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .sorts, .filters {

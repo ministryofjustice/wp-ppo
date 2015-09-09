@@ -195,9 +195,6 @@ add_image_size( 'home-news-thumb', 158, 224, false );
 
 // Add JS
 function custom_scripts() {
-	wp_enqueue_style( 'mlpush-component', get_template_directory_uri() . '/assets/css/component.css', false );
-	wp_enqueue_style( 'mlpush-icons', get_template_directory_uri() . '/assets/css/icons.css', false );
-
 	wp_register_script( 'equalheight', get_template_directory_uri() . '/assets/js/equalheight.js', array( 'jquery' ), null, false );
 	wp_enqueue_script( 'equalheight' );
 	wp_register_script( 'jquery.query-object', get_template_directory_uri() . '/assets/js/plugins/jquery.query-object.js', array( 'jquery' ), null, false );
@@ -491,12 +488,3 @@ function wpshock_search_filter( $query ) {
 
 add_filter( 'pre_get_posts', 'wpshock_search_filter' );
 
-add_action('admin_head', 'my_custom_css');
-
-function my_custom_css() {
-  echo '<style>
-    #newsitem {
-      display: none!important;
-    } 
-  </style>';
-}

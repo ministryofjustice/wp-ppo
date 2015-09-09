@@ -50,7 +50,7 @@ $tile_data = " data-date='" . $document_datetime . "'"
 		<?php if ( !$is_fii ) { ?>
 			<div class="tile-details">
 				<h3><?php the_title(); ?></h3>
-				<h4>Published: <?php echo $document_date; ?></h4>
+				<div class="tile-published-date">Published: <?php echo $document_date; ?></div>
 			</div>
 		<?php } else { ?>
 			<h3><?php echo get_the_title( $document_establishment_id ) ? get_the_title( $document_establishment_id ) : "&nbsp;"; ?></h3>
@@ -78,30 +78,12 @@ $tile_data = " data-date='" . $document_datetime . "'"
 						<td><?php echo get_metadata( 'post', get_the_ID(), 'fii-age', true ); ?></td>
 					</tr>
 					<tr>
-						
-							<td>On website:</td> 
-							<td><?php echo $document_date; ?></td>
-						
+						<td>On website:</td>
+						<td><?php echo $document_date; ?></td>
 					</tr>
 
 				</table>
 			</div>
 		<?php } ?>
-		<!--		<div class="tile-size">
-		<?php //echo $document_size; ?>
-				</div>-->
-		<!--		<div class="tile-social">
-					<a href="//twitter.com/intent/tweet?url=<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>&text=<?php echo get_the_title(); ?>&via=sparkdevelop" target="_blank">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/twitter.png" alt="Share on Twitter" title="Share on Twitter">
-					</a>
-				</div>
-		</div>-->
 	</a>
-<!-- 	<div class="share-link">
-	<?php
-		$value = get_post_meta( $post->ID, 'document-upload', true );
-		$postid = get_attachment_id_from_src( $value );
-	?>
-		<p><a href="<?php echo wp_get_shortlink($postid); ?>" target="_blank">Short link: <?php echo wp_get_shortlink($postid); ?></a></p>
-	</div> -->
 </article>
