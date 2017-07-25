@@ -422,7 +422,7 @@ function ppo_breadcrumbs() {
 
 		// Level 1 - Home level
 		$level1_label = "Home";
-		$level1_url = get_site_url();
+		$level1_url = get_home_url();
 
 		// Get remaining levels
 		$level4_item = wp_get_nav_menu_items( $menu->term_id, array( 'p' => $GLOBALS['current_menu_id'] ) );
