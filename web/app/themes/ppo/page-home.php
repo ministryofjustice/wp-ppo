@@ -1,5 +1,3 @@
-<?php include(dirname( __FILE__ ) . '/lib/ppo-debug.php'); // Add debug tools ?>
-
 <div id="home-content-container" class="container">
 	<div class="row">
 		<div class="col-md-12">
