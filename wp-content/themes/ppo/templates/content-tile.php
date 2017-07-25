@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Set classes for tile based in document type (there should only be one)
 $doc_type_array = get_the_terms( get_the_ID(), 'document_type' );
 $doc_types = array();
@@ -24,11 +24,11 @@ if ( $is_fii ) {
 	$document_establishment_id = get_metadata( 'post', get_the_ID(), 'fii-establishment', true );
 	$document_establishment_type = get_metadata( 'post', $document_establishment_id, 'establishment-type', true );
 
-	$document_death_types = wp_get_post_terms( get_the_ID(), 'fii-death-type', array( "fields" => "ids" ) );
-	if ( isset( $document_death_types[0] ) ) {
+	$document_death_types = wp_get_post_terms( get_the_ID(), 'fii-death-type' );
+	if ( !is_wp_error($document_death_types) && count($document_death_types) > 0 ) {
 		$document_death_type = $document_death_types[0];
 	} else {
-		$document_death_type = "";
+		$document_death_type = false;
 	}
 }
 
@@ -36,7 +36,7 @@ if ( $is_fii ) {
 $tile_data = " data-date='" . $document_datetime . "'"
 		. " data-size='" . $document_size . "'"
 		. " data-decade='" . $document_decade . "'"
-		. ($is_fii ? " data-fii-death-type='" . str_replace( " ", "-", strtolower( $document_death_type ) ) . "'" : "")
+		. ($is_fii ? " data-fii-death-type='" . $document_death_type->term_id . "'" : "")
 		. ($is_fii ? " data-establishment-type='" . $document_establishment_type . "'" : "");
 ?>
 
@@ -71,7 +71,7 @@ $tile_data = " data-date='" . $document_datetime . "'"
 					</tr>
 					<tr>
 						<td>Cause:</td>
-						<td><?php echo $document_death_type ? get_term_field( "name", $document_death_type, 'fii-death-type' ) : ""; ?></td>
+						<td><?php echo $document_death_type ? $document_death_type->name : ""; ?></td>
 					</tr>
 					<tr>
 						<td><?php echo (get_metadata( 'post', get_the_ID(), 'fii-gender', true ) == "m" ? "Male" : "Female"); ?></td>
