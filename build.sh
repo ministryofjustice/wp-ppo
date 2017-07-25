@@ -32,10 +32,10 @@ fi
 composer install
 
 # Build theme assets
-cd web/app/themes/lawcom
-npm install -g bower grunt-cli && echo "{ \"allow_root\": true }" > /root/.bowerrc
-npm install && bower install
-grunt build
+cd web/app/themes/ppo
+npm install -g grunt-cli
+npm install
+grunt
 
 # Remove node_modules to (drastically) reduce image size
 rm -Rf node_modules
