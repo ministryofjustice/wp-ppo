@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 Template Name: Category news archive
 */
 ?>
@@ -14,7 +14,7 @@ Template Name: Category news archive
 <div class="news-archive-links">
 	<ul>
 
-		<?php 
+		<?php
 			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 			query_posts('cat=news&posts_per_page=10&paged=' . $paged); ?>
 		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -29,7 +29,7 @@ Template Name: Category news archive
 	</ul>
 
 <div class="pagination">
-	<?php echo paginate_links( $args ); ?>
+	<?php echo paginate_links(); ?>
 </div>
 
 <!-- <div class="nav-previous alignleft"><?php next_posts_link( 'Older posts' ); ?></div>
