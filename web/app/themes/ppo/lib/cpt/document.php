@@ -334,3 +334,18 @@ function filter_post_type_link( $link, $post ) {
 }
 
 add_filter( 'post_type_link', 'filter_post_type_link', 10, 2 );
+
+/**
+ * Redirect document slug to the associated file URL
+ * instead of displaying the document-single template.
+ */
+function redirect_to_document() {
+  if (is_single() && get_post_type() == 'document') {
+    $file_url = get_post_meta(get_the_ID(), 'document-upload', true);
+    if (!empty($file_url)) {
+      wp_redirect($file_url, 301);
+      exit;
+    }
+  }
+}
+add_filter('template_redirect', 'redirect_to_document');
