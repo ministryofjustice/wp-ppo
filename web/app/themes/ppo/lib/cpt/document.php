@@ -356,15 +356,16 @@ add_filter('template_redirect', 'redirect_to_document');
  *
  * @param int $post_id
  */
-function save_document_upload_id($post_id) {
-  $upload_url = get_post_meta($post_id, 'document-upload', true);
-  $attachment_id = get_attachment_id_from_src($upload_url);
+function save_document_upload_id($post_id, $post) {
+  if ($post->post_type !== 'document') return;
 
-  if ($attachment_id) {
+  $upload_url = get_post_meta($post_id, 'document-upload', true);
+
+  if (!empty($upload_url) && $attachment_id = get_attachment_id_from_src($upload_url)) {
     update_post_meta($post_id, 'document-upload-attachment-id', $attachment_id);
   }
   else {
     delete_post_meta($post_id, 'document-upload-attachment-id');
   }
 }
-add_action('save_post_document', 'save_document_upload_id');
+add_action('save_post', 'save_document_upload_id', 10, 2);

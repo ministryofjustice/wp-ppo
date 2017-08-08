@@ -33,52 +33,57 @@ add_action( 'save_post', 'case_types_save', 10, 3 );
 
 
 function create_news_post( $post_id, $post, $update ) {
-	if(  wp_is_post_revision( $post_id) && wp_is_post_autosave( $post_id ) )
-		return;
+	if (
+    wp_is_post_revision($post_id) ||
+    wp_is_post_autosave($post_id) ||
+    $post->post_type !== 'document' ||
+    !isset($_POST['create-news-item']) ||
+    !$_POST['create-news-item']
+  ) {
+    return;
+  }
 
-	$content = get_post_meta($post_id, 'document-description');
-	if($content[0] != $_POST['document-description']) {
+	$content = get_post_meta($post_id, 'document-description', true);
+	if (isset($_POST['document-description']) && $content != $_POST['document-description']) {
 		$contentValue = $_POST['document-description'];
 	} else {
-		$contentValue = $content[0];
+		$contentValue = $content;
 	}
 
-	$file = get_post_meta( $post_id, 'document-upload' );
-	if($file[0] != $_POST['document-upload']) {
+	$file = get_post_meta($post_id, 'document-upload', true);
+	if (isset($_POST['document-upload']) && $file != $_POST['document-upload']) {
 		$fileValue = $_POST['document-upload'];
 	} else {
-		$fileValue = $file[0];
+		$fileValue = $file;
 	}
 
-	if($fileValue) {
+	if ($fileValue) {
 		$contentValue .= '<p>Click here to read <a href="' . $fileValue . '">' . $post->post_title . '</p>';
 	}
 
-	if($post->post_type == "document" && isset( $_POST['create-news-item'])) {
-		$newsitem = get_post_meta($post_id, 'news_item' );
-		if(empty($newsitem) || is_string( get_post_status( $newsitem ) ) || get_post_status( $newsitem ) != "trash") {
-			$post = array(
-				'post_content' => $contentValue,
-				'post_name' => $post->post_name,
-				'post_title' => $post->post_title,
-				'post_status' => 'draft',
-				'post_type' => 'post',
-				'post_date' => $post->post_date,
-				'post_category' => array(35),
-			);
-			$value = wp_insert_post($post);
-			if($value != "0") {
-				update_post_meta( $post_id, 'news_item', $value );
-			}
-		}
-	}
+  $newsitem = get_post_meta($post_id, 'news_item' );
+  if (empty($newsitem) || get_post_status($newsitem) == false || get_post_status($newsitem) == "trash") {
+    $post = array(
+      'post_content' => $contentValue,
+      'post_name' => $post->post_name,
+      'post_title' => $post->post_title,
+      'post_status' => 'draft',
+      'post_type' => 'post',
+      'post_date' => $post->post_date,
+      'post_category' => array(35),
+    );
+    $value = wp_insert_post($post);
+    if ($value > 0) {
+      update_post_meta( $post_id, 'news_item', $value );
+    }
+  }
 }
 add_action( 'post_updated', 'create_news_post', 10, 3 );
 
 function newsitem_add_meta_box() {
 	add_meta_box(
 		'newsitem',
-		'Related News Item',
+		'Related News Post',
 		'newsitem_callback',
 		'document',
 		'side'
@@ -87,12 +92,17 @@ function newsitem_add_meta_box() {
 add_action( 'add_meta_boxes', 'newsitem_add_meta_box' );
 
 function newsitem_callback( $post ) {
-	$value = get_post_meta( $post->ID, 'news_item', true );
-	if($value && is_string( get_post_status( $value ) ) && get_post_status( $value ) != "trash") {
-		echo '<a href="' . admin_url() . 'post.php?post=' . $value . '&action=edit">Edit news items</a>';
+	$news_id = get_post_meta( $post->ID, 'news_item', true );
+	if ($news_id && get_post_status( $news_id ) && get_post_status( $news_id ) != "trash") {
+    ?>
+    <p>A news post was automatically created for this document.</p>
+    <a href="<?= get_edit_post_link($news_id) ?>" class="button">Edit News Post</a>
+    <?php
 	} else {
-		echo "Do you want a related news item? It will replicate a news item with the same title and content.";
-		echo '<br /><br /><input type="checkbox" name="create-news-item" value="create-news-item">';
+    ?>
+    <label><input type="checkbox" name="create-news-item" value="create-news-item"> Create a related news post</label>
+    <p>This will automatically generate a draft news post containing a link to this document.</p>
+    <?php
 	}
 }
 
