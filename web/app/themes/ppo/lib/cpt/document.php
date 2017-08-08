@@ -231,7 +231,7 @@ function create_doc_thumbnail( $post_id ) {
 	}
 }
 
-add_action( 'save_post', 'create_doc_thumbnail' );
+//add_action( 'save_post', 'create_doc_thumbnail' );
 
 // Add thumbnail to admin view
 // Add the column
@@ -240,7 +240,7 @@ function add_document_thumbnail_column( $cols ) {
 	$colsend = array_slice( $cols, 1, null, true );
 
 	$cols = array_merge(
-			$colsstart, array( 'doc_thumb' => __( '' ) ), $colsend
+			$colsstart, array( 'doc_thumb' => __( 'Thumbnail' ) ), $colsend
 	);
 	return $cols;
 }
@@ -264,11 +264,11 @@ add_filter( 'manage_document_posts_columns', 'add_document_date_column', 5 );
 function display_document_thumbnail_column( $col, $id ) {
 	switch ( $col ) {
 		case 'doc_thumb':
-			if ( function_exists( 'the_post_thumbnail' ) ) {
-				echo the_post_thumbnail( 'admin-list-thumb' );
-			} else {
-				echo 'Not supported in theme';
-			}
+		  $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
+      if ($attachment_id) {
+        $img = wp_get_attachment_image($attachment_id);
+        edit_post_link($img);
+      }
 			break;
 		case 'doc_date':
 			echo get_post_meta( get_the_ID(), 'document-date', true );
@@ -349,3 +349,22 @@ function redirect_to_document() {
   }
 }
 add_filter('template_redirect', 'redirect_to_document');
+
+/**
+ * Save post meta field 'document-upload-attachment-id'
+ * containing the attachment ID for the uploaded document.
+ *
+ * @param int $post_id
+ */
+function save_document_upload_id($post_id) {
+  $upload_url = get_post_meta($post_id, 'document-upload', true);
+  $attachment_id = get_attachment_id_from_src($upload_url);
+
+  if ($attachment_id) {
+    update_post_meta($post_id, 'document-upload-attachment-id', $attachment_id);
+  }
+  else {
+    delete_post_meta($post_id, 'document-upload-attachment-id');
+  }
+}
+add_action('save_post_document', 'save_document_upload_id');

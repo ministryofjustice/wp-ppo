@@ -176,6 +176,12 @@ function my_acf_admin_head()
 }
 add_action('admin_footer', 'my_acf_admin_head');
 
+// Custom stylesheet for wp-admin
+function custom_admin_styles() {
+  wp_enqueue_style('custom-admin-styles', get_template_directory_uri() . '/assets/css/admin.css');
+}
+add_action('admin_enqueue_scripts', 'custom_admin_styles');
+
 /**
  * Custom functions
  */
@@ -192,6 +198,19 @@ foreach ( $cpt_declarations as $cpt_declaration ) {
 // Add image sizes
 add_image_size( 'admin-list-thumb', 100, 100, false );
 add_image_size( 'home-news-thumb', 158, 224, false );
+add_image_size( 'document-thumb', 297, 420, false );
+
+/**
+ * Filter thumbnail sizes that are generated for PDFs
+ *
+ * @param array $sizes
+ * @return array
+ */
+function filter_pdf_thumbnail_sizes($sizes) {
+  $sizes[] = 'document-thumb';
+  return $sizes;
+}
+add_filter('fallback_intermediate_image_sizes', 'filter_pdf_thumbnail_sizes');
 
 // Add JS
 function custom_scripts() {
@@ -245,13 +264,34 @@ function my_add_excerpts_to_pages() {
 	add_post_type_support( 'page', 'excerpt' );
 }
 
-/* Get attachment ID from URL */
-
-function get_attachment_id_from_src( $image_src ) {
+/**
+ * Get attachment ID from its URL
+ *
+ * @param string $url
+ * @return bool|int The Attachment ID or FALSE if not found
+ */
+function get_attachment_id_from_src( $url ) {
 	global $wpdb;
-	$query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_src'";
-	$id = $wpdb->get_var( $query );
-	return $id;
+
+  // First: try to find an exact match for the attachment GUID
+  $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE guid = %s LIMIT 1", $url);
+  $id = $wpdb->get_var($query);
+  if (!is_null($id)) {
+    return (int) $id;
+  }
+
+  // Fallback: try and do a fuzzier (but slower) LIKE match
+  // Drop everything before /uploads/ in the image src so we can match against different hostnames
+  $url_part = substr($url, strpos($url, '/uploads/'));
+  $like = '%' . $wpdb->esc_like($url_part);
+  $query = $wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE guid LIKE %s LIMIT 1", $like);
+  $id = $wpdb->get_var($query);
+  if (!is_null($id)) {
+    return (int) $id;
+  }
+
+  // Else: attachment not found, return false
+  return false;
 }
 
 /* Returns friendly filesize */
@@ -346,6 +386,7 @@ $meta_keys = array( 'document-type', 'fii-death-type', 'fii-status' );
 
 function update_document_type( $meta_id, $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
+  if (!isset($meta_keys) || !is_array($meta_keys)) return;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
 			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key != 'fii-death-type' ? str_replace( "-", "_", $current_meta_key ) : $current_meta_key  );
@@ -357,6 +398,7 @@ add_action( 'update_post_meta', 'update_document_type', 10, 4 );
 
 function add_document_type( $object_id, $meta_key, $meta_value ) {
 	global $meta_keys;
+  if (!isset($meta_keys) || !is_array($meta_keys)) return;
 	foreach ( $meta_keys as $current_meta_key ) {
 		if ( $meta_key == $current_meta_key ) {
 			wp_set_object_terms( $object_id, intval( $meta_value ), $current_meta_key != 'fii-death-type' ? str_replace( "-", "_", $current_meta_key ) : $current_meta_key  );

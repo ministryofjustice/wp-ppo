@@ -44,7 +44,14 @@ $tile_data = " data-date='" . $document_datetime . "'"
 	<a href="<?php echo get_metadata( 'post', get_the_ID(), 'document-upload', true ); ?>#view=FitH" target="_blank">
 		<?php if ( !$is_fii ) { ?>
 			<div class="tile-image">
-				<?php the_post_thumbnail(); ?>
+        <?php
+
+        $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
+        if ($attachment_id) {
+          echo wp_get_attachment_image($attachment_id, 'document-thumb');
+        }
+
+        ?>
 			</div>
 		<?php } ?>
 		<?php if ( !$is_fii ) { ?>
