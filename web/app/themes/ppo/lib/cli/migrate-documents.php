@@ -26,6 +26,7 @@ class MigrateDocuments extends WP_CLI_Command {
     $query_args = [
       'post_type' => 'document',
       'posts_per_page' => -1,
+      'post_status' => 'any',
     ];
 
     if (!isset($assoc_args['regenerate-all'])) {
@@ -43,6 +44,11 @@ class MigrateDocuments extends WP_CLI_Command {
     }
 
     $documents = new WP_Query($query_args);
+
+    if ($documents->post_count === 0) {
+      WP_CLI::log("There are no documents with missing attachment IDs. Hooray!");
+      return;
+    }
 
     WP_CLI::log(WP_CLI::colorize("Generating attachment IDs for %c{$documents->post_count}%n documents"));
 
@@ -88,12 +94,10 @@ class MigrateDocuments extends WP_CLI_Command {
    * Remove document post thumbnails and associated media library items.
    */
   public function remove_thumbnails() {
-    WP_CLI::log(get_post_meta(3961, '_thumbnail_id', true));
-    exit;
-
     $documents = new WP_Query([
       'post_type' => 'document',
       'posts_per_page' => -1,
+      'post_status' => 'any',
       'meta_query' => [
         [
           'key' => '_thumbnail_id',
@@ -102,14 +106,19 @@ class MigrateDocuments extends WP_CLI_Command {
       ],
     ]);
 
-    var_dump($documents);
-    exit;
+    if ($documents->post_count === 0) {
+      WP_CLI::log("There are no post thumbnails to remove. Hooray!");
+      return;
+    }
 
-    WP_CLI::log(WP_CLI::colorize("Removing old post thumbnails for %c{$documents->post_count}%n documents"));
+    WP_CLI::log(WP_CLI::colorize("Removing post thumbnails for %c{$documents->post_count}%n documents"));
 
     $progress = Utils\make_progress_bar('', $documents->post_count);
     foreach ($documents->posts as $document) {
-      array_push($failures, $document);
+      $success = delete_post_meta($document->ID, '_thumbnail_id');
+      if (!$success) {
+        array_push($failures, $document);
+      }
       $progress->tick();
     }
     $progress->finish();
@@ -136,6 +145,7 @@ class MigrateDocuments extends WP_CLI_Command {
   public function import_reddot_attachments() {
     $documents = new WP_Query([
       'post_type' => 'document',
+      'post_status' => 'any',
       'posts_per_page' => -1,
       'meta_query' => [
         [
@@ -227,83 +237,3 @@ class MigrateDocuments extends WP_CLI_Command {
 }
 
 WP_CLI::add_command('migrate-documents', 'MigrateDocuments');
-
-/*$documents = (new WP_Query([
-  'post_type' => 'document',
-  'posts_per_page' => -1,
-  'meta_query' => [
-    'relation' => 'OR',
-    [
-      'key' => 'document-upload-attachment-id',
-      'compare' => 'NOT EXISTS',
-    ],
-    [
-      'key' => 'document-upload-attachment-id',
-      'value' => '',
-    ]
-  ],
-]))->posts;
-
-WP_CLI::line('Found ' . count($documents) . ' posts:');
-
-foreach ($documents as $document) {
-  WP_CLI::line(get_post_meta($document->ID, 'document-upload', true));
-}
-
-exit;*/
-
-/**
- * 1. Populate 'document-upload-attachment-id' post meta for all documents
- */
-/*$documents = new WP_Query([
-  'post_type' => 'document',
-  'posts_per_page' => -1,
-  'meta_query' => [
-    'relation' => 'OR',
-    [
-      'key' => 'document-upload-attachment-id',
-      'compare' => 'NOT EXISTS',
-    ],
-    [
-      'key' => 'document-upload-attachment-id',
-      'value' => '',
-    ],
-  ],
-]);
-
-$progress = \WP_CLI\Utils\make_progress_bar("Populate 'attachment-id' for {$documents->post_count} documents", $documents->post_count);
-foreach ($documents->posts as $document) {
-  save_document_upload_id($document->ID, $document);
-  $progress->tick();
-}
-$progress->finish();
-
-exit;*/
-
-/**
- * 2. Remove document post thumbnails, and delete associated attachments.
- */
-/*$documents = (new WP_Query([
-  'post_type' => 'document',
-  'posts_per_page' => -1,
-  'meta_query' => [
-    [
-      'key' => '_thumbnail_id',
-      'compare' => 'EXISTS',
-    ]
-  ],
-]))->posts;
-
-WP_CLI::line('2. Removing post thumbnails');
-
-foreach ($documents as $document) {
-  WP_CLI::line($document->post_title);
-  $attachment_id = get_post_meta($document->ID, '_thumbnail_id');
-  foreach ($attachment_id as $id) {
-    wp_delete_attachment($id, true);
-  }
-  delete_post_meta($document->ID, '_thumbnail_id');
-}
-
-WP_CLI::line('Done');
-*/
