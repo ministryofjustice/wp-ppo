@@ -41,7 +41,7 @@ function document_cpt_init() {
 		'has_archive' => 'document',
 		'hierarchical' => false,
 		'menu_position' => null,
-		'supports' => array( 'title', 'thumbnail' ),
+		'supports' => array( 'title' ),
 		'taxonomies' => array( 'document_type' )
 	);
 	register_post_type( 'document', $document_args );
@@ -148,90 +148,6 @@ function create_document_taxonomies() {
 }
 
 add_action( 'init', 'create_document_taxonomies', 0 );
-
-// Rename Featured Image metabox
-function document_image_box() {
-	remove_meta_box( 'postimagediv', 'document', 'side' );
-	add_meta_box( 'postimagediv', __( 'Document thumbnail' ), 'post_thumbnail_meta_box', 'document', 'side', 'low' );
-}
-
-add_action( 'do_meta_boxes', 'document_image_box' );
-
-// Replace "featured image" text in link in metabox
-function document_featured_image_link( $content ) {
-	global $post_type;
-	if ( $post_type == 'document' ) {
-		$content = str_replace( __( 'featured image' ), __( 'thumbnail' ), $content );
-	}
-	return $content;
-}
-
-add_filter( 'admin_post_thumbnail_html', 'document_featured_image_link' );
-
-// Create thumbnail is thumbnail doesn't exist
-function create_doc_thumbnail( $post_id ) {
-	// Check post_type is document
-	if ( get_post_type( $post_id ) == 'document' && !get_post_thumbnail_id( $post_id ) ) {
-		//Get path of attachment
-		$attachment_url = get_post_meta( $post_id, 'document-upload', true );
-		$attachment_id = get_attachment_id_from_src( $attachment_url );
-		$attachment_obj = get_post( $attachment_id );
-		// Check to see if attachment is PDF
-		if ( 'application/pdf' == get_post_mime_type( $attachment_obj ) ) {
-			$attachment_path = get_attached_file( $attachment_id );
-
-			//By adding [0] the first page gets selected, important because otherwise multi paged files wont't work
-			$pdf_source = $attachment_path . '[0]';
-
-			//Thumbnail format
-			$tn_format = 'jpg';
-			//Thumbnail output as path + format
-			$thumb_out = str_replace( ".pdf", "", $attachment_path . '.' . $tn_format );
-			//Thumbnail URL
-			$thumb_url = str_replace( ".pdf", "", $attachment_url . '.' . $tn_format );
-
-			//Setup various variables
-			//Assuming A4 - portrait - 1.00x1.41
-			$width = '159';
-			$height = $width * 1.41;
-			$quality = '90';
-			$dpi = '300';
-
-			//Create the thumbnail with choosen option
-			$im = new imagick( $pdf_source );
-			$im->setCompressionQuality( $quality );
-			$im = $im->flattenImages();
-			$im->setImageFormat( $tn_format );
-
-			$new_height = $im->getImageheight();
-			$new_width = $im->getImagewidth();
-			if ( $new_width > $new_height ) {
-				$im->cropImage( $new_width / 2, $new_height, $new_width / 2, 0 );
-			}
-			$im->scaleImage( $width, $height, true );
-
-			$im->writeImage( $thumb_out );
-
-			//Add thumbnail URL as metadata of pdf attachment
-			$wp_filetype = wp_check_filetype( $thumb_out, null );
-			$attachment = array(
-				'post_mime_type' => $wp_filetype['type'],
-				'post_title' => sanitize_file_name( basename( $thumb_out ) ),
-				'post_content' => '',
-				'post_status' => 'inherit',
-				'guid' => $thumb_url
-			);
-			$attach_id = wp_insert_attachment( $attachment, $thumb_out, $post_id );
-			require_once(ABSPATH . 'wp-admin/includes/image.php');
-			$attach_data = wp_generate_attachment_metadata( $attach_id, $thumb_out );
-			wp_update_attachment_metadata( $attach_id, $attach_data );
-
-			set_post_thumbnail( $post_id, $attach_id );
-		}
-	}
-}
-
-//add_action( 'save_post', 'create_doc_thumbnail' );
 
 // Add thumbnail to admin view
 // Add the column
