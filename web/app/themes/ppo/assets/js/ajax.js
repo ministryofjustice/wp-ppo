@@ -5,8 +5,10 @@
  */
 
 jQuery(document).ready(function($) {
-    $("#loading-spinner").show();
-    update_tiles(PPOAjax.queryParams);
+    if ($('.live-results').length > 0) {
+        $("#loading-spinner").show();
+        update_tiles(PPOAjax.queryParams);
+    }
 });
 
 function update_tiles(queryParams, clearData) {
