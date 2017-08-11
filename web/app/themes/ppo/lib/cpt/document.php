@@ -41,7 +41,7 @@ function document_cpt_init() {
 		'has_archive' => 'document',
 		'hierarchical' => false,
 		'menu_position' => null,
-		'supports' => array( 'title' ),
+		'supports' => array( 'title', 'thumbnail' ),
 		'taxonomies' => array( 'document_type' )
 	);
 	register_post_type( 'document', $document_args );
@@ -149,6 +149,29 @@ function create_document_taxonomies() {
 
 add_action( 'init', 'create_document_taxonomies', 0 );
 
+// Rename Featured Image metabox
+function document_image_box() {
+  remove_meta_box( 'postimagediv', 'document', 'side' );
+  add_meta_box( 'postimagediv', __( 'Document thumbnail' ), 'post_thumbnail_meta_box', 'document', 'side', 'low' );
+}
+
+add_action( 'do_meta_boxes', 'document_image_box' );
+
+// Replace "featured image" text in link in metabox
+function document_featured_image_link( $content ) {
+  global $post_type;
+  if ( $post_type == 'document' ) {
+    $content = str_replace( __( 'featured image' ), __( 'thumbnail' ), $content );
+
+    if (stristr($content, 'Set thumbnail') !== false) {
+      $content = "<p>Thumbnails are auto-generated for PDF documents. Other file types require a thumbnail to be set.</p>" . $content;
+    }
+  }
+  return $content;
+}
+
+add_filter( 'admin_post_thumbnail_html', 'document_featured_image_link' );
+
 // Add thumbnail to admin view
 // Add the column
 function add_document_thumbnail_column( $cols ) {
@@ -180,9 +203,18 @@ add_filter( 'manage_document_posts_columns', 'add_document_date_column', 5 );
 function display_document_thumbnail_column( $col, $id ) {
 	switch ( $col ) {
 		case 'doc_thumb':
-		  $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
-      if ($attachment_id) {
-        $img = wp_get_attachment_image($attachment_id);
+		  // Show post thumbnail
+      if (has_post_thumbnail()) {
+        $img = get_the_post_thumbnail();
+      }
+      // Fallback to the attachment thumbnail
+      else {
+        $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
+        if ($attachment_id) {
+          $img = wp_get_attachment_image($attachment_id);
+        }
+      }
+      if (!empty($img)) {
         edit_post_link($img);
       }
 			break;

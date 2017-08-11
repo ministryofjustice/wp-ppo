@@ -91,20 +91,37 @@ class MigrateDocuments extends WP_CLI_Command {
   }
 
   /**
-   * Remove document post thumbnails and associated media library items.
+   * Remove document post thumbnails and associated media library items for PDF files.
    */
   public function remove_thumbnails() {
+    $where_filter = function($where) {
+      $where = str_replace("LIKE '%\\\\%.pdf%'", "LIKE '%.pdf'", $where);
+      return $where;
+    };
+
+    add_filter('posts_where', $where_filter);
     $documents = new WP_Query([
       'post_type' => 'document',
       'posts_per_page' => -1,
       'post_status' => 'any',
       'meta_query' => [
+        'relation' => 'AND',
         [
           'key' => '_thumbnail_id',
           'compare' => 'EXISTS',
-        ]
+        ],
+        [
+          'key' => 'document-upload-attachment-id',
+          'compare' => 'EXISTS',
+        ],
+        [
+          'key' => 'document-upload',
+          'value' => '%.pdf',
+          'compare' => 'LIKE',
+        ],
       ],
     ]);
+    remove_filter('posts_where', $where_filter);
 
     if ($documents->post_count === 0) {
       WP_CLI::log("There are no post thumbnails to remove. Hooray!");
@@ -113,8 +130,13 @@ class MigrateDocuments extends WP_CLI_Command {
 
     WP_CLI::log(WP_CLI::colorize("Removing post thumbnails for %c{$documents->post_count}%n documents"));
 
+    $failures = [];
     $progress = Utils\make_progress_bar('', $documents->post_count);
     foreach ($documents->posts as $document) {
+      $thumbnails = get_post_meta($document->ID, '_thumbnail_id');
+      foreach ($thumbnails as $thumbnail) {
+        wp_delete_attachment($thumbnail, true);
+      }
       $success = delete_post_meta($document->ID, '_thumbnail_id');
       if (!$success) {
         array_push($failures, $document);

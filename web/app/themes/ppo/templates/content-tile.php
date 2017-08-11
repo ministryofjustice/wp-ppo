@@ -46,9 +46,16 @@ $tile_data = " data-date='" . $document_datetime . "'"
 			<div class="tile-image">
         <?php
 
-        $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
-        if ($attachment_id) {
-          echo wp_get_attachment_image($attachment_id, 'document-thumb');
+        // Show post thumbnail
+        if (has_post_thumbnail()) {
+          the_post_thumbnail('document-thumb');
+        }
+        // Fallback to the attachment thumbnail
+        else {
+          $attachment_id = get_post_meta(get_the_ID(), 'document-upload-attachment-id', true);
+          if ($attachment_id) {
+            echo wp_get_attachment_image($attachment_id, 'document-thumb');
+          }
         }
 
         ?>
