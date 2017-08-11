@@ -564,15 +564,15 @@
         },
         {
             "name": "wpackagist-plugin/fitvids-for-wordpress",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fitvids-for-wordpress/",
-                "reference": "tags/3.0.3"
+                "reference": "tags/3.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.4.zip",
                 "reference": null,
                 "shasum": null
             },
