@@ -62,7 +62,7 @@ function update_tiles() {
 	// Stops the query if no $establishments are found
 	$stop_query = false;
 
-	$args_json = $_POST['queryParams'];
+	$args_json = $_GET['queryParams'];
 
 	// Decode JSON to array
 	$args = json_decode( stripslashes( $args_json ), true );
@@ -130,7 +130,7 @@ function update_tiles() {
 		ob_start();
 ?>
 		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); ?>
-			<?php get_template_part( 'templates/content-tile', get_post_format() ); ?>
+			<?php get_template_part( 'templates/content-tile', $args['document_type'] ); ?>
 		<?php endwhile; ?>
 		<?php
 

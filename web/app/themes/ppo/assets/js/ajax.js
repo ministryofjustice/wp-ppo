@@ -13,7 +13,7 @@ jQuery(document).ready(function($) {
 
 function update_tiles(queryParams, clearData) {
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: PPOAjax.ajaxurl,
         async: true,
         cache: false,
