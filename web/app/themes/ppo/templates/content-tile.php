@@ -5,18 +5,10 @@ $document_type = get_the_terms($id, 'document_type');
 $document_type = $document_type[0]->slug;
 
 $document_date = get_post_meta($id, 'document-date', true);
-$document_datetime = date( "Y-m-d", strtotime( str_replace( "/", "-", $document_date ) ) );
-$document_decade = substr( $document_datetime, 0, 3 ) . "0";
-
 $document_upload = get_post_meta($id, 'document-upload', true);
-$document_size = get_filesize($document_upload);
 
 ?>
-<article id="<?= 'doc-' . $id ?>"
-         class="<?= esc_attr($document_type) ?>"
-         data-date="<?= esc_attr($document_datetime) ?>"
-         data-size="<?= esc_attr($document_size) ?>"
-         data-decade="<?= esc_attr($document_decade) ?>">
+<article id="<?= 'doc-' . $id ?>" class="<?= esc_attr($document_type) ?>">
   <a href="<?= $document_upload ?>" target="_blank">
       <div class="tile-image">
         <?php
