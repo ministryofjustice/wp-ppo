@@ -24,9 +24,12 @@ $death_date = get_post_meta( $id, 'fii-death-date', true );
 
 ?>
 <article id="<?= 'doc-' . $id ?>" class="<?= esc_attr( $document_type ) ?>">
-	<a href="<?= $document_upload ?>" target="_blank">
 		<div class="tile-details">
-			<h3><?= $establishment_name ?></h3>
+			<h3>
+				<a href="<?= $document_upload ?>" target="_blank">
+					<?= $establishment_name ?>
+				</a>
+			</h3>
 			<div class="tile-published-date">Published: <?= $document_date ?></div>
 			<table>
 				<tr>
@@ -51,6 +54,11 @@ $death_date = get_post_meta( $id, 'fii-death-date', true );
 					<td><?= get_post_meta( $id, 'fii-age', true ) ?></td>
 				</tr>
 			</table>
+			<nav class="report-links">
+				<ul>
+					<li><a href="<?= $document_upload ?>" target="_blank">PPO Report</a></li>
+					<li><a href="<?= $document_upload ?>" target="_blank">HMP Action Plan</a></li>
+				</ul>
+			</nav>
 		</div>
-	</a>
 </article>

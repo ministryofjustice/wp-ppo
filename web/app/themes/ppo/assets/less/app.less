@@ -906,13 +906,29 @@ a.news-thumb img {
             }
             .tile-details {
                 width: 100%;
-                height: auto; // @TODO: make this fixed
+                height: 235px;
                 padding: 12px 10px;
                 background-color: @soft-grey-lighter;
             }
+            .report-links {
+                margin-top: 10px;
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    overflow: hidden;
+                }
+                li {
+                    width: 50%;
+                    float: left;
+                }
+            }
+            table td {
+                width: 50%;
+            }
         }
     }
-    a:hover {
+    > a:hover {
         text-decoration: none;
     }
 }
