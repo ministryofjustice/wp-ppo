@@ -158,24 +158,35 @@ function my_acf_admin_head()
 	?>
 	<script type="text/javascript">
 	(function($){
-		if($('#document-type').val() != 34) {
-		  $('#document-fii-meta-box').hide();
-		}
-		if($('#document-type').val() != 8) {
-		  $('#document-llr-meta-box').hide();
-		 }
-		$( "#document-type" ).change(function() {
-		  if($('#document-type').val() == 34) {
-		  	$('#document-fii-meta-box').show();
-		  	$('#document-llr-meta-box').hide();
-		  } else if($('#document-type').val() == 8) {
-		  	$('#document-llr-meta-box').show();
-		  	$('#document-fii-meta-box').hide();
-		  } else {
-		  	$('#document-fii-meta-box').hide();
-		  	$('#document-llr-meta-box').hide();
-		  }
-		});
+
+		var document_meta_boxes = [
+			{
+				// Fatal Incident reports
+				document_type_id: 34,
+				meta_box: $('#document-fii-meta-box')
+			},
+			{
+				// Learning lessons reports
+				document_type_id: 8,
+				meta_box: $('#document-llr-meta-box')
+			}
+		];
+
+		var show_meta_box = function() {
+			var selected_type_id = $(this).val();
+
+			document_meta_boxes.forEach(function(box) {
+				if (box.document_type_id == selected_type_id) {
+					box.meta_box.show();
+				}
+				else {
+					box.meta_box.hide();
+				}
+			});
+		};
+
+		$('#document-type').on('change', show_meta_box).each(show_meta_box);
+
 	})(jQuery);
 	</script>
 	<style type="text/css">
