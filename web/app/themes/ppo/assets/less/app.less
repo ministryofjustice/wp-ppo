@@ -898,17 +898,16 @@ a.news-thumb img {
 
         &.fii-report {
             h3 {
-                width: 100%;
-                padding: 12px 12px 2px;
-                background-color: @soft-grey-lighter;
                 font-size: 22px;
-                min-height: 50px;
                 color: @vibrant-orange;
+            }
+            .tile-published-date {
+                color: darken(@soft-grey-lighter, 40%);
             }
             .tile-details {
                 width: 100%;
-                height: 140px;
-                padding: 5px 10px;
+                height: auto; // @TODO: make this fixed
+                padding: 12px 10px;
                 background-color: @soft-grey-lighter;
             }
         }
