@@ -5,7 +5,7 @@
  */
 
 function ajax_scripts() {
-	wp_enqueue_script( 'ppo-ajax', get_template_directory_uri( __FILE__ ) . '/assets/js/ajax.js', array( 'jquery' ) );
+	enqueue_versioned_script('ppo-ajax', '/assets/js/ajax.js', ['jquery']);
 	wp_localize_script( 'ppo-ajax', 'PPOAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 
