@@ -159,33 +159,47 @@ function my_acf_admin_head()
 	<script type="text/javascript">
 	(function($){
 
-		var document_meta_boxes = [
-			{
-				// Fatal Incident reports
-				document_type_id: 34,
-				meta_box: $('#document-fii-meta-box')
-			},
-			{
-				// Learning lessons reports
-				document_type_id: 8,
-				meta_box: $('#document-llr-meta-box')
-			}
-		];
-
-		var show_meta_box = function() {
-			var selected_type_id = $(this).val();
-
-			document_meta_boxes.forEach(function(box) {
-				if (box.document_type_id == selected_type_id) {
-					box.meta_box.show();
+		(function() {
+			var document_meta_boxes = [
+				{
+					// Fatal Incident reports
+					document_type_id: 34,
+					meta_box: $('#document-fii-meta-box')
+				},
+				{
+					// Learning lessons reports
+					document_type_id: 8,
+					meta_box: $('#document-llr-meta-box')
 				}
-				else {
-					box.meta_box.hide();
-				}
-			});
-		};
+			];
 
-		$('#document-type').on('change', show_meta_box).each(show_meta_box);
+			var show_meta_box = function() {
+				var selected_type_id = $(this).val();
+
+				document_meta_boxes.forEach(function(box) {
+					if (box.document_type_id == selected_type_id) {
+						box.meta_box.show();
+					}
+					else {
+						box.meta_box.hide();
+					}
+				});
+			};
+
+			$('#document-type').on('change', show_meta_box).each(show_meta_box);
+		})();
+		
+		(function() {
+			var radios = $('input[type=radio][name=show-action-plan]');
+			var relatedFields = $('.action-plan-field-wrap');
+
+			var toggleRelatedFields = function() {
+				var toggleValue = ( radios.filter(':checked').val() == 'on' );
+				relatedFields.toggle(toggleValue);
+			};
+
+			radios.on('change', toggleRelatedFields).first().each(toggleRelatedFields);
+		})();
 
 	})(jQuery);
 	</script>
@@ -341,35 +355,25 @@ function file_size_convert( $bytes ) {
 	}
 }
 
-/* Returns file size */
-
-function get_filesize( $file_url, $brackets = false ) {
-	$attachment_id = get_attachment_id_from_src( $file_url );
-	$local_path = get_attached_file( $attachment_id );
-	return ($brackets ? "(" : "") . file_size_convert( filesize( $local_path ) ) . ($brackets ? ")" : "");
-//	return $file_url;
-}
-
-/* Adds query params to menu items */
-/*
-
-  add_filter( 'wp_get_nav_menu_items','nav_items', 11, 3 );
-
-  function nav_items( $items, $menu, $args )
-  {
-  if( is_admin() )
-  return $items;
-
-  foreach( $items as $item )
-  {
-  if( 'Home' == $item->post_title)
-  $item->url .= '?my_var=test';
-
-  }
-  return $items;
-  }
-
+/**
+ * Produce a file meta <span> for the given attachment.
+ *
+ * @param string $attachment_url
+ * @return false|string HTML output
  */
+function file_meta($attachment_url) {
+	$attachment_id = get_attachment_id_from_src($attachment_url);
+	$file_path = get_attached_file($attachment_id);
+
+	if (!$attachment_id || !file_exists($file_path)) {
+		return false;
+	}
+
+	$filesize = size_format(filesize($file_path));
+	$extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
+
+	return "<span class=\"file-meta\">($extension, $filesize)</span>";
+}
 
 /* Add custom filter to Documents listing */
 

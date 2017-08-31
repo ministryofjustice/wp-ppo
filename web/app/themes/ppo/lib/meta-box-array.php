@@ -247,6 +247,25 @@ $ppo_meta_boxes = array(
 				'label' => 'Case ID',
 				'type' => 'text',
 			),
+			array(
+				'id' => 'show-action-plan',
+				'label' => 'Show Action Plan',
+				'type' => 'on-off',
+				'std' => 'off',
+			),
+			array(
+				'id' => 'action-plan-document',
+				'label' => 'Action Plan document',
+				'type' => 'upload',
+				'class' => 'action-plan-field',
+			),
+			array(
+				'id' => 'action-plan-label',
+				'label' => 'Action Plan link text (optional)',
+				'type' => 'text',
+				'class' => 'action-plan-field',
+				'desc' => 'Defaults to "Action Plan"'
+			),
 		)
 	),
 

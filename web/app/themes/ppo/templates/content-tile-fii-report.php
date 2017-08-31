@@ -22,6 +22,17 @@ if ( ! is_wp_error( $death_types ) && count( $death_types ) > 0 ) {
 
 $death_date = get_post_meta( $id, 'fii-death-date', true );
 
+
+$action_plan = ( get_post_meta( $id, 'show-action-plan', true ) == 'on' );
+if ($action_plan) {
+	$action_plan_document = get_post_meta( $id, 'action-plan-document', true );
+
+	$action_plan_label = get_post_meta( $id, 'action-plan-label', true );
+	if (empty($action_plan_label)) {
+		$action_plan_label = 'Action Plan';
+	}
+}
+
 ?>
 <article id="<?= 'doc-' . $id ?>" class="<?= esc_attr( $document_type ) ?>">
 		<div class="tile-details">
@@ -56,8 +67,10 @@ $death_date = get_post_meta( $id, 'fii-death-date', true );
 			</table>
 			<nav class="report-links">
 				<ul>
-					<li><a href="<?= $document_upload ?>" target="_blank">PPO Report</a></li>
-					<li><a href="<?= $document_upload ?>" target="_blank">HMP Action Plan</a></li>
+					<li><a href="<?= $document_upload ?>" target="_blank">PPO Report</a> <?= file_meta($document_upload) ?></li>
+					<?php if ($action_plan): ?>
+					<li><a href="<?= $action_plan_document ?>" target="_blank"><?= $action_plan_label ?></a> <?= file_meta($action_plan_document) ?></li>
+					<?php endif; ?>
 				</ul>
 			</nav>
 		</div>

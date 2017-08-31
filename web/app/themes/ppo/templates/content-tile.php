@@ -28,8 +28,8 @@ $document_upload = get_post_meta( $id, 'document-upload', true );
 		</div>
 		<div class="tile-details">
 			<h3><?php the_title(); ?></h3>
-			<div class="tile-published-date">
-				Published: <?= $document_date ?></div>
+			<div class="tile-published-date">Published: <?= $document_date ?></div>
+			<?= file_meta($document_upload) ?>
 		</div>
 	</a>
 </article>

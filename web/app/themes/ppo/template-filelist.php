@@ -12,20 +12,21 @@ get_template_part( 'templates/page', 'header' );
 </div>
 
 <?php
-$files = get_post_meta( get_the_ID(), 'filelist-entries' );
-$file_count = count( $files[0] );
+$files = get_post_meta( get_the_ID(), 'filelist-entries', true );
+$file_count = !empty($files) ? count($files) : 0;
 ?>
 
 <section class="filelist">
-	<?php echo "<header>" . $file_count . " " . ngettext( "file", "files", $file_count ) . " found</header>"; ?>
+	<header><?= $file_count ?> <?= ngettext("file", "files", $file_count) ?> found</header>
 	<ul>
-		<?php
-		if ( $files[0] ) {
-			foreach ( $files[0] as $file ) {
-				echo "<li><a href='" . $file['file'] . "'>" . $file['title'] . "</a> " . get_filesize( $file['file'], true ) . "</li>";
-				echo $file['date'];
-			}
-		}
-		?>
+		<?php if ($file_count): ?>
+			<?php foreach ($files as $file): ?>
+				<li>
+					<?= $file['date']; ?> –
+					<a href="<?= esc_attr($file['file']) ?>"><?= $file['title'] ?></a>
+					<?= file_meta($file['file']) ?>
+				</li>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	</ul>
 </section>
