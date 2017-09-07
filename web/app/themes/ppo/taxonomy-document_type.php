@@ -261,7 +261,7 @@
 							PPOAjax.queryParams = '" . json_encode( $args ) . "'</script>";
 	?>
 
-	<div class="live-results"></div>
+	<div class="live-results tiles"></div>
 
 </div>
 

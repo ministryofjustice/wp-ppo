@@ -27,11 +27,13 @@ $anon_reports = new WP_Query( array(
 
 <?php
 if ( $anon_reports->have_posts() ) { ?>
-	<div class="tile-container"> 
-	<?php while ( $anon_reports->have_posts() ) {
-		$anon_reports->the_post();
-		get_template_part( 'templates/content-tile', get_post_format() );
-	} ?>
+	<div class="tile-container">
+		<div class="tiles">
+			<?php while ( $anon_reports->have_posts() ) {
+				$anon_reports->the_post();
+				get_template_part( 'templates/content-tile', 'fii-report' );
+			} ?>
+		</div>
 	</div>
 <?php } else {
 	?>
