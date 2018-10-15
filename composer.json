@@ -56,9 +56,9 @@
     "wpackagist-plugin/expandable-menus": "*",
     "wpackagist-plugin/fitvids-for-wordpress": "*",
     "wpackagist-plugin/mce-table-buttons": "*",
-    "wpackagist-plugin/the-taxonomy-sort": "*",
     "wpackagist-plugin/wp-accessibility": "*",
-    "wpackagist-plugin/option-tree": "*"
+    "wpackagist-plugin/option-tree": "*",
+    "wpackagist-plugin/remove-category-url": "^1.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
