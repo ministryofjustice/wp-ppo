@@ -552,3 +552,29 @@ function wpshock_search_filter( $query ) {
 
 add_filter( 'pre_get_posts', 'wpshock_search_filter' );
 
+// Exclude 'uncategorized' from post URLs, even if the post is in the 'Uncategorized' category
+add_filter('post_link_category', function($cats_0, $cats, $post) {
+	// If we're on a category archive page and the post is in the category
+	// Then put the current category in the post URL
+	if (is_archive() && is_category()) {
+		$the_category = get_queried_object();
+		if (in_array($the_category, $cats)) {
+			return $the_category;
+		}
+	}
+
+	// Otherwise put any category other than 'Uncategorized' in the URL
+	foreach ($cats as $cat) {
+		if ($cat->slug !== 'uncategorized') {
+			return $cat;
+		}
+	}
+
+	// Otherwise just use the default
+	return $cats_0;
+}, 10, 3);
+
+// Filter the category archive page title
+add_filter('single_cat_title', function($category_name) {
+	return $category_name . ' archive';
+});

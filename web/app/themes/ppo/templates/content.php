@@ -1,4 +1,7 @@
 <article <?php post_class(); ?>>
+	<?php if (has_post_thumbnail()): ?>
+		<a class="news-thumb" href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'home-news-thumb' ); ?></a>
+	<?php endif; ?>
 	<header>
 		<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		<?php
