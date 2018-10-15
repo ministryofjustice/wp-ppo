@@ -134,7 +134,8 @@
 					// Get meta value containing array of entries
 					$latest_news_args = array(
 						'post_type' => 'post',
-						'posts_per_page' => 2
+						'posts_per_page' => 2,
+						'category_name' => 'news',
 					);
 					$latest_news_query = new WP_Query( $latest_news_args );
 					// Iterate over entries and display
@@ -153,7 +154,7 @@
 					?>
 				</ul>
 
-				<a class="news-archive-link" href="news-archive/">View news archive</a>
+				<a class="news-archive-link" href="<?= esc_url(get_category_link(get_category_by_slug('news'))) ?>">View news archive</a>
 			</div>
 		</div>
 	</div>
