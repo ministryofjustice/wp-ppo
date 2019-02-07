@@ -58,7 +58,8 @@
     "wpackagist-plugin/mce-table-buttons": "*",
     "wpackagist-plugin/wp-accessibility": "*",
     "wpackagist-plugin/option-tree": "*",
-    "wpackagist-plugin/remove-category-url": "*"
+    "wpackagist-plugin/remove-category-url": "*",
+    "wpackagist-plugin/classic-editor": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
