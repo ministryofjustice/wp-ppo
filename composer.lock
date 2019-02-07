@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39da4ddaf229eb8f7026be8cd0d5dbdc",
+    "content-hash": "dd47d3380e798e2de1572a8f36439e52",
     "packages": [
         {
             "name": "composer/installers",
@@ -583,26 +583,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/cms-tree-page-view/"
-        },
-        {
-            "name": "wpackagist-plugin/custom-fields-search",
-            "version": "1.3.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/custom-fields-search/",
-                "reference": "tags/1.3.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/custom-fields-search.1.3.3.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/custom-fields-search/"
         },
         {
             "name": "wpackagist-plugin/custom-search-plugin",
