@@ -11,71 +11,84 @@
  * 2. /theme/assets/js/vendor/modernizr-2.7.0.min.js
  * 3. /theme/assets/js/main.min.js (in footer)
  */
-function roots_scripts() {
-	global $wp_styles;
+function roots_scripts()
+{
+    global $wp_styles;
 
-	enqueue_versioned_style('roots_main', '/assets/css/main.min.css');
-//	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css', false);
-//	$wp_styles->add_data( 'font-awesome', 'conditional', 'gt ie8' );
+    $get_assets = file_get_contents(get_template_directory() . '/dist/mix-manifest.json');
+    $assets = json_decode($get_assets, true);
+    $dist = get_template_directory_uri() . '/dist';
+    $assets = array(
+        'css'         => $dist . $assets['/css/main.min.css'],
+        'fonts'       => $dist . $assets['/css/fonts.css'],
+        'fontello-ie' => $dist . $assets['/css/fontello-ie7.css'],
+        'ie7'         => $dist . $assets['/css/ie7.css'],
+        'ie7and8'     => $dist . $assets['/css/ie7and8.css'],
+        'old-ie'      => $dist . $assets['/css/old-ie.css'],
+        'jquery-ui'   => $dist . $assets['/css/jquery-ui.min.css'],
+        'js'          => $dist . $assets['/js/main.min.js'],
+        'modernizr'   => $dist . $assets['/js/modernizr.js'],
+        'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+        'jq-migrate'  => '//code.jquery.com/jquery-migrate-3.0.1.min.js'
+    );
+    wp_enqueue_style('fonts', $assets['fonts']);
+    wp_enqueue_style('roots_main', $assets['css'], ['fonts']);
 
-//	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min3.2.1.css', false);
-	wp_enqueue_style( 'fontello', get_template_directory_uri() . '/assets/fonts/fontello/css/fontello.css', false);
+    // jQueryUI theme
+    wp_enqueue_style("jquery-ui-css", $assets['jquery-ui']);
+    wp_enqueue_style('fontello-ie7', $assets['fontello-ie'], array('roots_main'));
+    $wp_styles->add_data('fontello-ie7', 'conditional', 'lt IE 8');
 
-	// jQueryUI theme
-	wp_enqueue_style( "jquery-ui-css", get_template_directory_uri() . "/assets/css/jquery-ui.min.css" );
+    wp_enqueue_style('ie7', $assets['ie7'], array('roots_main'));
+    $wp_styles->add_data('ie7', 'conditional', 'lt IE 8');
 
-	wp_enqueue_style( 'fontello-ie7', get_template_directory_uri() . '/assets/fonts/fontello/css/fontello-ie7.css', array('roots_main' ) );
-	$wp_styles->add_data( 'fontello-ie7', 'conditional', 'lt IE 8' );
+    wp_enqueue_style('ie7and8', $assets['ie7and8'], array('roots_main'));
+    $wp_styles->add_data('ie7and8', 'conditional', 'lt IE 9');
 
-	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main' ) );
-	$wp_styles->add_data( 'ie7', 'conditional', 'lt IE 8' );
+    wp_enqueue_style('old-ie', $assets['old-ie'], array('roots_main'));
+    $wp_styles->add_data('old-ie', 'conditional', 'lt IE 10');
 
-	wp_enqueue_style( 'ie7and8', get_template_directory_uri() . '/assets/css/ie7and8.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
-	$wp_styles->add_data( 'ie7and8', 'conditional', 'lt IE 9' );
+    // jQuery is loaded using the same method from HTML5 Boilerplate:
+    // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
+    // It's kept in the header instead of footer to avoid conflicts with plugins.
+    if (!is_admin() && current_theme_supports('jquery-cdn')) {
+        wp_deregister_script('jquery');
+        wp_enqueue_script('jquery', $assets['jquery'], [], null, false);
 
-	wp_enqueue_style( 'old-ie', get_stylesheet_directory_uri() . "/assets/css/old-ie.css", array( 'roots_main' ) );
-    $wp_styles->add_data( 'old-ie', 'conditional', 'lt IE 10' );
+        wp_deregister_script('jquery-migrate');
+        wp_enqueue_script('jquery-migrate', $assets['jq-migrate'], ['jquery'], '3.0.1', false);
 
-	// jQuery is loaded using the same method from HTML5 Boilerplate:
-	// Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
-	// It's kept in the header instead of footer to avoid conflicts with plugins.
-	if ( !is_admin() && current_theme_supports( 'jquery-cdn' ) ) {
-		wp_deregister_script( 'jquery' );
-		wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', array(), null, false );
-		add_filter( 'script_loader_src', 'roots_jquery_local_fallback', 10, 2 );
-	}
+        //add_filter('script_loader_src', 'roots_jquery_local_fallback', 10, 2);
+    }
 
-	if ( is_single() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+    if (is_single() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
 
-	wp_register_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false );
-	wp_register_script( 'roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), '0c0d8395ef91a5c0c4f9efa53c367f91', true );
-	wp_enqueue_script( 'modernizr' );
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'roots_scripts' );
-	// jQueryUI Accordion
-	wp_enqueue_script( 'jquery-ui-accordion' );
-	// jQueryUI Autocomplete
-	wp_enqueue_script( 'jquery-ui-autocomplete' );
+    wp_enqueue_script('modernizr', $assets['modernizr'], ['jquery'], null, false);
+    wp_enqueue_script('roots_scripts', $assets['js'], ['jquery', 'modernizr'], null, true);
+
+    wp_enqueue_script('jquery-ui-accordion');
+    wp_enqueue_script('jquery-ui-autocomplete');
 }
 
-add_action( 'wp_enqueue_scripts', 'roots_scripts', 100 );
+add_action('wp_enqueue_scripts', 'roots_scripts', 100);
 
 // http://wordpress.stackexchange.com/a/12450
-function roots_jquery_local_fallback( $src, $handle = null ) {
-	static $add_jquery_fallback = false;
+function roots_jquery_local_fallback($src, $handle = null)
+{
+    static $add_jquery_fallback = false;
 
-	if ( $add_jquery_fallback ) {
-		echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/js/vendor/jquery-1.10.2.min.js"><\/script>\')</script>' . "\n";
-		$add_jquery_fallback = false;
-	}
+    if ($add_jquery_fallback) {
+        echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/js/vendor/jquery-1.10.2.min.js"><\/script>\')</script>' . "\n";
+        $add_jquery_fallback = false;
+    }
 
-	if ( $handle === 'jquery' ) {
-		$add_jquery_fallback = true;
-	}
+    if ($handle === 'jquery') {
+        $add_jquery_fallback = true;
+    }
 
-	return $src;
+    return $src;
 }
 
-add_action( 'wp_head', 'roots_jquery_local_fallback' );
+add_action('wp_head', 'roots_jquery_local_fallback');

@@ -4,13 +4,6 @@
  * and open the template in the editor.
  */
 
-jQuery(document).ready(function($) {
-    if ($('.live-results').length > 0) {
-        $("#loading-spinner").show();
-        update_tiles(PPOAjax.queryParams);
-    }
-});
-
 function update_tiles(queryParams, clearData) {
     $.ajax({
         type: 'GET',
@@ -59,3 +52,10 @@ function update_spreadsheet(queryParams, paged) {
         }
     });
 }
+
+jQuery(document).ready(function($) {
+    if ($('.live-results').length > 0) {
+        $("#loading-spinner").show();
+        update_tiles(PPOAjax.queryParams);
+    }
+});

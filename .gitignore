@@ -1,9 +1,13 @@
+# PhpStorm
+.idea
+
 # Application
+web/app/languages
 web/app/plugins/*
 !web/app/plugins/.gitkeep
-web/app/mu-plugins/*/
+web/app/mu-plugins/*
+!web/app/mu-plugins/.gitkeep
 web/app/upgrade
-web/app/languages
 web/app/uploads/*
 !web/app/uploads/.gitkeep
 
@@ -19,3 +23,11 @@ web/.htaccess
 # Composer
 vendor/*
 !vendor/.gitkeep
+
+# Theme
+web/app/themes/ppo/dist
+web/app/themes/ppo/node_modules
+web/app/themes/ppo/npm-debug.log
+
+# Database dumps
+*.sql

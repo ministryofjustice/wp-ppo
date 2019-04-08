@@ -1,9 +1,0 @@
-node_modules
-assets/vendor
-npm-debug.log
-assets/manifest.json
-assets/css/main.css*
-assets/css/main.min.css
-assets/css/main.min.css.map
-assets/js/scripts.js
-assets/js/scripts.min.js
