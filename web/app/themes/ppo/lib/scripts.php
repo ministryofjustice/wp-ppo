@@ -28,7 +28,7 @@ function roots_scripts()
         'jquery-ui'   => $dist . $assets['/css/jquery-ui.min.css'],
         'js'          => $dist . $assets['/js/main.min.js'],
         'modernizr'   => $dist . $assets['/js/modernizr.js'],
-        'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
+        'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js',
         'jq-migrate'  => '//code.jquery.com/jquery-migrate-3.0.1.min.js'
     );
     wp_enqueue_style('fonts', $assets['fonts']);
@@ -51,9 +51,9 @@ function roots_scripts()
     // jQuery is loaded using the same method from HTML5 Boilerplate:
     // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
     // It's kept in the header instead of footer to avoid conflicts with plugins.
-    if (!is_admin() && current_theme_supports('jquery-cdn')) {
+    if (!is_admin()) {
         wp_deregister_script('jquery');
-        wp_enqueue_script('jquery', $assets['jquery'], [], null, false);
+        wp_enqueue_script('jquery', $assets['jquery'], array(), '3.4.1', false);
 
         wp_deregister_script('jquery-migrate');
         wp_enqueue_script('jquery-migrate', $assets['jq-migrate'], ['jquery'], '3.0.1', false);
