@@ -1,5 +1,7 @@
 # PhpStorm
 .idea
+.DS_*
+._DS_*
 
 # Application
 web/app/languages

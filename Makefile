@@ -13,6 +13,10 @@ clean:
 deep-clean:
 	@if [ -d ".git" ]; then git clean -xdf; fi
 
+# Clear the Docker cache
+docker-clean:
+	bin/clear-docker-cache.sh
+
 # Run the application
 run:
 	docker-compose up

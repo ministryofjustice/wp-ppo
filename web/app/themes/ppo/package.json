@@ -27,24 +27,24 @@
     "dependencies": {
         "bootstrap": "^4.3.1",
         "debounce": "^1.1.0",
-        "jquery": "^3.3.1",
+        "jquery": "^3.4.1",
         "popper.js": "^1.14.7"
     },
     "devDependencies": {
         "acorn": "^6.1.1",
         "ajv": "^6.9.2",
-        "cross-env": "^5.2.0",
-        "browser-sync": "^2.26.3",
+        "browser-sync": "^2.26.5",
         "browser-sync-webpack-plugin": "^2.0.1",
+        "cross-env": "^5.2.0",
         "details-element-polyfill": "^2.0.1",
         "laravel-mix": "^4.0.14",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
-        "marked": "^0.3.19",
+        "marked": "^0.6.2",
         "resolve-url-loader": "^2.3.1",
-        "vue-template-compiler": "^2.6.8",
         "scrollpoints": "^0.4.0",
         "url-search-params-polyfill": "^4.0.0",
+        "vue-template-compiler": "^2.6.8",
         "webpack": "^4.29.6"
     }
 }

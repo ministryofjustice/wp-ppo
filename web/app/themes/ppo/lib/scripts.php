@@ -7,7 +7,7 @@
  * 1. /theme/assets/css/main.min.css
  *
  * Enqueue scripts in the following order:
- * 1. jquery-1.10.2.min.js via Google CDN
+ * 1. jquery-3.3.1.min.js via Google CDN
  * 2. /theme/assets/js/vendor/modernizr-2.7.0.min.js
  * 3. /theme/assets/js/main.min.js (in footer)
  */
@@ -28,7 +28,7 @@ function roots_scripts()
         'jquery-ui'   => $dist . $assets['/css/jquery-ui.min.css'],
         'js'          => $dist . $assets['/js/main.min.js'],
         'modernizr'   => $dist . $assets['/js/modernizr.js'],
-        'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+        'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
         'jq-migrate'  => '//code.jquery.com/jquery-migrate-3.0.1.min.js'
     );
     wp_enqueue_style('fonts', $assets['fonts']);
@@ -58,7 +58,7 @@ function roots_scripts()
         wp_deregister_script('jquery-migrate');
         wp_enqueue_script('jquery-migrate', $assets['jq-migrate'], ['jquery'], '3.0.1', false);
 
-        //add_filter('script_loader_src', 'roots_jquery_local_fallback', 10, 2);
+        add_filter('script_loader_src', 'roots_jquery_local_fallback', 10, 2);
     }
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
@@ -67,7 +67,6 @@ function roots_scripts()
 
     wp_enqueue_script('modernizr', $assets['modernizr'], ['jquery'], null, false);
     wp_enqueue_script('roots_scripts', $assets['js'], ['jquery', 'modernizr'], null, true);
-
     wp_enqueue_script('jquery-ui-accordion');
     wp_enqueue_script('jquery-ui-autocomplete');
 }
@@ -80,7 +79,7 @@ function roots_jquery_local_fallback($src, $handle = null)
     static $add_jquery_fallback = false;
 
     if ($add_jquery_fallback) {
-        echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/js/vendor/jquery-1.10.2.min.js"><\/script>\')</script>' . "\n";
+        echo '<script>window.jQuery || document.write(\'<script src="' . get_template_directory_uri() . '/assets/js/vendor/jquery.min.js"><\/script>\')</script>' . "\n";
         $add_jquery_fallback = false;
     }
 
