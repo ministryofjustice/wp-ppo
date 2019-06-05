@@ -25,7 +25,6 @@ mix_.setPublicPath('./dist')
     })
     .styles([
         _asset + 'fonts/fontello/css/fontello.css',
-        _asset + 'fonts/proximanova/proximanova.css',
         _asset + 'css/GentiumBookBasic.css'
     ], 'dist/css/fonts.css')
     .styles(_asset + 'fonts/fontello/css/fontello-ie7.css', 'dist/css/fontello-ie7.css')

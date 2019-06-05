@@ -29,10 +29,12 @@ function roots_scripts()
         'js'          => $dist . $assets['/js/main.min.js'],
         'modernizr'   => $dist . $assets['/js/modernizr.js'],
         'jquery'      => '//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js',
-        'jq-migrate'  => '//code.jquery.com/jquery-migrate-3.0.1.min.js'
+        'jq-migrate'  => '//code.jquery.com/jquery-migrate-3.0.1.min.js',
+        'g-fonts'     => '//fonts.googleapis.com/css?family=Montserrat:400,700&display=swap'
     );
     wp_enqueue_style('fonts', $assets['fonts']);
     wp_enqueue_style('roots_main', $assets['css'], ['fonts']);
+    wp_enqueue_style('wpb-google-fonts', $assets['g-fonts'], false);
 
     // jQueryUI theme
     wp_enqueue_style("jquery-ui-css", $assets['jquery-ui']);
@@ -53,7 +55,7 @@ function roots_scripts()
     // It's kept in the header instead of footer to avoid conflicts with plugins.
     if (!is_admin()) {
         wp_deregister_script('jquery');
-        wp_enqueue_script('jquery', $assets['jquery'], array(), '3.4.1', false);
+        wp_enqueue_script('jquery', $assets['jquery'], array(), '3.4.0', false);
 
         wp_deregister_script('jquery-migrate');
         wp_enqueue_script('jquery-migrate', $assets['jq-migrate'], ['jquery'], '3.0.1', false);
