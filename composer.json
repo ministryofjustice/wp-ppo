@@ -65,7 +65,8 @@
         "wpackagist-plugin/fast-user-switching": "*",
         "wpackagist-plugin/option-tree": "*",
         "wpackagist-plugin/remove-category-url": "*",
-        "wpackagist-plugin/classic-editor": "*"
+        "wpackagist-plugin/classic-editor": "*",
+        "ministryofjustice/wp-moj-components": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^2.5.1"
