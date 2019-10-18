@@ -1,3 +1,4 @@
+<?php get_template_part('head'); ?>
 <header class="banner navbar navbar-static-top" role="banner">
 	<div class="nav-container">
 		<a class="brand" href="<?php echo home_url(); ?>/">
