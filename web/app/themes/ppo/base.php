@@ -1,4 +1,3 @@
-<?php get_template_part( 'templates/head' ); ?>
 <body <?php body_class(); ?>>
 	<a class="skip-main" href="#content">Skip to main content</a>
 	<div id="shade-overlay" class=""></div>
@@ -11,12 +10,7 @@
 
 	<?php
 	do_action( 'get_header' );
-	// Use Bootstrap's navbar if enabled in config.php
-	if ( current_theme_supports( 'bootstrap-top-navbar' ) ) {
-		get_template_part( 'templates/header-top-navbar' );
-	} else {
-		get_template_part( 'templates/header' );
-	}
+	get_header();
 	?>
 
 	<div class="wrap" role="document">
@@ -32,7 +26,7 @@
 		</div><!-- /.content -->
 	</div><!-- /.wrap -->
 
-	<?php get_template_part( 'templates/footer' ); ?>
+	<?php get_footer(); ?>
 
 </body>
 </html>

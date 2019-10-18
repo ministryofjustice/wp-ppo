@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f1f172f74d1b1c3b7ddffe7679a30d",
+    "content-hash": "4b3d960d4823235a59d9de0ae6c4ceb4",
     "packages": [
         {
             "name": "composer/installers",
@@ -115,20 +115,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.2.3",
+            "version": "5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "e39361341439df042ace80ba9445b3e0acb87215"
+                "reference": "33fca34d16818a8d893d374eecd5c8c46cab6e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/e39361341439df042ace80ba9445b3e0acb87215",
-                "reference": "e39361341439df042ace80ba9445b3e0acb87215",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/33fca34d16818a8d893d374eecd5c8c46cab6e88",
+                "reference": "33fca34d16818a8d893d374eecd5c8c46cab6e88",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.2.3",
+                "johnpbloch/wordpress-core": "5.2.4",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.6.20"
             },
@@ -150,27 +150,27 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-09-05T01:17:14+00:00"
+            "time": "2019-10-14T20:47:31+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.2.3",
+            "version": "5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "455a884ce96b042602d1eb04fdf2b8e003be0eef"
+                "reference": "01530fea56649a4040971fc614baa546273d964c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/455a884ce96b042602d1eb04fdf2b8e003be0eef",
-                "reference": "455a884ce96b042602d1eb04fdf2b8e003be0eef",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/01530fea56649a4040971fc614baa546273d964c",
+                "reference": "01530fea56649a4040971fc614baa546273d964c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.2.3"
+                "wordpress/core-implementation": "5.2.4"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -190,7 +190,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-09-05T01:17:09+00:00"
+            "time": "2019-10-14T20:47:26+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -243,12 +243,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "5.2.3",
+            "version": "5.2.4",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.2.3/en_GB.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/translation/core/5.2.4/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -306,18 +304,60 @@
             "time": "2018-02-04T10:52:01+00:00"
         },
         {
-            "name": "ministryofjustice/wp-moj-components",
-            "version": "1.1.4",
+            "name": "ministryofjustice/cookie-compliance-for-wordpress",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "692181b888e10c669bcf4a4d8af245abbaf2300c"
+                "url": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress.git",
+                "reference": "4c8e929d5120a9982b575c9790c2dd1d24597f8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-692181b888e10c669bcf4a4d8af245abbaf2300c-zip-70296e.zip",
-                "reference": "692181b888e10c669bcf4a4d8af245abbaf2300c",
-                "shasum": "14740bd0390fe2434f2aff92e54fd1bb7d54fcaa"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/cookie-compliance-for-wordpress/ministryofjustice-cookie-compliance-for-wordpress-4c8e929d5120a9982b575c9790c2dd1d24597f8e-zip-6e6b0f.zip",
+                "reference": "4c8e929d5120a9982b575c9790c2dd1d24597f8e",
+                "shasum": "55ca392b6d77271c4d2400bb02ac60b92efaa76e"
+            },
+            "require": {
+                "composer/installers": "^1.0"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "psr-4": {
+                    "CCFW\\": "./includes"
+                },
+                "classmap": [
+                    "includes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Minstry of Justice",
+                    "email": "wordpress@digital.justice.gov.uk"
+                }
+            ],
+            "description": "WP plugin that presents visitor with a cookie consent banner and opt-out setting page.",
+            "support": {
+                "source": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress/tree/1.3.0",
+                "issues": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress/issues"
+            },
+            "time": "2019-10-15T10:36:15+00:00"
+        },
+        {
+            "name": "ministryofjustice/wp-moj-components",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ministryofjustice/wp-moj-components.git",
+                "reference": "03588073d9e5cc1b2593c4cdced71595fbb6cce5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-03588073d9e5cc1b2593c4cdced71595fbb6cce5-zip-11175a.zip",
+                "reference": "03588073d9e5cc1b2593c4cdced71595fbb6cce5",
+                "shasum": "d9ef650c0fb485c0cd3182bd715624de142732a7"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -331,10 +371,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/1.1.4",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/2.0.0",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2019-09-16T15:41:19+00:00"
+            "time": "2019-09-25T12:44:25+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -586,9 +626,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.5.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -606,9 +644,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.6.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -626,9 +662,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/custom-search-plugin.1.44.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/custom-search-plugin.1.44.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -646,9 +680,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/expandable-menus.2.1.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/expandable-menus.2.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -666,9 +698,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fast-user-switching.zip?timestamp=1551360022",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/fast-user-switching.zip?timestamp=1551360022"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -686,9 +716,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.6.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -706,9 +734,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-analytics-dashboard-for-wp.5.3.9.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/google-analytics-dashboard-for-wp.5.3.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -726,9 +752,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mce-table-buttons.3.3.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/mce-table-buttons.3.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -746,9 +770,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/option-tree.2.7.3.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/option-tree.2.7.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -766,9 +788,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/remove-category-url.1.1.5.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/remove-category-url.1.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -786,9 +806,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.1.6.10.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.1.6.10.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
