@@ -96,7 +96,7 @@ function roots_clean_style_tag($input) {
   $media = $matches[3][0] !== '' && $matches[3][0] !== 'all' ? ' media="' . $matches[3][0] . '"' : '';
   return '<link rel="stylesheet" href="' . $matches[2][0] . '"' . $media . '>' . "\n";
 }
-add_filter('style_loader_tag', 'roots_clean_style_tag');
+//add_filter('style_loader_tag', 'roots_clean_style_tag');
 
 /**
  * Add and remove body_class() classes
