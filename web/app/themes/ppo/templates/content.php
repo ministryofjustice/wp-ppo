@@ -13,6 +13,7 @@
 		?>
 	</header>
 	<div class="entry-summary">
+
 		<?php
 		if ( !is_search() ) {
 			the_excerpt();
@@ -37,9 +38,9 @@
 					$start = $offset - $padding;
 					$end = $offset + strlen( $string ) + $padding;
 					// Preserve whole words
-					while ( $start > 1 && preg_match( '/[A-Za-z0-9\'"-]/', $content{$start - 1} ) )
+					while ( $start > 1 && preg_match( '/[A-Za-z0-9\'"-]/', $content{intval(round($start)) - 1} ) )
 						$start--;
-					while ( $end < strlen( $content ) - 1 && preg_match( '/[A-Za-z0-9\'"-]/', $content{$end} ) )
+					while ( $end < strlen( $content ) - 1 && preg_match( '/[A-Za-z0-9\'"-]/', $content{intval(round($end))} ) )
 						$end++;
 					$start = max( $start, $last_offset );
 					$context = substr( $content, $start, $end - $start );

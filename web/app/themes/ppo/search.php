@@ -1,10 +1,8 @@
-<?php get_header(); ?>
-
 <div class="row">
 
 	<?php get_search_form(); ?>
 
-	<div class="col-lg-8 col-sm-12 tile-container">
+	<div class="col-lg-6 col-sm-12 tile-container">
 		<h2>Documents</h2>
 		<?php
 		// Create search query to search for documents and pages
@@ -30,7 +28,7 @@
 
 	</div>
 
-	<div class="col-lg-4 col-sm-12">
+	<div class="col-lg-6 col-sm-12">
 		<h2>Pages</h2>
 		<?php
 		// Modify search query to search for documents and pages
