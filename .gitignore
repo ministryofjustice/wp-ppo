@@ -4,6 +4,7 @@
 ._DS_*
 
 # Application
+web/.well-known/security.txt
 web/app/languages
 web/app/plugins/*
 !web/app/plugins/.gitkeep
