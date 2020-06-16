@@ -61,7 +61,7 @@
         "wpackagist-plugin/fitvids-for-wordpress": "*",
         "wpackagist-plugin/mce-table-buttons": "*",
         "wpackagist-plugin/wp-accessibility": "*",
-        "wpackagist-plugin/fast-user-switching": "*",
+        "wpackagist-plugin/user-switching": "*",
         "wpackagist-plugin/option-tree": "*",
         "wpackagist-plugin/remove-category-url": "*",
         "wpackagist-plugin/classic-editor": "*",
