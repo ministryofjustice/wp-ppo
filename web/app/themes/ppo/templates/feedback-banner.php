@@ -12,7 +12,7 @@ if (!empty($banner_active)) {
     <div class="content row">
         <div class="main col-sm-12">
             <div class="feedback-banner">
-                <h3><?php echo $banner_title; ?></h3>
+                <h2><?php echo $banner_title; ?></h2>
                 <p><?php echo $banner_text; ?></p>
                 <a class="feedback-banner-link" href="<?php echo $banner_btn_link; ?>"><?php echo $banner_btn_text; ?></a>
             </div>
