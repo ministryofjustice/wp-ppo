@@ -79,3 +79,4 @@
     </nav>
 
 </div>
+<?php get_template_part('templates/feedback-banner'); ?>

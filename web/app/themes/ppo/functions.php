@@ -19,6 +19,7 @@ require_once locate_template('/lib/theme-options.php');   // Theme options
 require_once locate_template('/lib/ajax.php');			 // AJAX setup
 require_once locate_template('/lib/custom.php');          // Custom functions
 require_once locate_template('/lib/meta-box-array.php');  // Meta box array
+require_once locate_template('/lib/banner-settings.php');  // banner settings
 
 /**
  * WP-CLI commands

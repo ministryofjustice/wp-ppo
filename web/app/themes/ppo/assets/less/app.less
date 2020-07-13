@@ -1351,17 +1351,28 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 
 }
 
-//
-//@media (min-width: @screen-md-min) {
-//
-//
-//
-//
-//}
-//
-//@media (min-width: @screen-lg-min) {
-//}
+.feedback-banner {
+    border: 1px solid  @vibrant-orange;
+    padding: 20px;
+    margin: 10px 0;
 
+    h2 {
+        margin-top: 0;
+        color: @vibrant-orange;
+    }
+
+    .feedback-banner-link {
+        background: @vibrant-orange;
+        padding: 10px;
+        display: inline-block;
+        color: #fff;
+    }
+
+    .feedback-banner-link:hover {
+        text-decoration: none;
+    }
+
+}
 
 
 @import "mlpushmenu";
