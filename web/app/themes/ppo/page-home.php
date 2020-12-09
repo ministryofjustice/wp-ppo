@@ -12,7 +12,6 @@
 		</div>
 		<div class="col-md-6">
 			<?php get_search_form( true ); ?>
-			<iframe width="1280" height="720" title="Youtube video" src="//www.youtube.com/embed/1B6qZtO39ZQ?modestbranding=1&showinfo=0&autohide=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 
