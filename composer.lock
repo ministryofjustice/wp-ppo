@@ -158,20 +158,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.7.2",
+            "version": "5.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "be44aeabc63a584a4b1ef4a193f36c3f710a162a"
+                "reference": "e909768a636f7f4eb6951de1da363055aa5d1c69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/be44aeabc63a584a4b1ef4a193f36c3f710a162a",
-                "reference": "be44aeabc63a584a4b1ef4a193f36c3f710a162a",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/e909768a636f7f4eb6951de1da363055aa5d1c69",
+                "reference": "e909768a636f7f4eb6951de1da363055aa5d1c69",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.7.2",
+                "johnpbloch/wordpress-core": "5.8.0",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
@@ -200,20 +200,20 @@
                 "source": "http://core.trac.wordpress.org/browser",
                 "wiki": "http://codex.wordpress.org/"
             },
-            "time": "2021-05-13T00:40:29+00:00"
+            "time": "2021-07-20T16:52:31+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.7.2",
+            "version": "5.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "d0f5bdeb81800b6bcefee723ebf928b5677e2e86"
+                "reference": "30d5db01a682521b0a6cc827953f016486504312"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/d0f5bdeb81800b6bcefee723ebf928b5677e2e86",
-                "reference": "d0f5bdeb81800b6bcefee723ebf928b5677e2e86",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/30d5db01a682521b0a6cc827953f016486504312",
+                "reference": "30d5db01a682521b0a6cc827953f016486504312",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +221,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.7.2"
+                "wordpress/core-implementation": "5.8.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -248,7 +248,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2021-05-13T00:40:25+00:00"
+            "time": "2021-07-20T16:52:26+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -373,17 +373,17 @@
         },
         {
             "name": "ministryofjustice/cookie-compliance-for-wordpress",
-            "version": "2.0.6",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress.git",
-                "reference": "519e995e3204b18cfeafa79c20fd398a567d55bf"
+                "reference": "9b339f95c063b8140f5e795e9020481a0cfded0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/cookie-compliance-for-wordpress/ministryofjustice-cookie-compliance-for-wordpress-519e995e3204b18cfeafa79c20fd398a567d55bf-zip-941da1.zip",
-                "reference": "519e995e3204b18cfeafa79c20fd398a567d55bf",
-                "shasum": "59feca2467ac7a67e7c74bb916cc98e8d3c534ff"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/cookie-compliance-for-wordpress/ministryofjustice-cookie-compliance-for-wordpress-9b339f95c063b8140f5e795e9020481a0cfded0a-zip-3312cc.zip",
+                "reference": "9b339f95c063b8140f5e795e9020481a0cfded0a",
+                "shasum": "c88814e75c875a738020117d7bc3d6f802634971"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -406,10 +406,10 @@
             ],
             "description": "WP plugin that presents visitor with a cookie consent banner and opt-in setting page.",
             "support": {
-                "source": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress/tree/2.0.6",
+                "source": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress/tree/3.1.1",
                 "issues": "https://github.com/ministryofjustice/cookie-compliance-for-wordpress/issues"
             },
-            "time": "2021-03-24T11:20:24+00:00"
+            "time": "2021-08-09T15:26:07+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-components",
@@ -516,17 +516,17 @@
         },
         {
             "name": "ministryofjustice/wp-user-roles",
-            "version": "0.2.5",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-user-roles.git",
-                "reference": "62d7d2220e65e59cb200f243d36d18cf0ff84429"
+                "reference": "8093d7fc7b212715a4ecdd6c8678e2a4874535f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-user-roles/ministryofjustice-wp-user-roles-62d7d2220e65e59cb200f243d36d18cf0ff84429-zip-e5f1b4.zip",
-                "reference": "62d7d2220e65e59cb200f243d36d18cf0ff84429",
-                "shasum": "4b4891c9e35010f335e4d6fcc26d9b00ce9627a5"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-user-roles/ministryofjustice-wp-user-roles-8093d7fc7b212715a4ecdd6c8678e2a4874535f1-zip-bb89eb.zip",
+                "reference": "8093d7fc7b212715a4ecdd6c8678e2a4874535f1",
+                "shasum": "c9d9f94bf320b3fae94badcfc8bf8416e9fef7e4"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -548,10 +548,10 @@
             ],
             "description": "A WordPress plugin to create user roles typically required by a MOJDigital WordPress site",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-user-roles/tree/0.2.5",
+                "source": "https://github.com/ministryofjustice/wp-user-roles/tree/1.0.0",
                 "issues": "https://github.com/ministryofjustice/wp-user-roles/issues"
             },
-            "time": "2020-08-18T12:36:32+00:00"
+            "time": "2021-08-26T08:22:31+00:00"
         },
         {
             "name": "oscarotero/env",
@@ -820,36 +820,36 @@
         },
         {
             "name": "wpackagist-plugin/analytify-analytics-dashboard-widget",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/analytify-analytics-dashboard-widget/",
-                "reference": "tags/2.0.0"
+                "reference": "tags/2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/analytify-analytics-dashboard-widget.2.0.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/analytify-analytics-dashboard-widget.2.0.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/analytify-analytics-dashboard-widget/"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "1.6",
+            "version": "1.6.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/1.6"
+                "reference": "tags/1.6.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.2.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
@@ -867,7 +867,7 @@
                 "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.6.4.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/cms-tree-page-view/"
@@ -885,7 +885,7 @@
                 "url": "https://downloads.wordpress.org/plugin/custom-search-plugin.1.47.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/custom-search-plugin/"
@@ -903,25 +903,25 @@
                 "url": "https://downloads.wordpress.org/plugin/expandable-menus.2.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/expandable-menus/"
         },
         {
             "name": "wpackagist-plugin/fitvids-for-wordpress",
-            "version": "3.0.8",
+            "version": "3.0.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fitvids-for-wordpress/",
-                "reference": "tags/3.0.8"
+                "reference": "tags/3.0.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/fitvids-for-wordpress.3.0.9.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/fitvids-for-wordpress/"
@@ -939,7 +939,7 @@
                 "url": "https://downloads.wordpress.org/plugin/mce-table-buttons.3.3.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/mce-table-buttons/"
@@ -957,7 +957,7 @@
                 "url": "https://downloads.wordpress.org/plugin/option-tree.2.7.3.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/option-tree/"
@@ -975,43 +975,43 @@
                 "url": "https://downloads.wordpress.org/plugin/remove-category-url.zip?timestamp=1580121051"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/remove-category-url/"
         },
         {
             "name": "wpackagist-plugin/wp-accessibility",
-            "version": "1.7.7",
+            "version": "1.7.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-accessibility/",
-                "reference": "tags/1.7.7"
+                "reference": "tags/1.7.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.1.7.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-accessibility.1.7.9.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-accessibility/"
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "4.0.3",
+            "version": "4.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/4.0.3"
+                "reference": "tags/4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.1.2.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-analytify/"
