@@ -54,7 +54,7 @@
         "koodimonni-language/core-en_gb": "*",
         "oscarotero/env": "^1.0",
         "roots/wp-password-bcrypt": "*",
-        "ministryofjustice/wp-rewrite-media-to-s3": "^0.1.1",
+        "ministryofjustice/wp-rewrite-media-to-s3": "*",
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/custom-search-plugin": "*",
         "wpackagist-plugin/expandable-menus": "*",
