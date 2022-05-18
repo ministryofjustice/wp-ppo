@@ -737,7 +737,7 @@ nav.collapse.navbar-collapse {
     }
 
     a #anon-count-container {
-        .horizontal-gradient(@green, @teal);
+        .horizontal-gradient(darken(@green,9%), lighten(@green,14%));
         color: @white;
         margin-top: 10px;
         overflow: hidden;
@@ -753,7 +753,7 @@ nav.collapse.navbar-collapse {
             color: @green;
             background-color: @white;
             padding: 5px 20px;
-            border: 1px solid @teal;
+            border: 1px solid lighten(@green,14%);
         }
         &:hover #anon-count-text {
             text-decoration: underline;
@@ -761,7 +761,7 @@ nav.collapse.navbar-collapse {
     }
 
     a:focus #anon-count-container {
-        .horizontal-gradient(@pink, lighten(@pink,14%));
+        .horizontal-gradient(darken(@pink,9%), lighten(@pink,14%));
         #anon-count {
             color: @pink;
             border: 1px solid lighten(@pink,14%);
@@ -1057,7 +1057,7 @@ footer {
 .content-info {
     padding: 0;
     margin-top: 25px;
-    .horizontal-gradient(@green, @teal);
+    .horizontal-gradient(darken(@teal,9%), lighten(@teal,14%));
 
     .row {
         margin: 0 auto;
