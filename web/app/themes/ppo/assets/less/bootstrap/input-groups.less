@@ -19,6 +19,13 @@
   .form-control {
     width: 100%;
     margin-bottom: 0;
+    border:2px solid;
+
+    &:focus {
+      border:2px solid @pink;
+      outline: 2px solid @pink;
+      box-shadow: none;
+    }
   }
 }
 
@@ -116,10 +123,10 @@
 
   // Negative margin to only have a 1px border between the two
   &:first-child > .btn {
-    margin-right: -1px;
+    margin-right: 10px;
   }
   &:last-child > .btn {
-    margin-left: -1px;
+    margin-left: 10px;
   }
 }
 .input-group-btn > .btn {
