@@ -2,11 +2,15 @@
  * Roots 6.5.1
  */
 
-@deep-grey: rgb(62, 76, 77);
-@soft-grey-lighter: rgb(232, 232, 226);
-@soft-grey-darker: rgb(222, 220, 213);
-@vibrant-orange: rgb(238, 114, 3);
-@vibrant-orange-lighter: rgb(247, 166, 0);
+@green:#025B4E;
+@dark-grey:#68666A;
+@light-grey:#E3E1E5;
+@teal:#075C66;
+@navy:#004987;
+@pink:#9D2065;
+@toffee:#764E29;
+@black:#0B0C0C;
+@white:#FFF;
 
 @import "bootstrap/bootstrap.less";
 @import "mixins";
@@ -23,15 +27,21 @@
 
 */
 
-@ppo-red: #CA1C00;
-@ppo-dark: #831200;
-
 /* ==========================================================================
    Overwrite button styling
    ========================================================================== */
 .btn-primary {
     border-width: 0;
-    .horizontal-gradient(@vibrant-orange, @vibrant-orange-lighter);
+    background-color: @navy;
+    //.horizontal-gradient(@vibrant-orange, @vibrant-orange-lighter);
+
+    &:hover {
+        background-color:@toffee;
+    }
+    &:focus {
+        background-color:@pink;
+        color:@white;
+    }
 }
 .btn-lg {
     font-family: @font-family-proximanova;
@@ -43,6 +53,28 @@
    ========================================================================== */
 
 body {
+    color:@black;
+}
+
+a {
+    color:@navy;
+
+    &:hover {
+        color:@toffee;
+        text-decoration:underline;
+    }
+
+    &:focus {
+        color:@white;
+        background-color:@pink;
+        text-decoration:none;
+        outline:none;
+
+        img:not(.ppo-logo-svg) {
+            outline-offset: 0;
+            outline: @pink 3px solid;
+        }
+    }
 }
 
 .death-spreadsheet .main {
@@ -64,8 +96,8 @@ a.skip-main {
     z-index:-999;
 }
 a.skip-main:focus, a.skip-main:active {
-    color: #fff;
-    background-color: #666;
+    color: @white;
+    background-color: @pink;
     left: auto;
     top: auto;
     width: 30%;
@@ -73,7 +105,7 @@ a.skip-main:focus, a.skip-main:active {
     overflow: auto;
     margin: 10px 35%;
     padding: 5px;
-    border: 4px solid #eee;
+    border: 4px solid @pink;
     text-align: center;
     font-size: 1.2em;
     z-index: 999;
@@ -130,7 +162,7 @@ a.skip-main:focus, a.skip-main:active {
    ========================================================================== */
 
 .banner {
-    background-color: @soft-grey-lighter;
+    background-color: @green;
     //float: left;
     //width: 100%;
     position: relative;
@@ -173,6 +205,7 @@ a.skip-main:focus, a.skip-main:active {
             height: 100px;
             margin: 0 auto;
             display: inline-block;
+            filter: invert(1) brightness(1.18) grayscale(1);
         }
 
         @media (min-width: @screen-sm-min) {
@@ -185,6 +218,13 @@ a.skip-main:focus, a.skip-main:active {
                 height: 120px;
             }
         }
+
+        &:hover,
+        &:focus {
+            img {
+                filter: invert(1) brightness(2);
+            }
+        }
     }
 }
 
@@ -195,9 +235,9 @@ a.skip-main:focus, a.skip-main:active {
 .navbar-toggle {
     margin-top: 68px;
     margin-bottom: 18px;
-    border: 1px solid @vibrant-orange;
+    border: 1px solid @white;
     border-radius: 3px;
-    color: @vibrant-orange;
+    color: @white;
 }
 
 .menu-container {
@@ -210,7 +250,7 @@ a.skip-main:focus, a.skip-main:active {
         float: left;
         min-height: 130px;
         font-size: 13px;
-        border-right: 1px solid @deep-grey;
+        border-right: 1px solid @light-grey;
         display: table;
         position: relative;
         overflow: hidden;
@@ -225,7 +265,7 @@ a.skip-main:focus, a.skip-main:active {
 
     > li > a,
     > li.active > a {
-        color: @deep-grey;
+        color: @light-grey;
         font-family: @font-family-proximanova;
         font-weight: bold;
         font-size: 16px;
@@ -234,13 +274,22 @@ a.skip-main:focus, a.skip-main:active {
 
     > li.open > a,
     > li.open > a:hover,
-    > li.open > a:focus,
+    > li.open > a:focus{
+        background-color:@teal;
+        color: @white;
+        border-bottom-color:@white;
+    }
+
     > li.active > a,
-    > li > a:hover,
+    > li > a:hover{
+        color: @white;
+        border-bottom-color:@white;
+    }
+
     > li > a:focus {
-        background-color: transparent;
-        color: @vibrant-orange;
-        border-bottom-color: @vibrant-orange;
+        background-color:@pink;
+        color: @white;
+        border-bottom-color:@white;
     }
 
     > li > .menu-container {
@@ -277,37 +326,12 @@ a.skip-main:focus, a.skip-main:active {
     }
 }
 
-/*.navbar-mobile {
-    padding: 0 30px;
-
-    > li {
-        width: auto;
-        position: initial;
-
-        a {
-            position: initial;
-        }
-    }
-
-    > li > a,
-    > li.active > a {
-        color: @deep-grey;
-        font-family: @font-family-proximanova;
-        font-weight: bold;
-        font-size: 16px;
-        border-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
-}*/
-
 nav.collapse.navbar-collapse {
     margin: 0 0 0 188px;
 }
 
-
 .dropdown-menu {
-    background-color: @soft-grey-darker;
+    background-color: @teal;
     display: block;
     width: 100%;
     max-width: 950px;
@@ -324,13 +348,32 @@ nav.collapse.navbar-collapse {
     }
 
     > li > a {
-        color: @deep-grey;
+        color: @white;
     }
 
-    > li > a:hover,
-    > li > a:focus {
-        text-decoration: none;
+    > li > a:hover {
+        text-decoration: underline;
+        color: @white;
         background-color: transparent;
+    }
+    > li > a:focus {
+        color: @white;
+        text-decoration: none;
+        background-color: @pink;
+    }
+    > li.active > a,
+    > li.active > a:hover {
+        background-color: @light-grey;
+        color: @black;
+        outline: 0;
+    }
+    .active.current-page-ancestor > a {
+        &,
+        &:hover,
+        &:focus {
+            color: @white;
+            background-color: @green;
+        }
     }
 }
 
@@ -341,7 +384,7 @@ nav.collapse.navbar-collapse {
 .navbar-nav > li > .menu-container > ul > li {
     > a, > .submenu-title {
         font-weight: bold;
-        color: @vibrant-orange;
+        color: @light-grey;
         font-family: @font-family-proximanova;
         font-size: 18px;
     }
@@ -354,7 +397,7 @@ nav.collapse.navbar-collapse {
         > ul {
             border: none;
             box-shadow: none;
-            background: transparent;
+            background-color: transparent;
             > li {
                 border: none;
             }
@@ -393,19 +436,6 @@ nav.collapse.navbar-collapse {
 .icon-search:after   { background-image: url('../icons/search.svg'); }
 .icon-question:after { background-image: url('../icons/question.svg'); }
 .icon-disc:after     { background-image: url('../icons/disc.svg'); }
-
-// Sets dynamic width of megamenu items
-/*@max-menuitems: 8;
-.for-loop (@index) when (@index > 0) {
-    .dropdown-menu>li:first-child:nth-last-child(@{index}),
-    .dropdown-menu>li:first-child:nth-last-child(@{index}) ~ li {
-        width: 100% / @index;
-    }
-
-    .for-loop(@index - 1);
-}
-.for-loop(0) {}
-.for-loop(@max-menuitems);*/
 
 .dropdown-menu>li:first-child:nth-last-child(1),
 .dropdown-menu>li:first-child:nth-last-child(1) ~ li {
@@ -478,7 +508,7 @@ nav.collapse.navbar-collapse {
     padding: 30px 0;
     .glyphicon {
         font-size: 60px;
-        color: #eee;
+        color: @green;
         position: absolute;
         z-index: -1;
         line-height: 18px;
@@ -496,7 +526,7 @@ nav.collapse.navbar-collapse {
     margin: 0 auto;
     .row { margin: 0; }
     .child-pages {
-        background-color: @gray-lighter; padding: 15px; overflow: hidden; margin-top: 30px;
+        background-color: @light-grey; padding: 15px; overflow: hidden; margin-top: 30px;
         li {
             list-style: none; padding: 0; float: left; width: 100%; margin: 5px 0;
             p {
@@ -534,13 +564,13 @@ nav.collapse.navbar-collapse {
     a {
         .cta-inner {
             padding: 0;
-            background-color: @soft-grey-lighter;
+            background-color: @navy;
 
             div {
                 text-align: justify;
                 font-weight: 400;
                 text-decoration: none;
-                color: #000;
+                color: @white;
             }
             img {
                 width: 100%;
@@ -548,7 +578,7 @@ nav.collapse.navbar-collapse {
             }
             h2 {
                 text-align: left;
-                color: @deep-grey;
+                color: @white;
                 padding: 10px;
                 margin: 0;
                 font-size: floor(@font-size-base * 1.25);
@@ -559,10 +589,27 @@ nav.collapse.navbar-collapse {
         text-decoration: none;
 
         .cta-inner {
-            .horizontal-gradient(@vibrant-orange, @vibrant-orange-lighter);
+            background-color:@toffee;
+            color:@white;
 
             h2 {
-                color: #fff;
+                color:@white;
+            }
+        }
+    }
+    :focus {
+        text-decoration: none;
+
+        .cta-inner {
+            background-color:@pink;
+            color:@white;
+
+            h2 {
+                color:@white;
+            }
+
+            img {
+                outline:none;
             }
         }
     }
@@ -609,22 +656,26 @@ nav.collapse.navbar-collapse {
         margin: 20px 0 0;
         h2,h3,h4 { margin: 0 0 10px; }
         h3 {
-            border-bottom: 4px solid @vibrant-orange;
+            border-bottom: 4px solid @green;
             padding-bottom: 5px;
         }
         a {
             h4 {
-                color: @vibrant-orange;
+                color:@navy;
                 margin-bottom: 0;
                 font-size: 1.2em;
                 font-family: @font-family-sans-serif;
                 font-weight: normal;
-
-                &:hover,
-                &:focus {
-                    color: @link-hover-color;
-                    text-decoration: underline;
-                }
+            }
+            &:hover h4{
+                color:@toffee;
+                text-decoration:underline;
+            }
+            &:focus h4{
+                color:@white;
+                background-color:@pink;
+                text-decoration:none;
+                outline:none;
             }
         }
         time.published {
@@ -633,8 +684,6 @@ nav.collapse.navbar-collapse {
         }
         ul {
             margin-bottom: 0; list-style: none; padding: 0;
-            li {
-            }
         }
     }
 
@@ -642,12 +691,6 @@ nav.collapse.navbar-collapse {
     #home-content-container {
         padding: 0;
         overflow: visible;
-        .col-md-6:first-of-type {
-            /*padding-left: 0;*/
-        }
-        .col-md-6:last-of-type {
-            /*padding-right: 0;*/
-        }
     }
     #latest-news {
         ul {
@@ -680,16 +723,22 @@ nav.collapse.navbar-collapse {
                 }
                 a {
                     display: table;
-                    color: @deep-grey;
+                    color: @navy;
                     font-weight: normal;
+                    &:hover {
+                        color: @toffee;
+                    }
+                    &:focus {
+                        color: @white;
+                    }
                 }
             }
         }
     }
 
     a #anon-count-container {
-        .horizontal-gradient(@vibrant-orange, @vibrant-orange-lighter);
-        color: #fff;
+        .horizontal-gradient(@green, @teal);
+        color: @white;
         margin-top: 10px;
         overflow: hidden;
         font-weight: normal;
@@ -701,13 +750,21 @@ nav.collapse.navbar-collapse {
         #anon-count {
             float: right;
             font-size: 32px;
-            color: @vibrant-orange;
-            background-color: white;
+            color: @green;
+            background-color: @white;
             padding: 5px 20px;
-            border: 1px solid @vibrant-orange-lighter;
+            border: 1px solid @teal;
         }
         &:hover #anon-count-text {
             text-decoration: underline;
+        }
+    }
+
+    a:focus #anon-count-container {
+        .horizontal-gradient(@pink, lighten(@pink,14%));
+        #anon-count {
+            color: @pink;
+            border: 1px solid lighten(@pink,14%);
         }
     }
 
@@ -757,7 +814,14 @@ nav.collapse.navbar-collapse {
 #faq-accordion {
     h5 {
         cursor: pointer;
+        &:hover {
+            color: @toffee;
+            text-decoration: underline;
+            outline: none;
+        }
         &:focus {
+            background-color: @pink;
+            color: @white;
             outline: none;
         }
     }
@@ -841,9 +905,9 @@ a.news-thumb {
     .document-type-text {
         padding: 10px;
         margin: 0;
-        color: #fff;
+        color: @white;
         font-size: 15px;
-        background-color: @vibrant-orange;
+        background-color: @green;
         p {
             line-height: 22px;
             margin: 5px 0;
@@ -876,7 +940,7 @@ a.news-thumb {
 
         h3 {
             margin: 0;
-            color: @deep-grey;
+            color: @dark-grey;
             word-wrap: break-word;
             font-size: 1em;
             font-family: @font-family-sans-serif;
@@ -895,7 +959,7 @@ a.news-thumb {
 
             .tile-published-date {
                 padding: 5px 0;
-                color: @deep-grey;
+                color: @black;
                 font-size: 0.8em;
                 font-weight: normal;
             }
@@ -919,16 +983,16 @@ a.news-thumb {
         &.fii-report {
             h3 {
                 font-size: 22px;
-                color: @vibrant-orange;
+                color: @green;
             }
             .tile-published-date {
-                color: darken(@soft-grey-lighter, 40%);
+                color: @dark-grey;
             }
             .tile-details {
                 width: 100%;
                 height: 265px;
                 padding: 12px 10px;
-                background-color: @soft-grey-lighter;
+                background-color: @light-grey;
             }
             .report-links {
                 margin-top: 10px;
@@ -953,7 +1017,7 @@ a.news-thumb {
 }
 
 .file-meta {
-    color: darken(@soft-grey-lighter, 40%);
+    color: @dark-grey;
     font-size: 0.8em;
     font-weight: normal;
 }
@@ -966,7 +1030,7 @@ a.news-thumb {
 }
 
 .share-link {
-    background: #eee;
+    background-color: #eee;
     padding: 5px 10px 5px 10px;
     clear: both;
     font-size: 12px;
@@ -975,7 +1039,7 @@ a.news-thumb {
     }
     a {
         font-weight: normal;
-        color: #000;
+        color: @black;
         text-decoration: none;
     }
 }
@@ -993,7 +1057,7 @@ footer {
 .content-info {
     padding: 0;
     margin-top: 25px;
-    .horizontal-gradient(@vibrant-orange, @vibrant-orange-lighter);
+    .horizontal-gradient(@green, @teal);
 
     .row {
         margin: 0 auto;
@@ -1010,10 +1074,14 @@ footer {
     }
 
     a {
-        color: white;
+        color: @white;
     }
     a:hover {
-        color: white;
+        color: @white;
+        text-decoration: underline;
+    }
+    a:focus {
+        background-color: @pink;
     }
 
     @media (min-width: @screen-sm-min) {
@@ -1064,14 +1132,16 @@ footer .footer-search {
     display: inline-block;
     width: 48px;
     height: 48px;
-    background: #fff;
-    color: @vibrant-orange-lighter;
+    background-color: @white;
+    border-radius: 6px;
+    color: @navy;
     text-align: center;
     line-height: 48px;
     font-size: 24px;
 
     &:hover {
-        color: @vibrant-orange;
+        background-color: lighten(@navy,40%);
+        color: @white;
     }
 }
 
@@ -1093,7 +1163,7 @@ footer .row {
    ========================================================================== */
 #sort-filter {
     box-sizing: content-box;
-    background: @soft-grey-lighter;
+    background-color: @light-grey;
     z-index: 100;
     padding: 0;
     margin: 20px 0 0 0;
@@ -1102,7 +1172,7 @@ footer .row {
     z-index: 10;
 
     .group-label {
-        color: @vibrant-orange;
+        color: @green;
         font-family: @font-family-proximanova;
         font-size: 1.6em;
         font-weight: bold;
@@ -1135,7 +1205,7 @@ footer .row {
     float: left;
 
     @media (min-width: @screen-sm) {
-        border-right: 1px solid @deep-grey;
+        border-right: 1px solid @dark-grey;
         padding-right: 11px;
     }
 }
@@ -1144,8 +1214,17 @@ footer .row {
     float: left;
     cursor: pointer;
     font-weight: bold;
-    color: @deep-grey;
+    color: @navy;
     margin-right: 10px;
+
+    &:hover {
+        color: @toffee;
+        text-decoration: underline;
+
+        &:after {
+            text-decoration: underline @light-grey;
+        }
+    }
 
     &.off {
         padding-right: 21px;
@@ -1165,7 +1244,12 @@ footer .row {
     display: block;
     float: left;
     width: 50%;
-    color: @deep-grey;
+    color: @navy;
+
+    &:hover {
+        color: @toffee;
+        text-decoration: underline;
+    }
 
     @media (min-width: @screen-sm) {
         width: auto;
@@ -1177,6 +1261,7 @@ footer .row {
         padding: 0 13px;
         display: inline-block;
         cursor: pointer;
+        text-decoration: inherit;
 
         .filter-current, .filter-select {
             font-weight: normal;
@@ -1296,14 +1381,20 @@ time {
     margin: .2em 0 .9em 0;
 }
 
+.input-group-btn>button,
 .showHide {
-    background: @soft-grey-darker;
-    color: @deep-grey;
+    background-color: @light-grey;
+    color: @black;
 
-    &:hover,
+    &:hover {
+        background-color: darken(@light-grey, 5%);
+        color: @black;
+    }
     &:focus {
-        background: darken(@soft-grey-darker, 5%);
-        color: @deep-grey;
+        background-color: @pink;
+        border-color: @pink;
+        color: @white;
+        outline: none;
     }
 }
 
@@ -1352,24 +1443,28 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
 }
 
 .feedback-banner {
-    border: 1px solid  @vibrant-orange;
+    border: 1px solid  @green;
     padding: 20px;
     margin: 10px 0;
 
     h2 {
         margin-top: 0;
-        color: @vibrant-orange;
+        color: @green;
     }
 
     .feedback-banner-link {
-        background: @vibrant-orange;
+        background-color: @navy;
         padding: 10px;
         display: inline-block;
-        color: #fff;
-    }
+        color: @white;
 
-    .feedback-banner-link:hover {
-        text-decoration: none;
+        &:hover {
+            background-color:@toffee;
+            text-decoration: none;
+        }
+        &:focus {
+            background-color:@pink;
+        }
     }
 
 }
