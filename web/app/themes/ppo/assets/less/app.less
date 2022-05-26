@@ -205,7 +205,7 @@ a.skip-main:focus, a.skip-main:active {
             height: 100px;
             margin: 0 auto;
             display: inline-block;
-            filter: invert(1) brightness(1.18) grayscale(1);
+            filter: invert(1) brightness(2) grayscale(1);
         }
 
         @media (min-width: @screen-sm-min) {
@@ -221,9 +221,8 @@ a.skip-main:focus, a.skip-main:active {
 
         &:hover,
         &:focus {
-            img {
-                filter: invert(1) brightness(2);
-            }
+            border-bottom: 8px solid #fff;
+            padding-bottom: 7px;
         }
     }
 }
@@ -737,7 +736,7 @@ nav.collapse.navbar-collapse {
     }
 
     a #anon-count-container {
-        .horizontal-gradient(darken(@green,9%), lighten(@green,14%));
+        background-color: @green;
         color: @white;
         margin-top: 10px;
         overflow: hidden;
@@ -753,7 +752,7 @@ nav.collapse.navbar-collapse {
             color: @green;
             background-color: @white;
             padding: 5px 20px;
-            border: 1px solid lighten(@green,14%);
+            border: 1px solid @green;
         }
         &:hover #anon-count-text {
             text-decoration: underline;
@@ -761,10 +760,10 @@ nav.collapse.navbar-collapse {
     }
 
     a:focus #anon-count-container {
-        .horizontal-gradient(darken(@pink,9%), lighten(@pink,14%));
+        background-color: @pink;
         #anon-count {
             color: @pink;
-            border: 1px solid lighten(@pink,14%);
+            border: 1px solid @pink;
         }
     }
 
@@ -1057,7 +1056,7 @@ footer {
 .content-info {
     padding: 0;
     margin-top: 25px;
-    .horizontal-gradient(darken(@teal,9%), lighten(@teal,14%));
+    background-color: @teal;
 
     .row {
         margin: 0 auto;
