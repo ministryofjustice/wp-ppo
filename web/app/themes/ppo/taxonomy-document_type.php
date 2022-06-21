@@ -34,7 +34,7 @@
                     'establishment' => 'autocomplete'
                 ),
                 'sort' => array('website-date', 'date-of-death'),
-                'default' => 'date-of-death'
+                'default' => 'website-date'
             )
         );
 
@@ -56,6 +56,7 @@
         echo "<div class='sorts'><div class='group-label'>Sort</div>";
         foreach ($current_sorts as $sort) {
             $sort_text = str_replace("-", " ", ucfirst($sort));
+            $sort_text = str_replace("Website date", "Publish date", $sort_text); //rename title to venacular
             echo "<div class='sort-control " . ($sort == $filter_object['default'] ? "desc" : "off") . "' data-sort-field='$sort'>$sort_text</div>";
         }
         echo "</div>";
@@ -238,12 +239,9 @@
 
     <?php
 
-    //Specific ordering for FII reports
-    if (has_term('fii-report', 'document_type')) {
-        $metakey = 'fii-death-date';
-    } else {
-        $metakey = 'document-date';
-    }
+    //Ordering
+    $metakey = 'document-date';
+
     // Modify query to retrive all docs
     global $wp_query;
     $post_per_page = 50;
@@ -302,8 +300,8 @@
                 } else {
                     $('#sort-filter .sort-control').removeClass('asc').removeClass('desc').addClass('off');
                     $(this).removeClass('off');
-                    $(this).addClass('asc').removeClass('off');
-                    sortAsc = true;
+                    $(this).addClass('desc').removeClass('off');
+                    sortAsc = false;
                 }
 
                 var queryParameters = JSON.parse(PPOAjax.queryParams);
