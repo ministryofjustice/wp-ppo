@@ -59,7 +59,6 @@
         "wpackagist-plugin/custom-search-plugin": "*",
         "wpackagist-plugin/expandable-menus": "*",
         "wpackagist-plugin/fitvids-for-wordpress": "*",
-        "wpackagist-plugin/mce-table-buttons": "*",
         "wpackagist-plugin/wp-accessibility": "*",
         "wpackagist-plugin/option-tree": "*",
         "wpackagist-plugin/remove-category-url": "*",
