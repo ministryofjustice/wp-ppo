@@ -56,6 +56,9 @@ wp_body_open();
     <?php _e( 'You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience, such as Firefox or Chrome.', 'roots' ); ?>
 </div>
 <![endif]-->
+<?php
+include "lib/emergency-banner.php";
+?>
 <header class="banner navbar navbar-static-top" role="banner">
     <div class="nav-container">
         <a class="brand" href="<?php echo home_url(); ?>/">
