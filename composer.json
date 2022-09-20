@@ -72,7 +72,7 @@
         "ministryofjustice/wp-user-roles": "*",
         "ministryofjustice/cookie-compliance-for-wordpress": "*",
         "wpackagist-plugin/wp-analytify":"*",
-        "acf/advanced-custom-fields-pro": "*",
+        "acf/advanced-custom-fields-pro": "^5.12.2",
         "wpackagist-plugin/analytify-analytics-dashboard-widget":"*"
     },
     "require-dev": {

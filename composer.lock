@@ -4,15 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6669a7596323db27b7686935459a469",
+    "content-hash": "7f6d56cb3fbc01a81e43bb5512e8aee1",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
-            "version": "5.12.3",
+            "version": "5.12.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.12.3.zip",
-                "shasum": "04e7d8b833b96a1d6a2dbe4a0f01726548cc0576"
+                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.12.2.zip",
+                "shasum": "3a9b12d1a4392a6a806b5b6befb3a551578a4222"
             },
             "type": "wordpress-plugin"
         },
@@ -147,10 +147,6 @@
                 "zend",
                 "zikula"
             ],
-            "support": {
-                "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.12.0"
-            },
             "funding": [
                 {
                     "url": "https://packagist.com",
@@ -204,13 +200,6 @@
                 "cms",
                 "wordpress"
             ],
-            "support": {
-                "docs": "https://developer.wordpress.org/",
-                "forum": "https://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "https://core.trac.wordpress.org/",
-                "source": "https://core.trac.wordpress.org/browser"
-            },
             "time": "2022-08-30T17:46:21+00:00"
         },
         {
@@ -252,13 +241,6 @@
                 "cms",
                 "wordpress"
             ],
-            "support": {
-                "forum": "https://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "https://core.trac.wordpress.org/",
-                "source": "https://core.trac.wordpress.org/browser",
-                "wiki": "https://codex.wordpress.org/"
-            },
             "time": "2022-08-30T17:46:17+00:00"
         },
         {
@@ -309,10 +291,6 @@
             "keywords": [
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/johnpbloch/wordpress-core-installer/issues",
-                "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
-            },
             "time": "2020-04-16T21:44:57+00:00"
         },
         {
@@ -376,10 +354,6 @@
                 }
             ],
             "description": "Install packages or a few files from packages into custom paths without overwriting existing stuff.",
-            "support": {
-                "issues": "https://github.com/Koodimonni/Composer-Dropin-Installer/issues",
-                "source": "https://github.com/Koodimonni/Composer-Dropin-Installer/tree/1.4"
-            },
             "time": "2022-02-02T11:42:57+00:00"
         },
         {
@@ -609,11 +583,6 @@
             "keywords": [
                 "env"
             ],
-            "support": {
-                "email": "oom@oscarotero.com",
-                "issues": "https://github.com/oscarotero/env/issues",
-                "source": "https://github.com/oscarotero/env/tree/v1.2.0"
-            },
             "time": "2019-04-03T18:28:43+00:00"
         },
         {
@@ -678,11 +647,6 @@
                 "passwords",
                 "wordpress"
             ],
-            "support": {
-                "forum": "https://discourse.roots.io/",
-                "issues": "https://github.com/roots/wp-password-bcrypt/issues",
-                "source": "https://github.com/roots/wp-password-bcrypt/tree/1.1.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/roots",
@@ -758,9 +722,6 @@
                 "polyfill",
                 "portable"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.26.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -837,10 +798,6 @@
                 "env",
                 "environment"
             ],
-            "support": {
-                "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v2.6.9"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -1111,11 +1068,6 @@
                 "phpcs",
                 "standards"
             ],
-            "support": {
-                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
-                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
-                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
-            },
             "time": "2018-11-07T22:31:41+00:00"
         }
     ],
@@ -1128,5 +1080,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "1.1.0"
 }
