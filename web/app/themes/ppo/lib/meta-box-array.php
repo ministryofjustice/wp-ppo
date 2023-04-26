@@ -197,6 +197,16 @@ $ppo_meta_boxes = array(
 				'type' => 'text'
 			),
 			array(
+				'id' => 'fii-forenames',
+				'label' => 'Forenames',
+				'type' => 'text'
+			),
+			array(
+				'id' => 'fii-inquest-date',
+				'label' => 'Date of inquest',
+				'type' => 'date_picker'
+			),
+			array(
 				'id' => 'fii-death-date',
 				'label' => 'Date of death',
 				'type' => 'date_picker'

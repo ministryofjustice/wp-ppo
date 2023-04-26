@@ -12,8 +12,21 @@ $establishment_id = get_post_meta($id, 'fii-establishment', true);
 $establishment_name = get_the_title($establishment_id);
 $establishment_type = get_post_meta($establishment_id, 'establishment-type', true);
 $establishment_type_name = get_term_field('name', $establishment_type, 'establishment-type');
-$individual_name = get_post_meta($id, 'fii-name', true);
-if ($individual_name == "") $individual_name = "Individual at $establishment_name";
+
+$individual_surname = get_post_meta($id, 'fii-name', true);
+$individual_forenames = get_post_meta($id, 'fii-forenames', true);
+$individual_name_array = preg_split("/\s+/", $individual_forenames);
+$individual_initials = "";
+foreach ($individual_name_array as $initial) {
+    $individual_initials .= mb_substr(strtoupper($initial), 0, 1);
+}
+if (trim($individual_surname) == "") {
+    $individual_name = "Individual at $establishment_name";
+} elseif (trim($individual_forenames) == "") {
+    $individual_name = $individual_surname;
+} else {
+    $individual_name = $individual_surname.", ".$individual_initials;
+}
 
 $death_types = get_the_terms($id, 'fii-death-type');
 if (!is_wp_error($death_types) && count($death_types) > 0) {
@@ -24,6 +37,7 @@ if (!is_wp_error($death_types) && count($death_types) > 0) {
 
 $death_date = get_post_meta($id, 'fii-death-date', true);
 
+$inquest_date = get_post_meta($id, 'fii-inquest-date', true);
 
 $action_plan = (get_post_meta($id, 'show-action-plan', true) == 'on');
 if ($action_plan) {
@@ -50,6 +64,12 @@ if ($action_plan) {
                 <td>Date of death:</td>
                 <td><?php echo $death_date; ?></td>
             </tr>
+            <?php if ($inquest_date != "") { ?>
+            <tr>
+                <td>Date of inquest:</td>
+                <td><?php echo $inquest_date; ?></td>
+            </tr>
+            <?php } ?>
             <tr>
                 <td>Cause:</td>
                 <td><?= $death_type ? $death_type->name : null ?></td>
