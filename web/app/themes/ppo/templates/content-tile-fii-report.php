@@ -12,6 +12,8 @@ $establishment_id = get_post_meta($id, 'fii-establishment', true);
 $establishment_name = get_the_title($establishment_id);
 $establishment_type = get_post_meta($establishment_id, 'establishment-type', true);
 $establishment_type_name = get_term_field('name', $establishment_type, 'establishment-type');
+$individual_id = get_post_meta($id, 'fii-name', true);
+if ($individual_id == "") $individual_id = "Individual at $establishment_name";
 
 $death_types = get_the_terms($id, 'fii-death-type');
 if (!is_wp_error($death_types) && count($death_types) > 0) {
@@ -36,18 +38,14 @@ if ($action_plan) {
 ?>
 <article id="<?= 'doc-' . $id ?>" class="<?= esc_attr($document_type) ?>">
     <div class="tile-details">
-        <h3>
+        <h3 class="card-title">
             <a href="<?= $document_upload ?>" target="_blank">
-                <?= $establishment_name ?>
+                <?= $individual_id ?>
             </a>
         </h3>
+        <strong><?= $establishment_name ?></strong><br /><?= $establishment_type_name ?>
         <div class="tile-published-date">Published: <?= $document_date ?></div>
         <table>
-            <tr>
-                <td colspan="2">
-                    <strong><?= $establishment_type_name ?></strong>
-                </td>
-            </tr>
             <tr>
                 <td>Date of death:</td>
                 <td><?php echo $death_date; ?></td>
