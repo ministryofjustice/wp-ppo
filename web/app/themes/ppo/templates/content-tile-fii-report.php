@@ -13,19 +13,35 @@ $establishment_name = get_the_title($establishment_id);
 $establishment_type = get_post_meta($establishment_id, 'establishment-type', true);
 $establishment_type_name = get_term_field('name', $establishment_type, 'establishment-type');
 
+// Name information
 $individual_surname = get_post_meta($id, 'fii-name', true);
 $individual_forenames = get_post_meta($id, 'fii-forenames', true);
+$initialise = get_post_meta($id, 'fii-initialise', true);
+
+// Split forenames into array
 $individual_name_array = preg_split("/\s+/", $individual_forenames);
-$individual_initials = "";
+$individual_initial_array = [];
 foreach ($individual_name_array as $initial) {
-    $individual_initials .= mb_substr(strtoupper($initial), 0, 1);
+    $individual_initial_array[] = mb_substr(strtoupper($initial), 0, 1);
 }
+
+// Set display name to that selected
+if ($initialise == "none") {
+    $individual_display_name = $individual_forenames;
+} elseif ($initialise == "middle") {
+    unset($individual_initial_array[0]);
+    $individual_display_name = $individual_name_array[0]." ".implode("",$individual_initial_array);
+} else {
+    $individual_display_name = implode("",$individual_initial_array);
+}
+
+// Fallbacks if surname or forenames aren't recorded
 if (trim($individual_surname) == "") {
     $individual_name = "Individual at $establishment_name";
 } elseif (trim($individual_forenames) == "") {
     $individual_name = $individual_surname;
 } else {
-    $individual_name = $individual_surname.", ".$individual_initials;
+    $individual_name = $individual_surname.", ".$individual_display_name;
 }
 
 $death_types = get_the_terms($id, 'fii-death-type');
@@ -37,6 +53,7 @@ if (!is_wp_error($death_types) && count($death_types) > 0) {
 
 $death_date = get_post_meta($id, 'fii-death-date', true);
 
+$inquest_occurred = get_post_meta($id, 'fii-inquest-occurred', true);
 $inquest_date = get_post_meta($id, 'fii-inquest-date', true);
 
 $action_plan = (get_post_meta($id, 'show-action-plan', true) == 'on');
@@ -64,7 +81,12 @@ if ($action_plan) {
                 <td>Date of death:</td>
                 <td><?php echo $death_date; ?></td>
             </tr>
-            <?php if ($inquest_date != "") { ?>
+            <?php if ($inquest_occurred == "no") { ?>
+            <tr>
+                <td>Date of inquest:</td>
+                <td>Not held</td>
+            </tr>
+            <?php } elseif ($inquest_date != "") { ?>
             <tr>
                 <td>Date of inquest:</td>
                 <td><?php echo $inquest_date; ?></td>

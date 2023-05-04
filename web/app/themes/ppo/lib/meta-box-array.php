@@ -199,12 +199,37 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-forenames',
 				'label' => 'Forenames',
+				'desc' => 'First and middle names',
 				'type' => 'text'
+			),
+			array(
+				'id' => 'fii-initialise',
+				'label' => 'Initialise forenames',
+				'desc' => 'Long names might be cut off',
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'none', 'label' => 'Do not initialise'),
+					array( 'value' => 'middle', 'label' => 'Initialise middle names only'),
+					array( 'value' => 'all', 'label' => 'Initialise all forenames')
+				),
+				'std' => 'middle'
+			),
+			array(
+				'id' => 'fii-inquest-occurred',
+				'label' => 'Did an inquest take place?',
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'yes', 'label' => 'Yes' ),
+					array( 'value' => 'no', 'label' => 'No' )
+				),
+				'std' => 'yes'
 			),
 			array(
 				'id' => 'fii-inquest-date',
 				'label' => 'Date of inquest',
-				'type' => 'date_picker'
+				'desc' => '(leave blank if unknown)',
+				'type' => 'date_picker',
+				'condition' => 'fii-inquest-occurred:not(no)'
 			),
 			array(
 				'id' => 'fii-death-date',
@@ -232,10 +257,10 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-gender',
 				'label' => 'Gender',
-				'type' => 'select',
+				'type' => 'radio',
 				'choices' => array(
-					array( 'value' => 'm', 'label' => 'Male' ),
-					array( 'value' => 'f', 'label' => 'Female' )
+					array( 'value' => 'f', 'label' => 'Female' ),
+					array( 'value' => 'm', 'label' => 'Male' )
 				)
 			),
 			array(
