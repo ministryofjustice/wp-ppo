@@ -13,35 +13,58 @@ $establishment_name = get_the_title($establishment_id);
 $establishment_type = get_post_meta($establishment_id, 'establishment-type', true);
 $establishment_type_name = get_term_field('name', $establishment_type, 'establishment-type');
 
-// Name information
-$individual_surname = get_post_meta($id, 'fii-name', true);
-$individual_forenames = get_post_meta($id, 'fii-forenames', true);
-$initialise = get_post_meta($id, 'fii-initialise', true);
+// Death date
+$death_date = get_post_meta($id, 'fii-death-date', true);
+$death_date_timestamp = strtotime(str_replace("/", "-", $death_date));
+$death_date = date("j M Y",$death_date_timestamp);
 
-// Split forenames into array
-$individual_name_array = preg_split("/\s+/", $individual_forenames);
-$individual_initial_array = [];
-foreach ($individual_name_array as $initial) {
-    $individual_initial_array[] = mb_substr(strtoupper($initial), 0, 1);
-}
+$anon_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
 
-// Set display name to that selected
-if ($initialise == "none") {
-    $individual_display_name = $individual_forenames;
-} elseif ($initialise == "middle") {
-    unset($individual_initial_array[0]);
-    $individual_display_name = $individual_name_array[0]." ".implode("",$individual_initial_array);
+// Age bracket
+$age_bracket = get_post_meta($id, 'fii-age', true);
+
+if (strtotime($anon_date) <= $death_date_timestamp) {
+    // On or after March 1st, 2015
+
+    // Name information
+    $individual_surname = get_post_meta($id, 'fii-name', true);
+    $individual_forenames = get_post_meta($id, 'fii-forenames', true);
+    $initialise = get_post_meta($id, 'fii-initialise', true);
+
+    // Split forenames into array
+    $individual_name_array = preg_split("/\s+/", $individual_forenames);
+    $individual_initial_array = [];
+    foreach ($individual_name_array as $initial) {
+        $individual_initial_array[] = mb_substr(strtoupper($initial), 0, 1);
+    }
+
+    // Set display name to that selected
+    if ($initialise == "none") {
+        $individual_display_forenames = $individual_forenames;
+    } elseif ($initialise == "middle") {
+        unset($individual_initial_array[0]);
+        $individual_display_forenames = $individual_name_array[0]." ".implode("",$individual_initial_array);
+    } else {
+        $individual_display_forenames = implode("",$individual_initial_array);
+    }
 } else {
-    $individual_display_name = implode("",$individual_initial_array);
+    // Before March 1st, 2015
+    $individual_surname = "";
 }
 
-// Fallbacks if surname or forenames aren't recorded
+if ($age_bracket == "Under 18") {
+    // Don't display names of minors
+    $individual_surname = "";
+}
+
 if (trim($individual_surname) == "") {
+    // Surname not recorded, or, individual is minor, or, died < 01 Mar 15
     $individual_name = "Individual at $establishment_name";
 } elseif (trim($individual_forenames) == "") {
+    // Only surname is recorded
     $individual_name = $individual_surname;
 } else {
-    $individual_name = $individual_surname.", ".$individual_display_name;
+    $individual_name = $individual_surname.", ".$individual_display_forenames;
 }
 
 $death_types = get_the_terms($id, 'fii-death-type');
@@ -51,10 +74,12 @@ if (!is_wp_error($death_types) && count($death_types) > 0) {
     $death_type = false;
 }
 
-$death_date = get_post_meta($id, 'fii-death-date', true);
-
 $inquest_occurred = get_post_meta($id, 'fii-inquest-occurred', true);
 $inquest_date = get_post_meta($id, 'fii-inquest-date', true);
+if ($inquest_date != "") {
+    $inquest_date_timestamp = strtotime(str_replace("/", "-", $inquest_date));
+    $inquest_date = date("j M Y",$inquest_date_timestamp);
+}
 
 $action_plan = (get_post_meta($id, 'show-action-plan', true) == 'on');
 if ($action_plan) {
@@ -75,7 +100,7 @@ if ($action_plan) {
             </a>
         </h3>
         <strong><?= $establishment_name ?></strong><br /><?= $establishment_type_name ?>
-        <div class="tile-published-date">Published: <?= $document_date ?></div>
+        <div class="tile-published-date">Published: <?= date("j F Y",strtotime(str_replace("/", "-", $document_date )))?></div>
         <table>
             <tr>
                 <td>Date of death:</td>
@@ -102,7 +127,7 @@ if ($action_plan) {
             </tr>
             <tr>
                 <td>Age:</td>
-                <td><?= get_post_meta($id, 'fii-age', true) ?></td>
+                <td><?php echo $age_bracket; ?></td>
             </tr>
         </table>
         <nav class="report-links">
