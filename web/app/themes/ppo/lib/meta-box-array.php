@@ -205,7 +205,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-initialise',
 				'label' => 'Initialise forenames',
-				'desc' => 'Long names might be cut off',
+				'desc' => 'Be aware that long names might be cut off',
 				'type' => 'radio',
 				'choices' => array(
 					array( 'value' => 'none', 'label' => 'Do not initialise'),
@@ -227,7 +227,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-inquest-date',
 				'label' => 'Date of inquest',
-				'desc' => '(leave blank if unknown)',
+				'desc' => 'Leave blank if unknown',
 				'type' => 'date_picker',
 				'condition' => 'fii-inquest-occurred:not(no)'
 			),
