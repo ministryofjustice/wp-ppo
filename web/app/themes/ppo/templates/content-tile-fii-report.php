@@ -25,7 +25,7 @@ $age_bracket = get_post_meta($id, 'fii-age', true);
 $anon_death_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
 $anon_doc_date = "30-04-2022"; // Before the 30th of May 2015, names aren't to be displayed
 
-// Is name to be shewn?
+// Is name to be displayed?
 if (
     strtotime($anon_death_date) > $death_date_timestamp || //Death date check
     strtotime($anon_doc_date) > $document_date_timestamp || //Publish date check
@@ -66,7 +66,7 @@ if (!$anonymize) {
 }
 
 if (trim($individual_surname) == "") {
-    // Surname not recorded, or, individual is minor, or, died < 01 Mar 15
+    // Surname not recorded, or name not to be displayed
     $individual_name = "Individual at $establishment_name";
 } elseif (trim($individual_forenames) == "") {
     // Only surname is recorded
