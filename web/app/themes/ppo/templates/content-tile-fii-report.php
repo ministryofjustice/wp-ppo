@@ -5,6 +5,7 @@ $document_type = get_the_terms($id, 'document_type');
 $document_type = $document_type[0]->slug;
 
 $document_date = get_post_meta($id, 'document-date', true);
+$document_date_timestamp = strtotime(str_replace("/", "-", $document_date));
 $document_upload = get_post_meta($id, 'document-upload', true);
 
 // Fatal Incident report specific
@@ -18,13 +19,25 @@ $death_date = get_post_meta($id, 'fii-death-date', true);
 $death_date_timestamp = strtotime(str_replace("/", "-", $death_date));
 $death_date = date("j M Y",$death_date_timestamp);
 
-$anon_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
-
 // Age bracket
 $age_bracket = get_post_meta($id, 'fii-age', true);
 
-if (strtotime($anon_date) <= $death_date_timestamp) {
-    // On or after March 1st, 2015
+$anon_death_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
+$anon_doc_date = "30-04-2022"; // Before the 30th of May 2015, names aren't to be displayed
+
+// Is name to be shewn?
+if (
+    strtotime($anon_death_date) > $death_date_timestamp || //Death date check
+    strtotime($anon_doc_date) > $document_date_timestamp || //Publish date check
+    $age_bracket == "Under 18" //Age check
+) {
+    $anonymize = true;
+} else {
+    $anonymize = false;
+}
+
+if (!$anonymize) {
+    // Name is to be displayed
 
     // Name information
     $individual_surname = get_post_meta($id, 'fii-name', true);
@@ -48,12 +61,7 @@ if (strtotime($anon_date) <= $death_date_timestamp) {
         $individual_display_forenames = implode("",$individual_initial_array);
     }
 } else {
-    // Before March 1st, 2015
-    $individual_surname = "";
-}
-
-if ($age_bracket == "Under 18") {
-    // Don't display names of minors
+    // Name is to be obscured
     $individual_surname = "";
 }
 
@@ -100,7 +108,7 @@ if ($action_plan) {
             </a>
         </h3>
         <strong><?= $establishment_name ?></strong><br /><?= $establishment_type_name ?>
-        <div class="tile-published-date">Published: <?= date("j F Y",strtotime(str_replace("/", "-", $document_date )))?></div>
+        <div class="tile-published-date">Published: <?= date("j F Y", $document_date_timestamp)?></div>
         <table>
             <tr>
                 <td>Date of death:</td>
