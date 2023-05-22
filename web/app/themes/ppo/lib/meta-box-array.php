@@ -238,7 +238,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-inquest-date',
 				'label' => 'Date of inquest',
-				'desc' => 'Leave blank if unknown',
+				'desc' => 'Leave blank if unknown or if the inquest date is not to be shown on the card.',
 				'type' => 'date_picker',
 				'condition' => 'fii-inquest-occurred:not(no)'
 			),
