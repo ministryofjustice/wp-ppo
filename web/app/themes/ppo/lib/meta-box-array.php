@@ -203,6 +203,17 @@ $ppo_meta_boxes = array(
 				'type' => 'text'
 			),
 			array(
+				'id' => 'fii-anonymize',
+				'label' => 'Hide name on website',
+				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title',
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'show', 'label' => 'Display name' ),
+					array( 'value' => 'hide', 'label' => 'Hide name' )
+				),
+				'std' => 'show'
+			),
+			array(
 				'id' => 'fii-initialise',
 				'label' => 'Initialise forenames',
 				'desc' => 'Be aware that long names might be cut off',

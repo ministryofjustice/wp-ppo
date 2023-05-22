@@ -22,11 +22,15 @@ $death_date = date("j M Y",$death_date_timestamp);
 // Age bracket
 $age_bracket = get_post_meta($id, 'fii-age', true);
 
+// Hide name or show name
+$hide_name = get_post_meta($id, 'fii-anonymize', true);
+
 $anon_death_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
 $anon_doc_date = "30-05-2023"; // Before the 30th of May 2023, names aren't to be displayed
 
 // Is name to be displayed?
 if (
+    $hide_name == "hide" || //Hide name selected
     strtotime($anon_death_date) > $death_date_timestamp || //Death date check
     strtotime($anon_doc_date) > $document_date_timestamp || //Publish date check
     $age_bracket == "Under 18" //Age check
