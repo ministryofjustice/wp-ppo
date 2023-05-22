@@ -205,7 +205,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-anonymize',
 				'label' => 'Hide name on website',
-				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title',
+				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title.  Remember that the name might still appear in attached documents.',
 				'type' => 'radio',
 				'choices' => array(
 					array( 'value' => 'show', 'label' => 'Display name' ),
