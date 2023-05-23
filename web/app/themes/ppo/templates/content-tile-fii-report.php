@@ -27,6 +27,7 @@ $hide_name = get_post_meta($id, 'fii-anonymize', true);
 
 $anon_death_date = "01-03-2015"; // Before the 1st of March 2015, names aren't to be displayed
 $anon_doc_date = "30-05-2023"; // Before the 30th of May 2023, names aren't to be displayed
+$hide_inquest_before_date = $anon_doc_date; // Before the 30th of May, 2023, the inquest is also to be hidden
 
 // Is name to be displayed?
 if (
@@ -118,7 +119,11 @@ if ($action_plan) {
                 <td>Date of death:</td>
                 <td><?php echo $death_date; ?></td>
             </tr>
-            <?php if ($inquest_occurred == "no") { ?>
+            <?php
+            if (strtotime($hide_inquest_before_date) > $document_date_timestamp) {
+                // Skip date of inquest as this isn't to be shewn before the hide_inquest_before_date (30 May 2023)
+            } elseif ($inquest_occurred == "no") {
+            ?>
             <tr>
                 <td>Date of inquest:</td>
                 <td>Not held</td>

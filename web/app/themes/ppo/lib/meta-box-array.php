@@ -1,5 +1,11 @@
 <?php
 
+if (date("Ymd") < 20230530) { // Message to only appear before 30 May 2023
+	$active_text = " <br />(Not applicable if published before 30th May 2023)";
+} else {
+	$active_text = "";
+}
+
 // Array hold all meta-boxes - slug param is custom to control which page it appears on
 $ppo_meta_boxes = array(
 	array(
@@ -199,13 +205,13 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-forenames',
 				'label' => 'Forenames',
-				'desc' => 'First and middle names',
+				'desc' => 'First and middle names '.$active_text,
 				'type' => 'text'
 			),
 			array(
 				'id' => 'fii-anonymize',
 				'label' => 'Hide name on website',
-				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title.  Remember that the name might still appear in attached documents.',
+				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title.  Remember that the name might still appear in attached documents. '.$active_text,
 				'type' => 'radio',
 				'choices' => array(
 					array( 'value' => 'show', 'label' => 'Display name' ),
@@ -216,7 +222,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-initialise',
 				'label' => 'Initialise forenames',
-				'desc' => 'Be aware that long names might be cut off',
+				'desc' => 'Be aware that long names might be cut off'.$active_text,
 				'type' => 'radio',
 				'choices' => array(
 					array( 'value' => 'none', 'label' => 'Do not initialise'),
@@ -238,7 +244,7 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-inquest-date',
 				'label' => 'Date of inquest',
-				'desc' => 'Leave blank if unknown or if the inquest date is not to be shown on the card.',
+				'desc' => 'Leave blank if unknown or if the inquest date is not to be shown on the card'.$active_text,
 				'type' => 'date_picker',
 				'condition' => 'fii-inquest-occurred:not(no)'
 			),
