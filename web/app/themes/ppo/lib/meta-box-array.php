@@ -1,5 +1,11 @@
 <?php
 
+if (date("Ymd") < 20230530) { // Message to only appear before 30 May 2023
+	$active_text = " <br />(Not applicable if published before 30th May 2023)";
+} else {
+	$active_text = "";
+}
+
 // Array hold all meta-boxes - slug param is custom to control which page it appears on
 $ppo_meta_boxes = array(
 	array(
@@ -197,6 +203,52 @@ $ppo_meta_boxes = array(
 				'type' => 'text'
 			),
 			array(
+				'id' => 'fii-forenames',
+				'label' => 'Forenames',
+				'desc' => 'First and middle names '.$active_text,
+				'type' => 'text'
+			),
+			array(
+				'id' => 'fii-anonymize',
+				'label' => 'Hide name on website',
+				'desc' => 'This allows you to record the name here but prevent it from appearing in the card title.  Remember that the name might still appear in attached documents. '.$active_text,
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'show', 'label' => 'Display name' ),
+					array( 'value' => 'hide', 'label' => 'Hide name' )
+				),
+				'std' => 'show'
+			),
+			array(
+				'id' => 'fii-initialise',
+				'label' => 'Initialise forenames',
+				'desc' => 'Be aware that long names might be cut off'.$active_text,
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'none', 'label' => 'Do not initialise'),
+					array( 'value' => 'middle', 'label' => 'Initialise middle names only'),
+					array( 'value' => 'all', 'label' => 'Initialise all forenames')
+				),
+				'std' => 'middle'
+			),
+			array(
+				'id' => 'fii-inquest-occurred',
+				'label' => 'Did an inquest take place?',
+				'type' => 'radio',
+				'choices' => array(
+					array( 'value' => 'yes', 'label' => 'Yes' ),
+					array( 'value' => 'no', 'label' => 'No' )
+				),
+				'std' => 'yes'
+			),
+			array(
+				'id' => 'fii-inquest-date',
+				'label' => 'Date of inquest',
+				'desc' => 'Leave blank if unknown or if the inquest date is not to be shown on the card'.$active_text,
+				'type' => 'date_picker',
+				'condition' => 'fii-inquest-occurred:not(no)'
+			),
+			array(
 				'id' => 'fii-death-date',
 				'label' => 'Date of death',
 				'type' => 'date_picker'
@@ -222,10 +274,10 @@ $ppo_meta_boxes = array(
 			array(
 				'id' => 'fii-gender',
 				'label' => 'Gender',
-				'type' => 'select',
+				'type' => 'radio',
 				'choices' => array(
-					array( 'value' => 'm', 'label' => 'Male' ),
-					array( 'value' => 'f', 'label' => 'Female' )
+					array( 'value' => 'f', 'label' => 'Female' ),
+					array( 'value' => 'm', 'label' => 'Male' )
 				)
 			),
 			array(
