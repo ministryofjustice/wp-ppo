@@ -140,7 +140,17 @@ if ($action_plan) {
             </tr>
             <tr>
                 <td>Gender:</td>
-                <td><?= get_post_meta($id, 'fii-gender', true) == 'm' ? 'Male' : 'Female' ?></td>
+                <td>
+                    <?php
+                    $gender = get_post_meta($id, 'fii-gender', true);
+                    if ($gender == 'm') {
+                        echo 'Male';
+                    } elseif ($gender == 'f') {
+                        echo 'Female';
+                    } else {
+                        echo 'Other/non-specified';
+                    }?>
+                </td>
             </tr>
             <tr>
                 <td>Age:</td>

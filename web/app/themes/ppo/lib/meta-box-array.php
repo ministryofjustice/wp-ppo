@@ -277,7 +277,8 @@ $ppo_meta_boxes = array(
 				'type' => 'radio',
 				'choices' => array(
 					array( 'value' => 'f', 'label' => 'Female' ),
-					array( 'value' => 'm', 'label' => 'Male' )
+					array( 'value' => 'm', 'label' => 'Male' ),
+					array( 'value' => 'x', 'label' => 'Other/non-specified' )
 				)
 			),
 			array(
