@@ -278,7 +278,7 @@ $ppo_meta_boxes = array(
 				'choices' => array(
 					array( 'value' => 'f', 'label' => 'Female' ),
 					array( 'value' => 'm', 'label' => 'Male' ),
-					array( 'value' => 'x', 'label' => 'Other/non-specified' )
+					array( 'value' => 'x', 'label' => 'Non-binary' )
 				)
 			),
 			array(

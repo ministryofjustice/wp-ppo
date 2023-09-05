@@ -148,7 +148,7 @@ if ($action_plan) {
                     } elseif ($gender == 'f') {
                         echo 'Female';
                     } else {
-                        echo 'Other/non-specified';
+                        echo 'Non-binary';
                     }?>
                 </td>
             </tr>
